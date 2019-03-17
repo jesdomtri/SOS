@@ -6,7 +6,7 @@ app.use(bodyParser.json());
 
 
 
-app.use("/", express.static(__dircountry + "/public")); // __dircountry equivale a la ruta raiz donde se esta ejecutando el jnode
+app.use("/", express.static(__dirname + "/public")); // __dircountry equivale a la ruta raiz donde se esta ejecutando el jnode
 
 app.get("/time", (request, response) => {
     response.send(new Date());
