@@ -114,9 +114,9 @@ var stats = [
 ];
 
 
-//GET /companies/loadInitialData
+//GET /country-stats/loadInitialData
 app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
-    companies = [
+    stats = [
         { country: "France", year: "2017", extensionOfBorders: "2889", population: "67120000", territorialExtension: "643801" },
         { country: "UK", year: "2017", extensionOfBorders: "443", population: "66020000", territorialExtension: "243610" },
         { country: "Japan", year: "2017", extensionOfBorders: "0", population: "126800000", territorialExtension: "377915" },
@@ -126,22 +126,22 @@ app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
     res.sendStatus(200);
 });
 
-//GET /companies/
+//GET /country-stats/
 app.get("/api/v1/country-stats", (req, res) => {
     res.send(stats);
 });
-//POST /companies/
+//POST /country-stats/
 app.post("/api/v1/country-stats", (req, res) => {
     var newStat = req.body;
     stats.push(newStat);
     res.sendStatus(201);
 });
-//DELETE /companies/
+//DELETE /country-stats/
 app.delete("/api/v1/country-stats", (req, res) => {
     stats = [];
     res.sendStatus(200);
 });
-//GET /companies/France
+//GET /country-stats/France
 app.get("/api/v1/country-stats/:country", (req, res) => {
     var country = req.params.country;
     var filteredstats = stats.filter((s) => { return s.country == country; })
@@ -154,7 +154,7 @@ app.get("/api/v1/country-stats/:country", (req, res) => {
 
 });
 
-//PUT /companies/France
+//PUT /country-stats/France
 app.put("/api/v1/country-stats/:country", (req, res) => {
 
     var country = req.params.country;
@@ -182,7 +182,7 @@ app.put("/api/v1/country-stats/:country", (req, res) => {
     }
 
 });
-//DELETE /companies/France
+//DELETE /country-stats/France
 app.delete("/api/v1/country-stats/:country", (req, res) => {
 
     var country = req.params.country;
