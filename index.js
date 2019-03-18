@@ -107,3 +107,102 @@ app.delete("/api/v1/companies/:country", (req, res) => {
 app.listen(port, () => {
     console.log("Server is ready!!");
 });
+
+//API Antonio
+var stats = [
+    //{ country: "Canada", year: "2017", numberOfCompanies: "7376", sector: "13", page: "7250" }
+];
+
+
+//GET /companies/loadInitialData
+app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
+    companies = [
+        { country: "France", year: "2017", extensionOfBorders: "2889", population: "67120000", territorialExtension: "643801" },
+        { country: "UK", year: "2017", extensionOfBorders: "443", population: "66020000", territorialExtension: "243610" },
+        { country: "Japan", year: "2017", extensionOfBorders: "0", population: "126800000", territorialExtension: "377915" },
+        { country: "Germany", year: "2017", extensionOfBorders: "3714", population: "82790000", territorialExtension: "357022" },
+        { country: "EEUU", year: "2017", extensionOfBorders: "12048", population: "325700000", territorialExtension: "9371174" }
+    ]
+    res.sendStatus(200);
+});
+
+//GET /companies/
+app.get("/api/v1/country-stats", (req, res) => {
+    res.send(stats);
+});
+//POST /companies/
+app.post("/api/v1/country-stats", (req, res) => {
+    var newStat = req.body;
+    stats.push(newStat);
+    res.sendStatus(201);
+});
+//DELETE /companies/
+app.delete("/api/v1/country-stats", (req, res) => {
+    stats = [];
+    res.sendStatus(200);
+});
+//GET /companies/France
+app.get("/api/v1/country-stats/:country", (req, res) => {
+    var country = req.params.country;
+    var filteredstats = stats.filter((s) => { return s.country == country; })
+    if (filteredstats.length >= 1) {
+        res.send(filteredstats[0])
+    }
+    else {
+        res.sendStatus(404);
+    }
+
+});
+
+//PUT /companies/France
+app.put("/api/v1/country-stats/:country", (req, res) => {
+
+    var country = req.params.country;
+    var updatedStats = req.body;
+    var found = false;
+
+    var updatedStats = stats.map((s) => {
+
+        if (s.country == country) {
+            found = true;
+            return updatedStats;
+        }
+        else {
+            return s;
+        }
+
+    })
+
+    if (found == false) {
+        res.sendStatus(404);
+    }
+    else {
+        stats = updatedStats;
+        res.sendStatus(200);
+    }
+
+});
+//DELETE /companies/France
+app.delete("/api/v1/country-stats/:country", (req, res) => {
+
+    var country = req.params.country;
+    var found = false;
+
+    var updatedStats = stats.filter((s) => {
+        if (s.country == country) {
+            found = true;
+        }
+
+        return s.country != country;
+    })
+
+    if (found == false) {
+        res.sendStatus(404);
+    }
+    else {
+        stats = updatedStats;
+        res.sendStatus(200);
+    }
+
+});
+
