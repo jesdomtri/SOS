@@ -18,7 +18,7 @@ app.get("/api/v1/companies/loadInitialData", (req, res) => {
         { country: "Japan", year: "2017", numberOfCompanies: "10442", sector: "22", page: "9254" },
         { country: "Germany", year: "2017", numberOfCompanies: "6243", sector: "31", page: "6041" },
         { country: "EEUU", year: "2017", numberOfCompanies: "31148", sector: "34", page: "28745" },
-        { country: "Spain", year: "2017", numberOfCompanies: "2", sector: "46", page: "3" }
+        { country: "Spain", year: "2017", numberOfCompanies: "1409159", sector: "46", page: "1409159" }
     ]
     res.sendStatus(200);
 });
