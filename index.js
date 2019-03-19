@@ -205,3 +205,127 @@ app.delete("/api/v1/country-stats/:country", (req, res) => {
 
 });
 
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+////////////////////API JOAQUÍN////////////////////////// 
+var computersattacksstats =[];
+
+
+// ruta /api/v1/computers-attacks-stats/loadInitialData que al hacer un GET cree 2 o más recursos.
+
+app.get("/api/v1/computers-attacks-stats/loadInitialData",(req , res) =>{
+    
+    computersattacksstats =[{country: "France" , year: "2017" ,attacktype:"ransomware", economicimpactmillions:"7.9",affectedequipments:"47808",
+        overallpercentage:"13.28" },
+        {country: "UK" , year: "2017" ,attacktype:"ransomware", economicimpactmillions:"8.74" ,affectedequipments:"52920",
+        overallpercentage:"14.7" },
+        {country: "Japan" , year: "2017" ,attacktype:"ransomware", economicimpactmillions:"10.45" ,affectedequipments:"63252",
+        overallpercentage:"17.57" },
+        {country: "Germany" , year: "2017" ,attacktype:"ransomware", economicimpactmillions:"11.15" ,affectedequipments:"67500",
+        overallpercentage:"18.75" },
+        {country: "EEUU" , year:"2017" ,attacktype:"ransomware", economicimpactmillions:"21.22" ,affectedequipments:"128088",
+        overallpercentage:"35.58" }
+        
+        ];
+        res.sendStatus(200);
+    
+    
+});
+
+//// GET /computers-attacks-stats/
+
+    app.get("/api/v1/computers-attacks-stats",(req,res) =>{
+        res.send(computersattacksstats);
+        
+    });
+//// POST /computers-attacks-stats/
+ app.post("/api/v1/computers-attacks-stats",(req,res) =>{
+       var newStat= req.body;
+       computersattacksstats.push(newStat);
+        res.sendStatus(201);
+        
+    });
+    
+//// PUT
+    app.put("/api/v1/computers-attacks-stats",(req,res) =>{
+        res.sendStatus(405);
+    });
+//// DELETE /computers-attacks-stats/
+    app.delete("/api/v1/computers-attacks-stats",(req,res) =>{
+        computersattacksstats=[];
+        res.sendStatus(200);
+    });
+//// GET /computers-attacks-stats/FRANCE
+    app.get("/api/v1/computers-attacks-stats/:country",(req,res)=>{
+        var country = req.params.country;
+        var filterCountry = computersattacksstats.filter((c)=>{
+            return c.country == country;
+        });
+        if ( filterCountry.length >= 1){
+            res.send(filterCountry[0]);
+        }else{
+            res.sendStatus(404);
+        }
+        
+    });
+//// POST 
+ app.post("/api/v1/computers-attacks-stats/:country", (req,res) => {
+      res.sendStatus(405);
+ });
+//// PUT /computers-attacks-stats/FRANCE
+app.put("/api/v1/computers-attacks-stats/:country",(req,res)=>{
+       
+        var country = req.params.country;
+       
+        var found =false;
+        var UpdateStat =req.body;
+       
+        var UpdateStats = computersattacksstats.map((c)=>{
+            if (c.country == country){
+                found = true;
+                return UpdateStat;
+            }else{
+                return c;
+                
+            }
+            
+        });
+        if (found == false){
+            
+            res.sendStatus(404);
+            
+        }else{
+                computersattacksstats=UpdateStats;
+                res.sendStatus(200);
+        }
+       
+        
+    });
+//// DELETE /computers-attacks-stats/FRANCE
+app.delete("/api/v1/computers-attacks-stats/:country",(req,res)=>{
+       
+        var country = req.params.country;
+        var found =false;
+        
+       
+        var UpdateStats = computersattacksstats.filter((c)=>{
+                if (c.country == country)
+                    found = true;
+                
+                return c.country != country;
+         
+            
+        });
+        if (found == false){
+            
+            res.sendStatus(404);
+            
+        }else{
+                computersattacksstats=UpdateStats;
+                res.sendStatus(200);
+        }
+       
+        
+    });
+
+
