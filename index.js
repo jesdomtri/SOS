@@ -48,18 +48,13 @@ app.get("/api/v1/companies/:country", (req, res) => {
     else {
         res.sendStatus(404);
     }
-
 });
-
 //PUT /companies/France
 app.put("/api/v1/companies/:country", (req, res) => {
-
     var country = req.params.country;
     var updatedCompany = req.body;
     var found = false;
-
     var updatedcompanies = companies.map((c) => {
-
         if (c.country == country) {
             found = true;
             return updatedCompany;
@@ -67,9 +62,7 @@ app.put("/api/v1/companies/:country", (req, res) => {
         else {
             return c;
         }
-
     })
-
     if (found == false) {
         res.sendStatus(404);
     }
@@ -77,22 +70,17 @@ app.put("/api/v1/companies/:country", (req, res) => {
         companies = updatedcompanies;
         res.sendStatus(200);
     }
-
 });
 //DELETE /companies/France
 app.delete("/api/v1/companies/:country", (req, res) => {
-
     var country = req.params.country;
     var found = false;
-
     var updatedcompanies = companies.filter((c) => {
         if (c.country == country) {
             found = true;
         }
-
         return c.country != country;
     })
-
     if (found == false) {
         res.sendStatus(404);
     }
@@ -100,9 +88,7 @@ app.delete("/api/v1/companies/:country", (req, res) => {
         companies = updatedcompanies;
         res.sendStatus(200);
     }
-
 });
-
 //POST ERROR
 app.post("/api/v1/companies/:country", (req, res) => {
     res.sendStatus(405);
@@ -211,6 +197,15 @@ app.delete("/api/v1/country-stats/:country", (req, res) => {
         res.sendStatus(200);
     }
 
+});
+
+//POST ERROR
+app.post("/api/v1/country-stats/:country", (req, res) => {
+    res.sendStatus(405);
+});
+//PUT ERROR
+app.put("/api/v1/country-stats", (req, res) => {
+    res.sendStatus(405);
 });
 
 /////////////////////////////////////////////////////////
