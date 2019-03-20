@@ -102,9 +102,7 @@ app.put("/api/v1/companies", (req, res) => {
 
 
 //API Antonio
-var stats = [
-    //{ country: "Canada", year: "2017", numberOfCompanies: "7376", sector: "13", page: "7250" }
-];
+var stats = [];
 
 
 //GET /country-stats/loadInitialData
