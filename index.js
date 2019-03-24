@@ -4,10 +4,20 @@ var port = process.env.PORT || 8080;
 var bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://paco:paco@sos181903-tlda3.mongodb.net/sos181903?retryWrites=true";
+var companies;
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+    const collection = client.db("sos181903").collection("companies");
+    console.log("Connected to database.");
+});
+
+
 app.use("/", express.static(__dirname + "/public")); // __dircountry equivale a la ruta raiz donde se esta ejecutando el jnode
 
 //API Jesus
-var companies = [];
+//var companies = [];
 
 
 //GET /companies/loadInitialData
@@ -25,12 +35,14 @@ app.get("/api/v1/companies/loadInitialData", (req, res) => {
 
 //GET /companies/
 app.get("/api/v1/companies", (req, res) => {
-    res.send(companies);
+    companies.find({}).toArray((error, companiesArray) => {
+        res.send(companiesArray);
+    });
 });
 //POST /companies/
 app.post("/api/v1/companies", (req, res) => {
     var newCompany = req.body;
-    companies.push(newCompany);
+    companies.insert(newCompany);
     res.sendStatus(201);
 });
 //DELETE /companies/
