@@ -157,7 +157,7 @@ app.get("/api/v1/country-stats", (req, res) => {
 //POST /country-stats/
 app.post("/api/v1/country-stats", (req, res) => {
     var newStat = req.body;
-    stats.push(newStat);
+    stats.insert(newStat);
     res.sendStatus(201);
 });
 //DELETE /country-stats/
@@ -168,16 +168,18 @@ app.delete("/api/v1/country-stats", (req, res) => {
 //GET /country-stats/France
 app.get("/api/v1/country-stats/:country", (req, res) => {
     var country = req.params.country;
-    var filteredstats = stats.filter((s) => { return s.country == country; })
-    if (filteredstats.length >= 1) {
-        res.send(filteredstats[0])
-    }
-    else {
-        res.sendStatus(404);
-    }
-
+    stats.find({ "country": country }).toArray((error, filteredstats) => {
+        if (error) {
+            console.log("Error: " + error);
+        }
+        if (filteredstats.length >= 1) {
+            res.send(filteredstats)
+        }
+        else {
+            res.sendStatus(404);
+        }
+    })
 });
-
 //PUT /country-stats/France
 app.put("/api/v1/country-stats/:country", (req, res) => {
 
@@ -185,26 +187,25 @@ app.put("/api/v1/country-stats/:country", (req, res) => {
     var updatedStats = req.body;
     var found = false;
 
-    var updatedStats = stats.map((s) => {
-
-        if (s.country == country) {
+    var updatedStats = stats.find({ "country": country }).toArray((error, filteredstats) => {
+    updatedStats.map((c) => {
+        if (c.country == country) {
             found = true;
             return updatedStats;
         }
         else {
-            return s;
+            return c;
+        }
+    });
+        if (found == false) {
+            res.sendStatus(404);
+        }
+        else {
+            stats = updatedStats;
+            res.sendStatus(200);
         }
 
-    })
-
-    if (found == false) {
-        res.sendStatus(404);
-    }
-    else {
-        stats = updatedStats;
-        res.sendStatus(200);
-    }
-
+    });
 });
 //DELETE /country-stats/France
 app.delete("/api/v1/country-stats/:country", (req, res) => {
