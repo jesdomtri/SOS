@@ -125,12 +125,12 @@ app.put("/api/v1/companies", (req, res) => {
 app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
     stats.remove({});
     stats.insert([
-        { "country": "France", "year": "2017", "extensionOfBorders": "2889", "population": "67120000", "territorialExtension": "643801" },
-        { "country": "UK", "year": "2017", "extensionOfBorders": "443", "population": "66020000", "territorialExtension": "243610" },
-        { "country": "Japan", "year": "2017", "extensionOfBorders": "0", "population": "126800000", "territorialExtension": "377915" },
-        { "country": "Germany", "year": "2017", "extensionOfBorders": "3714", "population": "82790000", "territorialExtension": "357022" },
-        { "country": "EEUU", "year": "2017", "extensionOfBorders": "12048", "population": "325700000", "territorialExtension": "9371174" }
-    ]
+        { "country": "France", "year": 2017, "extensionOfBorders": 2889, "population": 67120000, "territorialExtension": 643801 },
+        { "country": "UK", "year": 2017, "extensionOfBorders": 443, "population": 66020000, "territorialExtension": 243610 },
+        { "country": "Japan", "year": 2017, "extensionOfBorders": 0, "population": 126800000, "territorialExtension": 377915 },
+        { "country": "Germany", "year": 2017, "extensionOfBorders": 3714, "population": 82790000, "territorialExtension": 357022 },
+        { "country": "EEUU", "year": 2017, "extensionOfBorders": 12048, "population": 325700000, "territorialExtension": 9371174 }
+    ]);
     res.sendStatus(200);
 });
 
