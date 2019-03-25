@@ -83,23 +83,18 @@ app.get("/api/v1/companies/:country", (req, res) => {
 app.put("/api/v1/companies/:country", (req, res) => {
     var country = req.params.country;
     var updatedCompany = req.body;
-    var found = false;
-    var updatedcompanies = companies.map((c) => {
-        if (c.country == country) {
-            found = true;
-            return updatedCompany;
+    companies.find({ "country": country }).toArray((error, filteredcompanies) => {
+        if (error) {
+            console.log("Error: " + error);
+        }
+        if (filteredcompanies.length == 0) {
+            res.sendStatus(404);
         }
         else {
-            return c;
+            companies.updateOne({ "country": country }, { $set: updatedCompany });
+            res.sendStatus(200);
         }
     })
-    if (found == false) {
-        res.sendStatus(404);
-    }
-    else {
-        companies = updatedcompanies;
-        res.sendStatus(200);
-    }
 });
 //DELETE /companies/France
 app.delete("/api/v1/companies/:country", (req, res) => {
