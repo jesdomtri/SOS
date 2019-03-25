@@ -135,17 +135,14 @@ app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
         { "country": "EEUU", "year": 2017, "extensionOfBorders": 12048, "population": 325700000, "territorialExtension": 9371174 }
         ];
         
-        stats.find({}).toArray((err, statsArray) => {
-
-        if (stats.length == 0) {
-            console.log("Empty DB");
-            stats.insert(newStats);
-            res.sendStatus(200);
-        }
-        else {
-            console.log("Error" + err);
-            res.sendStatus(409);
-        }
+        stats.find({}).toArray((error, statsArray) => {
+            if (statsArray.length == 0) {
+                stats.insert(newStats);
+                res.sendStatus(200);
+                }
+            else {
+                res.sendStatus(409);
+                }
     });
 });
 
