@@ -104,14 +104,15 @@ app.put("/api/v1/companies/:country", (req, res) => {
 //DELETE /companies/France
 app.delete("/api/v1/companies/:country", (req, res) => {
     var country = req.params.country;
-    companies.find({"country":country}).toArray((error, filteredcompanies)=>{
+    companies.find({ "country": country }).toArray((error, filteredcompanies) => {
         if (error) {
             console.log("Error: " + error);
         }
         if (filteredcompanies.length == 0) {
             res.sendStatus(404);
-        } else {
-            companies.deleteOne({"country":country});
+        }
+        else {
+            companies.deleteOne({ "country": country });
             res.sendStatus(200);
         }
     })
@@ -131,22 +132,22 @@ app.put("/api/v1/companies", (req, res) => {
 //API Antonio
 //GET /country-stats/loadInitialData
 app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
-     var newStats = [
+    var newStats = [
         { "country": "France", "year": 2017, "extensionOfBorders": 2889, "population": 67120000, "territorialExtension": 643801 },
         { "country": "UK", "year": 2017, "extensionOfBorders": 443, "population": 66020000, "territorialExtension": 243610 },
         { "country": "Japan", "year": 2017, "extensionOfBorders": 0, "population": 126800000, "territorialExtension": 377915 },
         { "country": "Germany", "year": 2017, "extensionOfBorders": 3714, "population": 82790000, "territorialExtension": 357022 },
         { "country": "EEUU", "year": 2017, "extensionOfBorders": 12048, "population": 325700000, "territorialExtension": 9371174 }
-        ];
-        
-        stats.find({}).toArray((error, statsArray) => {
-            if (statsArray.length == 0) {
-                stats.insert(newStats);
-                res.sendStatus(200);
-                }
-            else {
-                res.sendStatus(409);
-                }
+    ];
+
+    stats.find({}).toArray((error, statsArray) => {
+        if (statsArray.length == 0) {
+            stats.insert(newStats);
+            res.sendStatus(200);
+        }
+        else {
+            res.sendStatus(409);
+        }
     });
 });
 
@@ -185,30 +186,21 @@ app.get("/api/v1/country-stats/:country", (req, res) => {
 //PUT /country-stats/France
 app.put("/api/v1/country-stats/:country", (req, res) => {
     var country = req.params.country;
-    var year = req.params.year;
     var updatedStats = req.body;
 
-    stats.find({"country":country,"year":year}).toArray((err, statsArray)=>{
-        if(err)
+    stats.find({ "country": country }).toArray((err, statsArray) => {
+        if (err)
             console.log(err);
-        
-        
-        if (statsArray==0){
-            
-            res.sendStatus(400);
-            
-        }else{
-            
-            stats.updateOne(
-            {
-                "country":country,
-                "year":year
-            },
-            {
-                $set :  updatedStats
+        if (statsArray.length == 0) {
+            res.sendStatus(404);
+        }
+        else {
+            stats.updateOne({
+                "country": country,
+            }, {
+                $set: updatedStats
             });
             res.sendStatus(200);
-            
         }
     })
 });
