@@ -188,7 +188,7 @@ app.put("/api/v1/country-stats/:country", (req, res) => {
     var year = req.params.year;
     var updatedStats = req.body;
 
-    updatedStats.find({"country":country,"year":year}).toArray((err, statsArray)=>{
+    stats.find({"country":country,"year":year}).toArray((err, statsArray)=>{
         if(err)
             console.log(err);
         
@@ -199,7 +199,7 @@ app.put("/api/v1/country-stats/:country", (req, res) => {
             
         }else{
             
-            updatedStats.updateOne(
+            stats.updateOne(
             {
                 "country":country,
                 "year":year
