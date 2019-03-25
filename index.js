@@ -182,12 +182,31 @@ app.get("/api/v1/country-stats/:country", (req, res) => {
 });
 //PUT /country-stats/France
 app.put("/api/v1/country-stats/:country", (req, res) => {
-
     var country = req.params.country;
     var updatedStats = req.body;
-    var found = false;
-    
-    res.sendStatus(200)
+
+    updatedStats.find({"country":country}).toArray((err, statsArray)=>{
+        if(err)
+            console.log(err);
+        
+        
+        if (statsArray==0){
+            
+            res.sendStatus(400);
+            
+        }else{
+            
+            updatedStats.updateOne(
+            {
+                "country":country
+            },
+            {
+                $set :  updatedStats
+            });
+            res.sendStatus(200);
+            
+        }
+    })
 });
 //DELETE /country-stats/France
 app.delete("/api/v1/country-stats/:country", (req, res) => {
