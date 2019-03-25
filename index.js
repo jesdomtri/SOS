@@ -204,25 +204,19 @@ app.put("/api/v1/country-stats/:country", (req, res) => {
 //DELETE /country-stats/France
 app.delete("/api/v1/country-stats/:country", (req, res) => {
 
-    var country = req.params.country;
-    var found = false;
-
-    var updatedStats = stats.filter((s) => {
-        if (s.country == country) {
-            found = true;
+ var country = req.params.country;
+    stats.find({ "country": country }).toArray((error, filteredstats) => {
+        if (error) {
+            console.log("Error: " + error);
         }
-
-        return s.country != country;
+        if (filteredstats.length == 0) {
+            res.sendStatus(404);
+        }
+        else {
+            stats.deleteOne({ "country": country });
+            res.sendStatus(200);
+        }
     })
-
-    if (found == false) {
-        res.sendStatus(404);
-    }
-    else {
-        stats = updatedStats;
-        res.sendStatus(200);
-    }
-
 });
 
 //POST ERROR
