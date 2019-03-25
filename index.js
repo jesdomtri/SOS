@@ -110,6 +110,7 @@ app.delete("/api/v1/companies/:country", (req, res) => {
         if (error) {
             console.log("Error: " + error);
         }
+        res.send(filteredcompanies);
         filteredcompanies.foreach((i)=>{companies.remove(i)});
         console.log("LESGOOOOOOO");
     })
