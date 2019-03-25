@@ -56,7 +56,7 @@ app.get("/api/v1/companies", (req, res) => {
 //POST /companies/
 app.post("/api/v1/companies", (req, res) => {
     var newCompany = req.body;
-    var countryCompany = req.params.country;
+    var countryCompany = req.body.country;
     companies.find({"country":countryCompany}).toArray((error, companiesArray) => {
         if (error) {
             console.log("Error: " + error);
