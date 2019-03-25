@@ -7,9 +7,11 @@ app.use(bodyParser.json());
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://paco:paco@sos181903-tlda3.mongodb.net/sos181903?retryWrites=true";
 var companies;
+var country-stats;
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
     companies = client.db("sos181903").collection("companies");
+    country-stats = client.db("sos181903").collection("country-stats");
     console.log("Connected to database.");
 });
 
@@ -120,19 +122,22 @@ var stats = [];
 
 //GET /country-stats/loadInitialData
 app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
-    stats = [
-        { country: "France", year: "2017", extensionOfBorders: "2889", population: "67120000", territorialExtension: "643801" },
-        { country: "UK", year: "2017", extensionOfBorders: "443", population: "66020000", territorialExtension: "243610" },
-        { country: "Japan", year: "2017", extensionOfBorders: "0", population: "126800000", territorialExtension: "377915" },
-        { country: "Germany", year: "2017", extensionOfBorders: "3714", population: "82790000", territorialExtension: "357022" },
-        { country: "EEUU", year: "2017", extensionOfBorders: "12048", population: "325700000", territorialExtension: "9371174" }
+    stats.remove({});
+    stats.insert([
+        { "country": "France", "year": "2017", "extensionOfBorders": "2889", "population": "67120000", "territorialExtension": "643801" },
+        { "country": "UK", "year": "2017", "extensionOfBorders": "443", "population": "66020000", "territorialExtension": "243610" },
+        { "country": "Japan", "year": "2017", "extensionOfBorders": "0", "population": "126800000", "territorialExtension": "377915" },
+        { "country": "Germany", "year": "2017", "extensionOfBorders": "3714", "population": "82790000", "territorialExtension": "357022" },
+        { "country": "EEUU", "year": "2017", "extensionOfBorders": "12048", "population": "325700000", "territorialExtension": "9371174" }
     ]
     res.sendStatus(200);
 });
 
 //GET /country-stats/
 app.get("/api/v1/country-stats", (req, res) => {
-    res.send(stats);
+    res.find({}).toArray((error, companiesArray) => {
+        res.send(companiesArray);
+    });
 });
 //POST /country-stats/
 app.post("/api/v1/country-stats", (req, res) => {
@@ -142,7 +147,7 @@ app.post("/api/v1/country-stats", (req, res) => {
 });
 //DELETE /country-stats/
 app.delete("/api/v1/country-stats", (req, res) => {
-    stats = [];
+    stats.remove({});
     res.sendStatus(200);
 });
 //GET /country-stats/France
