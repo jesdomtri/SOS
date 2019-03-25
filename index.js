@@ -23,12 +23,12 @@ app.use("/", express.static(__dirname + "/public")); // __dircountry equivale a 
 //GET /companies/loadInitialData
 app.get("/api/v1/companies/loadInitialData", (req, res) => {
     companies.insert(
-        { country: "France", year: 2017, numberOfCompanies: 6380, sector: 24, page: 6236 },
-        { country: "UK", year: 2017, numberOfCompanies: 7311, sector: 25, page: 6391 },
-        { country: "Japan", year: 2017, numberOfCompanies: 10442, sector: 22, page: 9254 },
-        { country: "Germany", year: 2017, numberOfCompanies: 6243, sector: 31, page: 6041 },
-        { country: "EEUU", year: 2017, numberOfCompanies: 31148, sector: 34, page: 28745 },
-        { country: "Spain", year: 2017, numberOfCompanies: 1409159, sector: 46, page: 1409159 }
+        { "country": "France", "year": 2017, "numberOfCompanies": 6380, "sector": 24, "page": 6236 },
+        { "country": "UK", "year": 2017, "numberOfCompanies": 7311, "sector": 25, "page": 6391 },
+        { "country": "Japan", "year": 2017, "numberOfCompanies": 10442, "sector": 22, "page": 9254 },
+        { "country": "Germany", "year": 2017, "numberOfCompanies": 6243, "sector": 31, "page": 6041 },
+        { "country": "EEUU", "year": 2017, "numberOfCompanies": 31148, "sector": 34, "page": 28745 },
+        { "country": "Spain", "year": 2017, "numberOfCompanies": 1409159, "sector": 46, "page": 1409159 }
         );
     res.sendStatus(200);
 });
