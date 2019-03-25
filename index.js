@@ -47,7 +47,7 @@ app.post("/api/v1/companies", (req, res) => {
 });
 //DELETE /companies/
 app.delete("/api/v1/companies", (req, res) => {
-    companies = [];
+    companies.remove({});
     res.sendStatus(200);
 });
 //GET /companies/France
