@@ -35,7 +35,7 @@ app.get("/api/v1/companies/loadInitialData", (req, res) => {
 
     companies.find({}).toArray((error, companiesArray) => {
         if (companiesArray.length == 0) {
-            companiesArray.insert(initialCompanies);
+            companies.insert(initialCompanies);
             res.sendStatus(200);
         }
         else {
