@@ -151,7 +151,7 @@ app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
 
 //GET /country-stats/
 app.get("/api/v1/country-stats", (req, res) => {
-    res.find({}).toArray((error, companiesArray) => {
+    stats.find({}).toArray((error, companiesArray) => {
         res.send(companiesArray);
     });
 });
