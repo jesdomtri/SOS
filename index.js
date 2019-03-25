@@ -150,7 +150,7 @@ app.get("/api/v1/country-stats", (req, res) => {
 //POST /country-stats/
 app.post("/api/v1/country-stats", (req, res) => {
     var newStat = req.body;
-    companies.insert(newStat);
+    stats.insert(newStat);
     res.sendStatus(201);
 });
 //DELETE /country-stats/
