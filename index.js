@@ -24,7 +24,7 @@ app.use("/", express.static(__dirname + "/public")); // __dircountry equivale a 
 
 //GET /companies/loadInitialData
 app.get("/api/v1/companies/loadInitialData", (req, res) => {
-    if(companies === []){
+    if(!companies.length){
         companies.insert([
         { "country": "France", "year": 2017, "numberOfCompanies": 6380, "sector": 24, "page": 6236 },
         { "country": "UK", "year": 2017, "numberOfCompanies": 7311, "sector": 25, "page": 6391 },
