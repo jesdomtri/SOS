@@ -7,11 +7,11 @@ app.use(bodyParser.json());
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://paco:paco@sos181903-tlda3.mongodb.net/sos181903?retryWrites=true";
 var companies;
-var country_stats;
+var stats;
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
     companies = client.db("sos181903").collection("companies");
-    country_stats = client.db("sos181903").collection("country-stats");
+    stats = client.db("sos181903").collection("country-stats");
     console.log("Connected to database.");
 });
 
@@ -121,9 +121,6 @@ app.put("/api/v1/companies", (req, res) => {
 
 
 //API Antonio
-var stats = [];
-
-
 //GET /country-stats/loadInitialData
 app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
     stats.remove({});
