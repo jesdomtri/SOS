@@ -56,8 +56,19 @@ app.get("/api/v1/companies", (req, res) => {
 //POST /companies/
 app.post("/api/v1/companies", (req, res) => {
     var newCompany = req.body;
-    companies.insert(newCompany);
-    res.sendStatus(201);
+    var countryCompany = req.params.country;
+    companies.find({}).toArray((error, companiesArray) => {
+        if (error) {
+            console.log("Error: " + error);
+        }
+        if (companiesArray.length > 0) {
+            res.sendStatus(409);
+        }
+        else {
+            companies.insert(newCompany);
+            res.sendStatus(201);
+        }
+    })
 });
 //DELETE /companies/
 app.delete("/api/v1/companies", (req, res) => {
@@ -88,7 +99,7 @@ app.put("/api/v1/companies/:country", (req, res) => {
             console.log("Error: " + error);
         }
         if (filteredcompanies.length == 0) {
-            res.sendStatus(404);
+            res.sendStatus(400);
         }
         else {
             companies.updateOne({ "country": country }, { $set: updatedCompany });
@@ -204,7 +215,7 @@ app.put("/api/v1/country-stats/:country", (req, res) => {
 //DELETE /country-stats/France
 app.delete("/api/v1/country-stats/:country", (req, res) => {
 
- var country = req.params.country;
+    var country = req.params.country;
     stats.find({ "country": country }).toArray((error, filteredstats) => {
         if (error) {
             console.log("Error: " + error);
