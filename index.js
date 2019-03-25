@@ -4,12 +4,12 @@ var port = process.env.PORT || 8080;
 var bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
-const MongoClient = require('mongodb').MongoClient;
+const MongoClient = require("mongodb").MongoClient;
 const uri = "mongodb+srv://paco:paco@sos181903-tlda3.mongodb.net/sos181903?retryWrites=true";
 var companies;
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
-    const collection = client.db("sos181903").collection("companies");
+    companies = client.db("sos181903").collection("companies");
     console.log("Connected to database.");
 });
 
