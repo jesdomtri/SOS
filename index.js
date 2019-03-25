@@ -34,10 +34,7 @@ app.get("/api/v1/companies/loadInitialData", (req, res) => {
         { "country": "Spain", "year": 2017, "numberOfCompanies": 1409159, "sector": 46, "page": 1409159 }]
         );
         res.sendStatus(200);
-    }else{
-        console.log("Lista no vacía");
     };
-    
 });
 
 //GET /companies/
