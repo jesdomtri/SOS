@@ -64,7 +64,21 @@ app.delete("/api/v1/companies", (req, res) => {
     companies.remove({});
     res.sendStatus(200);
 });
-
+//GET /companies/France
+app.get("/api/v1/companies/:country", (req, res) => {
+    var country = req.params.country;
+    companies.find({ "country": country }).toArray((error, filteredcompanies) => {
+        if (error) {
+            console.log("Error: " + error);
+        }
+        if (filteredcompanies.length >= 1) {
+            res.send(filteredcompanies)
+        }
+        else {
+            res.sendStatus(404);
+        }
+    })
+});
 //PUT /companies/France
 app.put("/api/v1/companies/:country", (req, res) => {
     var country = req.params.country;
@@ -87,24 +101,17 @@ app.put("/api/v1/companies/:country", (req, res) => {
         res.sendStatus(200);
     }
 });
-//GET /companies/France
-app.get("/api/v1/companies/:country", (req, res) => {
+//DELETE /companies/France
+app.delete("/api/v1/companies/:country", (req, res) => {
     var country = req.params.country;
-    companies.find({ "country": country }).toArray((error, filteredcompanies) => {
+    var found = false;
+    
+    companies.find({"country":country}).toArray((error, filteredcompanies)=>{
         if (error) {
             console.log("Error: " + error);
         }
-        if (filteredcompanies.length >= 1) {
-            res.send(filteredcompanies)
-        }
-        else {
-            res.sendStatus(404);
-        }
+        companies.remove(filteredcompanies);
     })
-});
-//DELETE /companies/France
-app.delete("/api/v1/companies/:country", (req, res) => {
-    companies.remove({country:"country"});
     res.sendStatus(200);
 });
 //POST ERROR
