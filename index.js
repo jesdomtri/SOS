@@ -156,7 +156,7 @@ app.get("/api/v1/country-stats", (req, res) => {
 app.post("/api/v1/country-stats", (req, res) => {
     var newStat = req.body;
     
-    stats.find({}).toArray((error, statsArray) => {
+    stats.find({newStat}).toArray((error, statsArray) => {
         if (statsArray.length == 0) {
             stats.insert(newStat);
             res.sendStatus(201);
