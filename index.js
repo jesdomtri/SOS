@@ -24,19 +24,24 @@ app.use("/", express.static(__dirname + "/public")); // __dircountry equivale a 
 
 //GET /companies/loadInitialData
 app.get("/api/v1/companies/loadInitialData", (req, res) => {
-    if(companies == []){
-        companies.insert([
+    var initialCompanies = [
         { "country": "France", "year": 2017, "numberOfCompanies": 6380, "sector": 24, "page": 6236 },
         { "country": "UK", "year": 2017, "numberOfCompanies": 7311, "sector": 25, "page": 6391 },
         { "country": "Japan", "year": 2017, "numberOfCompanies": 10442, "sector": 22, "page": 9254 },
         { "country": "Germany", "year": 2017, "numberOfCompanies": 6243, "sector": 31, "page": 6041 },
         { "country": "EEUU", "year": 2017, "numberOfCompanies": 31148, "sector": 34, "page": 28745 },
-        { "country": "Spain", "year": 2017, "numberOfCompanies": 1409159, "sector": 46, "page": 1409159 }]
-        );
-        res.sendStatus(200);
-    }else{
-        res.sendStatus(405);
-    }
+        { "country": "Spain", "year": 2017, "numberOfCompanies": 1409159, "sector": 46, "page": 1409159 }
+    ];
+
+    companies.find({}).toArray((error, companiesArray) => {
+        if (companiesArray.length == 0) {
+            companiesArray.insert(initialCompanies);
+            res.sendStatus(200);
+        }
+        else {
+            res.sendStatus(409);
+        }
+    });
 });
 
 //GET /companies/
@@ -122,13 +127,13 @@ app.put("/api/v1/companies", (req, res) => {
 //API Antonio
 //GET /country-stats/loadInitialData
 app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
-    if (!(req.gradeName)){
+    if (!(req.gradeName)) {
         stats.insert([
-        { "country": "France", "year": 2017, "extensionOfBorders": 2889, "population": 67120000, "territorialExtension": 643801 },
-        { "country": "UK", "year": 2017, "extensionOfBorders": 443, "population": 66020000, "territorialExtension": 243610 },
-        { "country": "Japan", "year": 2017, "extensionOfBorders": 0, "population": 126800000, "territorialExtension": 377915 },
-        { "country": "Germany", "year": 2017, "extensionOfBorders": 3714, "population": 82790000, "territorialExtension": 357022 },
-        { "country": "EEUU", "year": 2017, "extensionOfBorders": 12048, "population": 325700000, "territorialExtension": 9371174 }
+            { "country": "France", "year": 2017, "extensionOfBorders": 2889, "population": 67120000, "territorialExtension": 643801 },
+            { "country": "UK", "year": 2017, "extensionOfBorders": 443, "population": 66020000, "territorialExtension": 243610 },
+            { "country": "Japan", "year": 2017, "extensionOfBorders": 0, "population": 126800000, "territorialExtension": 377915 },
+            { "country": "Germany", "year": 2017, "extensionOfBorders": 3714, "population": 82790000, "territorialExtension": 357022 },
+            { "country": "EEUU", "year": 2017, "extensionOfBorders": 12048, "population": 325700000, "territorialExtension": 9371174 }
         ]);
     }
     res.sendStatus(200);
