@@ -21,6 +21,11 @@ app.use("/", express.static(__dirname + "/public")); // __dircountry equivale a 
 //API Jesus
 //var companies = [];
 
+//GET /api/v1/companies/docs
+app.get("/api/v1/companies/docs/", (req,res)=>{
+    res.redirect("https://documenter.getpostman.com/view/7046928/S17tPnEJ");
+});
+
 
 //GET /companies/loadInitialData
 app.get("/api/v1/companies/loadInitialData", (req, res) => {
