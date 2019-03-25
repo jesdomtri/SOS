@@ -7,11 +7,11 @@ app.use(bodyParser.json());
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://paco:paco@sos181903-tlda3.mongodb.net/sos181903?retryWrites=true";
 var companies;
-var country-stats;
+var country_stats;
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
     companies = client.db("sos181903").collection("companies");
-    country-stats = client.db("sos181903").collection("country-stats");
+    country_stats = client.db("sos181903").collection("country-stats");
     console.log("Connected to database.");
 });
 
