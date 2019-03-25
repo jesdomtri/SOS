@@ -155,8 +155,16 @@ app.get("/api/v1/country-stats", (req, res) => {
 //POST /country-stats/
 app.post("/api/v1/country-stats", (req, res) => {
     var newStat = req.body;
-    stats.insert(newStat);
-    res.sendStatus(201);
+    
+    stats.find({}).toArray((error, statsArray) => {
+        if (statsArray.length == 0) {
+            stats.insert(newStat);
+            res.sendStatus(201);
+        }
+        else {
+            res.sendStatus(409);
+        }
+    });
 });
 //DELETE /country-stats/
 app.delete("/api/v1/country-stats", (req, res) => {
