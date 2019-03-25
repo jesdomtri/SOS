@@ -161,6 +161,9 @@ app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
         }
     });
 });
+app.get("/api/v1/country-stats/docs/", (req,res)=>{
+    res.redirect("https://documenter.getpostman.com/view/6926352/S17tPnEL");
+});
 
 //GET /country-stats/
 app.get("/api/v1/country-stats", (req, res) => {
