@@ -135,7 +135,7 @@ app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
         { "country": "EEUU", "year": 2017, "extensionOfBorders": 12048, "population": 325700000, "territorialExtension": 9371174 }
         ];
         
-        stats.find({}).toArray((err, uefaCountryRankingsArray) => {
+        stats.find({}).toArray((err, statsArray) => {
 
         if (stats.length == 0) {
             console.log("Empty DB");
