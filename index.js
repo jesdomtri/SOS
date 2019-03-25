@@ -171,14 +171,14 @@ app.get("/api/v1/country-stats", (req, res) => {
 //POST /country-stats/
 app.post("/api/v1/country-stats", (req, res) => {
     var newStat = req.body;
-    
-    stats.find({newStat}).toArray((error, statsArray) => {
-        if (statsArray.length == 0) {
-            stats.insert(newStat);
-            res.sendStatus(201);
+    var countryStat = req.body.country;
+    stats.find({"country":countryStat}).toArray((error, statsArray) => {
+        if (statsArray.length > 0) {
+            res.sendStatus(409);
         }
         else {
-            res.sendStatus(409);
+            stats.insert(newStat);
+            res.sendStatus(201);
         }
     });
 });
