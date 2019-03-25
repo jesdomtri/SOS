@@ -104,17 +104,17 @@ app.put("/api/v1/companies/:country", (req, res) => {
 //DELETE /companies/France
 app.delete("/api/v1/companies/:country", (req, res) => {
     var country = req.params.country;
-    var found = false;
-    
     companies.find({"country":country}).toArray((error, filteredcompanies)=>{
         if (error) {
             console.log("Error: " + error);
         }
-        res.send(filteredcompanies);
-        filteredcompanies.foreach((i)=>{companies.remove(i)});
-        console.log("LESGOOOOOOO");
+        if (filteredcompanies.length == 0) {
+            res.sendStatus(404);
+        } else {
+            companies.deleteOne({"country":country});
+            res.sendStatus(200);
+        }
     })
-    res.sendStatus(200);
 });
 //POST ERROR
 app.post("/api/v1/companies/:country", (req, res) => {
