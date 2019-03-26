@@ -351,7 +351,7 @@ app.post("/api/v1/computers-attacks-stats", (req, res) => {
             res.sendStatus(409);
         }
         else {
-            companies.insert(newStat);
+            attacks.insert(newStat);
             res.sendStatus(201);
         }
     });
