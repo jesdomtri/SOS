@@ -262,7 +262,7 @@ var computersattacksstats = [];
 
 //GET /api/v1/computers-attacks-stats/docs
 app.get("/api/v1/computers-attacks-stats/docs/", (req,res)=>{
-    res.redirect("");
+    res.redirect("https://documenter.getpostman.com/view/6899262/S17oyWAv");
 });
 // ruta /api/v1/computers-attacks-stats/loadInitialData que al hacer un GET cree 2 o más recursos.
 
