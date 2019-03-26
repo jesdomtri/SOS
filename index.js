@@ -2,6 +2,7 @@ var express = require("express");
 var app = express();
 var port = process.env.PORT || 8080;
 var bodyParser = require("body-parser");
+var path =require("path");
 app.use(bodyParser.json());
 
 const MongoClient = require('mongodb').MongoClient;
@@ -19,7 +20,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
 }); 
 
 
-app.use("/", express.static(__dirname + "/public")); // __dircountry equivale a la ruta raiz donde se esta ejecutando el jnode
+app.use("/", express.static(path.join(__dirname ,"public"))); // __dircountry equivale a la ruta raiz donde se esta ejecutando el jnode
 
 //API Jesus
 //var companies = [];
@@ -312,7 +313,7 @@ app.get("/api/v1/computers-attacks-stats/loadInitialData", (req, res) => {
     ];
     attacks.find({}).toArray((error, attacksArray) => {
         if (attacksArray.length == 0) {
-            attacks.insert(computersattacksstats);
+           attacks.insert(computersattacksstats);
             res.sendStatus(200);
         }
         else {
