@@ -312,7 +312,7 @@ app.get("/api/v1/computers-attacks-stats/loadInitialData", (req, res) => {
     ];
     attacks.find({}).toArray((error, attacksArray) => {
         if (attacksArray.length == 0) {
-            companies.insert(computersattacksstats);
+            attacks.insert(computersattacksstats);
             res.sendStatus(200);
         }
         else {
