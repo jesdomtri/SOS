@@ -152,9 +152,9 @@ app.get("/api/v1/companies/:country", (req, res) => {
     });
 });
 //GET /companies/France/2017
-app.get("/api/v1/companies/:country?", (req, res) => {
-    var country = req.params.country;
-    var year = req.params.year;
+app.get("/api/v1/companies/:country/:year", (req, res) => {
+    var country = req.query.country;
+    var year = req.query.year;
     companies.find({ "country": country, "year": year }).toArray((error, filteredcompanies) => {
         if (error) {
             console.log("Error: " + error);
@@ -164,8 +164,6 @@ app.get("/api/v1/companies/:country?", (req, res) => {
                 res.send(filteredcompanies[0]);
             }
             else {
-                res.send(country);
-                res.send(year);
                 res.sendStatus(404);
             }
         }
