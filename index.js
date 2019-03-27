@@ -55,7 +55,7 @@ app.get("/api/v1/companies/loadInitialData", (req, res) => {
 
 //GET /companies/
 app.get("/api/v1/companies", (req, res) => {
-    companies.find({}).limit(3).toArray((error, companiesArray) => {
+    companies.find({}).toArray((error, companiesArray) => {
         if (error) {
             console.log("Error: " + error);
         }
