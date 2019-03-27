@@ -198,6 +198,15 @@ app.get("/api/v1/country-stats", (req, res) => {
 //POST /country-stats/
 app.post("/api/v1/country-stats", (req, res) => {
     var newStat = req.body;
+
+    var keys = ["country", "year", "extensionOfBorders", "population", "territorialExtension"];
+
+    for (var i = keys.length - 1; i--;) {
+        if (!newStat.hasOwnProperty(keys[i])) {
+            return res.sendStatus(400);
+        }
+    }
+
     var countryStat = req.body.country;
     stats.find({ "country": countryStat }).toArray((error, statsArray) => {
         if (statsArray.length > 0) {
@@ -233,6 +242,15 @@ app.get("/api/v1/country-stats/:country", (req, res) => {
 app.put("/api/v1/country-stats/:country", (req, res) => {
     var country = req.params.country;
     var updatedStats = req.body;
+
+    var keys = ["country", "year", "extensionOfBorders", "population", "territorialExtension"];
+
+    for (var i = keys.length - 1; i--;) {
+        if (!updatedStats.hasOwnProperty(keys[i])) {
+            return res.sendStatus(400);
+        }
+    }
+
 
     stats.find({ "country": country }).toArray((err, statsArray) => {
         if (err)
