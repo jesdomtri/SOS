@@ -155,7 +155,7 @@ app.get("/api/v1/companies/:country", (req, res) => {
 app.get("/api/v1/companies/:country/:year", (req, res) => {
     var country = req.params.country;
     var year = req.params.year;
-    companies.find({ "country": country, year: year }).toArray((error, filteredcompanies) => {
+    companies.find({ "country": country, "year": parseInt(year) }).toArray((error, filteredcompanies) => {
         if (error) {
             console.log("Error: " + error);
         }
