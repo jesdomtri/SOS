@@ -113,7 +113,8 @@ app.post("/api/v1/companies", (req, res) => {
     }
 
     var countryCompany = req.body.country;
-    companies.find({ "country": countryCompany }).toArray((error, companiesArray) => {
+    var yearCompany = req.body.year;
+    companies.find({ "country": countryCompany, "year": yearCompany }).toArray((error, companiesArray) => {
         if (error) {
             console.log("Error: " + error);
         }
@@ -171,7 +172,7 @@ app.get("/api/v1/companies/:year", (req, res) => {
 app.get("/api/v1/companies/:country/:year", (req, res) => {
     var year = req.params.year;
     var country = req.params.country;
-    companies.find({ "country": country }, { "year": year }).toArray((error, filteredcompanies) => {
+    companies.find({ "country": country, "year": year }).toArray((error, filteredcompanies) => {
         if (error) {
             console.log("Error: " + error);
         }
