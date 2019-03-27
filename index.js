@@ -459,7 +459,7 @@ app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
         if (error)
             console.log(error);
         if (statsArray == 0) {
-            res.sendStatus(400);
+            res.sendStatus(404);
         }
         else {
 
