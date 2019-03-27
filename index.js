@@ -168,6 +168,10 @@ app.put("/api/v1/companies", (req, res) => {
 
 
 //API Antonio
+
+app.get("/api/v1/country-stats/docs/", (req, res) => {
+    res.redirect("https://documenter.getpostman.com/view/7046928/S17tPnEJ");
+});
 //GET /country-stats/loadInitialData
 app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
     var newStats = [
