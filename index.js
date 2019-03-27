@@ -455,9 +455,9 @@ app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
     }
 
 
-    attacks.find({ "country": country }).toArray((err, statsArray) => {
-        if (err)
-            console.log(err);
+    attacks.find({ "country": country }).toArray((error, statsArray) => {
+        if (error)
+            console.log(error);
         if (statsArray == 0) {
             res.sendStatus(400);
         }
