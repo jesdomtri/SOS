@@ -152,7 +152,7 @@ app.get("/api/v1/companies/:country", (req, res) => {
     });
 });
 //GET /companies/France/2017
-/*app.get("/api/v1/companies/:country/:year", (req, res) => {
+app.get("/api/v1/companies/:country/:year", (req, res) => {
     var country = req.params.country;
     var year = req.params.year;
     companies.find({ "country": country, "year": year }).toArray((error, filteredcompanies) => {
@@ -168,26 +168,6 @@ app.get("/api/v1/companies/:country", (req, res) => {
             }
         }
     });
-});*/
-app.get("/api/v1/companies/:country/:year", (req, res) => {
-
-    var country = req.params.country;
-    var year = req.params.year;
-
-    companies.find({ "country": country, "year": year }).toArray((err, filteredUefaCountryRankings) => {
-        if (err) {
-            console.log("Error: " + err);
-            res.sendStatus(500);
-            return;
-        }
-        if (filteredUefaCountryRankings.length >= 1) {
-            res.send(filteredUefaCountryRankings[0]);
-        }
-        else {
-            res.sendStatus(404);
-        }
-    });
-
 });
 //PUT /companies/France
 app.put("/api/v1/companies/:country", (req, res) => {
