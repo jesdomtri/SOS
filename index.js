@@ -77,20 +77,20 @@ app.get("/api/v1/companies", (req, res) => {
         }
     });
 
-    if (Object.keys(req.query).includes('from') && Object.keys(req.query).includes('to')) {
+    if (Object.keys(req.query).includes("from") && Object.keys(req.query).includes("to")) {
         delete query.from;
         delete query.to;
-        query['city'] = { "$lte": parseInt(req.query['to']), "$gte": parseInt(req.query['from']) };
+        query["country"] = { "$lte": parseInt(req.query["to"]), "$gte": parseInt(req.query["from"]) };
     }
     else if (Object.keys(req.query).includes('from')) {
         delete query.from;
-        query['city'] = { "$gte": parseInt(req.query['from']) };
+        query["country"] = { "$gte": parseInt(req.query["from"]) };
     }
-    else if (Object.keys(req.query).includes('to')) {
+    else if (Object.keys(req.query).includes("to")) {
         delete query.to;
-        query['city'] = { "$lte": parseInt(req.query['to']) };
+        query["country"] = { "$lte": parseInt(req.query["to"]) };
     }
-    
+
     companies.find(query).skip(offset).limit(limit).toArray((error, companiesArray) => {
         if (error) {
             console.log("Error: " + error);
@@ -143,6 +143,41 @@ app.get("/api/v1/companies/:country", (req, res) => {
         else {
             if (filteredcompanies.length >= 1) {
                 res.send(filteredcompanies);
+            }
+            else {
+                res.sendStatus(404);
+            }
+        }
+    });
+});
+//GET /companies/2017
+app.get("/api/v1/companies/:year", (req, res) => {
+    var year = req.params.year;
+    companies.find({ "year": year }).toArray((error, filteredcompanies) => {
+        if (error) {
+            console.log("Error: " + error);
+        }
+        else {
+            if (filteredcompanies.length >= 1) {
+                res.send(filteredcompanies);
+            }
+            else {
+                res.sendStatus(404);
+            }
+        }
+    });
+});
+//GET /companies/France/2017
+app.get("/api/v1/companies/:country/:year", (req, res) => {
+    var year = req.params.year;
+    var country = req.params.country;
+    companies.find({ "country": country }, { "year": year }).toArray((error, filteredcompanies) => {
+        if (error) {
+            console.log("Error: " + error);
+        }
+        else {
+            if (filteredcompanies.length >= 1) {
+                res.send(filteredcompanies[0]);
             }
             else {
                 res.sendStatus(404);
@@ -482,7 +517,7 @@ app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
     var country = req.params.country;
     var updatedStats = req.body;
 
-    var keys = ["country", "year","attacktype","economicimpactmillions","affectedequipments","overallpercentage"];
+    var keys = ["country", "year", "attacktype", "economicimpactmillions", "affectedequipments", "overallpercentage"];
 
     for (var i = keys.length - 1; i--;) {
         if (!updatedStats.hasOwnProperty(keys[i])) {
