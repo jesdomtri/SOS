@@ -169,16 +169,11 @@ app.put("/api/v1/companies", (req, res) => {
 
 //API Antonio
 
-<<<<<<< HEAD
-app.get("/api/v1/country-stats/docs/", (req, res) => {
-    res.redirect("https://documenter.getpostman.com/view/7046928/S17tPnEJ");
-});
-=======
+
 //GET /api/v1/computers-attacks-stats/docs
 app.get("/api/v1/country-stats/docs/", (req, res) => {
     res.redirect("https://documenter.getpostman.com/view/6926352/S17tPnEL");
     
->>>>>>> b48867c06e56c49d772e063b832764cad30ba50e
 //GET /country-stats/loadInitialData
 app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
     var newStats = [
