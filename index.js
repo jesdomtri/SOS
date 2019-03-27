@@ -164,8 +164,8 @@ app.get("/api/v1/companies/:country/:year", (req, res) => {
                 res.send(filteredcompanies[0]);
             }
             else {
-                res.send(console.log(country));
-                res.send(console.log(year));
+                res.send(country);
+                res.send(year);
                 res.sendStatus(404);
             }
         }
