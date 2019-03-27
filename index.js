@@ -446,7 +446,7 @@ app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
     var country = req.params.country;
     var updatedStats = req.body;
 
-    var keys = ["country", "year"];
+    var keys = ["country", "year","attacktype","economicimpactmillions","affectedequipments","overallpercentage"];
 
     for (var i = keys.length - 1; i--;) {
         if (!updatedStats.hasOwnProperty(keys[i])) {
