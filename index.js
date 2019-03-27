@@ -57,7 +57,7 @@ app.get("/api/v1/companies/loadInitialData", (req, res) => {
 app.get("/api/v1/companies", (req, res) => {
     var query = {};
     let offset = 0;
-    let limit = 3;
+    let limit = Number.MAX_SAFE_INTEGER;
 
     if (req.query.offset) {
         offset = parseInt(req.query.offset);
