@@ -2,7 +2,7 @@ var express = require("express");
 var app = express();
 var port = process.env.PORT || 8080;
 var bodyParser = require("body-parser");
-var path =require("path");
+var path = require("path");
 app.use(bodyParser.json());
 
 const MongoClient = require('mongodb').MongoClient;
@@ -11,22 +11,22 @@ var companies;
 var stats;
 var attacks;
 const client = new MongoClient(uri, { useNewUrlParser: true });
- client.connect(error => {
+client.connect(error => {
     companies = client.db("sos181903").collection("companies");
     stats = client.db("sos181903").collection("country-stats");
-    attacks= client.db("sos181903").collection("computers-attacks-stats");
+    attacks = client.db("sos181903").collection("computers-attacks-stats");
     console.log("Connected to database.");
-    
-}); 
+
+});
 
 
-app.use("/", express.static(path.join(__dirname ,"public"))); // __dircountry equivale a la ruta raiz donde se esta ejecutando el jnode
+app.use("/", express.static(path.join(__dirname, "public"))); // __dircountry equivale a la ruta raiz donde se esta ejecutando el jnode
 
 //API Jesus
 //var companies = [];
 
 //GET /api/v1/companies/docs
-app.get("/api/v1/companies/docs/", (req,res)=>{
+app.get("/api/v1/companies/docs/", (req, res) => {
     res.redirect("https://documenter.getpostman.com/view/7046928/S17tPnEJ");
 });
 
@@ -56,26 +56,39 @@ app.get("/api/v1/companies/loadInitialData", (req, res) => {
 //GET /companies/
 app.get("/api/v1/companies", (req, res) => {
     companies.find({}).toArray((error, companiesArray) => {
-        res.send(companiesArray);
         if (error) {
             console.log("Error: " + error);
+        }
+        else {
+            res.send(companiesArray);
         }
     });
 });
 //POST /companies/
 app.post("/api/v1/companies", (req, res) => {
     var newCompany = req.body;
+
+    var keys = ["country", "year", "numberOfCompanies", "sector", "page"];
+
+    for (var i = keys.length - 1; i--;) {
+        if (!newCompany.hasOwnProperty(keys[i])) {
+            return res.sendStatus(400);
+        }
+    }
+
     var countryCompany = req.body.country;
-    companies.find({"country":countryCompany}).toArray((error, companiesArray) => {
+    companies.find({ "country": countryCompany }).toArray((error, companiesArray) => {
         if (error) {
             console.log("Error: " + error);
         }
-        if (companiesArray.length > 0) {
-            res.sendStatus(409);
-        }
         else {
-            companies.insert(newCompany);
-            res.sendStatus(201);
+            if (companiesArray.length > 0) {
+                res.sendStatus(409);
+            }
+            else {
+                companies.insert(newCompany);
+                res.sendStatus(201);
+            }
         }
     });
 });
@@ -91,11 +104,13 @@ app.get("/api/v1/companies/:country", (req, res) => {
         if (error) {
             console.log("Error: " + error);
         }
-        if (filteredcompanies.length >= 1) {
-            res.send(filteredcompanies);
-        }
         else {
-            res.sendStatus(404);
+            if (filteredcompanies.length >= 1) {
+                res.send(filteredcompanies);
+            }
+            else {
+                res.sendStatus(404);
+            }
         }
     });
 });
@@ -103,12 +118,18 @@ app.get("/api/v1/companies/:country", (req, res) => {
 app.put("/api/v1/companies/:country", (req, res) => {
     var country = req.params.country;
     var updatedCompany = req.body;
+
+    var keys = ["country", "year", "numberOfCompanies", "sector", "page"];
+
+    for (var i = keys.length - 1; i--;) {
+        if (!updatedCompany.hasOwnProperty(keys[i])) {
+            return res.sendStatus(400);
+        }
+    }
+
     companies.find({ "country": country }).toArray((error, filteredcompanies) => {
         if (error) {
             console.log("Error: " + error);
-        }
-        if (filteredcompanies.length == 0) {
-            res.sendStatus(400);
         }
         else {
             companies.updateOne({ "country": country }, { $set: updatedCompany });
@@ -123,12 +144,14 @@ app.delete("/api/v1/companies/:country", (req, res) => {
         if (error) {
             console.log("Error: " + error);
         }
-        if (filteredcompanies.length == 0) {
-            res.sendStatus(404);
-        }
         else {
-            companies.deleteOne({ "country": country });
-            res.sendStatus(200);
+            if (filteredcompanies.length == 0) {
+                res.sendStatus(404);
+            }
+            else {
+                companies.deleteOne({ "country": country });
+                res.sendStatus(200);
+            }
         }
     });
 });
@@ -176,7 +199,7 @@ app.get("/api/v1/country-stats", (req, res) => {
 app.post("/api/v1/country-stats", (req, res) => {
     var newStat = req.body;
     var countryStat = req.body.country;
-    stats.find({"country":countryStat}).toArray((error, statsArray) => {
+    stats.find({ "country": countryStat }).toArray((error, statsArray) => {
         if (statsArray.length > 0) {
             res.sendStatus(409);
         }
@@ -262,7 +285,7 @@ app.put("/api/v1/country-stats", (req, res) => {
 var computersattacksstats = [];
 
 //GET /api/v1/computers-attacks-stats/docs
-app.get("/api/v1/computers-attacks-stats/docs/", (req,res)=>{
+app.get("/api/v1/computers-attacks-stats/docs/", (req, res) => {
     res.redirect("https://documenter.getpostman.com/view/6899262/S17oyWAv");
 });
 // ruta /api/v1/computers-attacks-stats/loadInitialData que al hacer un GET cree 2 o más recursos.
@@ -313,7 +336,7 @@ app.get("/api/v1/computers-attacks-stats/loadInitialData", (req, res) => {
     ];
     attacks.find({}).toArray((error, attacksArray) => {
         if (attacksArray.length == 0) {
-           attacks.insert(computersattacksstats);
+            attacks.insert(computersattacksstats);
             res.sendStatus(200);
         }
         else {
@@ -327,24 +350,25 @@ app.get("/api/v1/computers-attacks-stats/loadInitialData", (req, res) => {
 //// GET /computers-attacks-stats/
 
 app.get("/api/v1/computers-attacks-stats", (req, res) => {
-       
-        attacks.find({}).toArray((error ,attacksArray ) =>{
-            if(error){
-                console.log("Eror : "+error);
-            }
-            if(attacksArray.length >= 1 ){
-                res.send(attacksArray);
-            }else{
-                res.sendStatus(404);
-            }
-        });
 
-}); 
+    attacks.find({}).toArray((error, attacksArray) => {
+        if (error) {
+            console.log("Eror : " + error);
+        }
+        if (attacksArray.length >= 1) {
+            res.send(attacksArray);
+        }
+        else {
+            res.sendStatus(404);
+        }
+    });
+
+});
 //// POST /computers-attacks-stats/
 app.post("/api/v1/computers-attacks-stats", (req, res) => {
     var newStat = req.body;
     var countryattack = req.body.country;
-    attacks.find({"country":countryattack}).toArray((error, attacksArray) => {
+    attacks.find({ "country": countryattack }).toArray((error, attacksArray) => {
         if (error) {
             console.log("Error: " + error);
         }
@@ -356,12 +380,12 @@ app.post("/api/v1/computers-attacks-stats", (req, res) => {
             res.sendStatus(201);
         }
     });
-    
+
 });
 
 //// PUT
-    app.put("/api/v1/computers-attacks-stats", (req, res) => {
-     res.sendStatus(405);
+app.put("/api/v1/computers-attacks-stats", (req, res) => {
+    res.sendStatus(405);
 });
 
 //// DELETE /computers-attacks-stats/
@@ -397,7 +421,7 @@ app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
     var year = req.params.year;
     var updatedStat = req.body;
 
-    attacks.find({ "country": country ,"year":year }).toArray((error, filteredattacks) => {
+    attacks.find({ "country": country, "year": year }).toArray((error, filteredattacks) => {
         if (error) {
             console.log("Error: " + error);
         }
@@ -405,7 +429,7 @@ app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
             res.sendStatus(400);
         }
         else {
-            attacks.updateOne({ "country": country ,"year":year}, { $set: updatedStat });
+            attacks.updateOne({ "country": country, "year": year }, { $set: updatedStat });
             res.sendStatus(200);
         }
     });
@@ -420,7 +444,7 @@ app.delete("/api/v1/computers-attacks-stats/:country", (req, res) => {
 
 
 
- attacks.find({ "country": country ,"year":year }).toArray((error, filteredattacks) => {
+    attacks.find({ "country": country, "year": year }).toArray((error, filteredattacks) => {
         if (error) {
             console.log("Error: " + error);
         }
@@ -428,7 +452,7 @@ app.delete("/api/v1/computers-attacks-stats/:country", (req, res) => {
             res.sendStatus(404);
         }
         else {
-            attacks.deleteOne({ "country": country , "year":year });
+            attacks.deleteOne({ "country": country, "year": year });
             res.sendStatus(200);
         }
     });
