@@ -55,7 +55,43 @@ app.get("/api/v1/companies/loadInitialData", (req, res) => {
 
 //GET /companies/
 app.get("/api/v1/companies", (req, res) => {
-    companies.find({}).toArray((error, companiesArray) => {
+    var query = {};
+    let offset = 0;
+    let limit = Number.MAX_SAFE_INTEGER;
+
+    if (req.query.offset) {
+        offset = parseInt(req.query.offset);
+        delete req.query.offset;
+    }
+    if (req.query.limit) {
+        limit = parseInt(req.query.limit);
+        delete req.query.limit;
+    }
+
+    Object.keys(req.query).forEach((i) => {
+        if (isNaN(req.query[i]) == false) {
+            query[i] = parseInt(req.query[i]);
+        }
+        else {
+            query[i] = req.query[i];
+        }
+    });
+
+    if (Object.keys(req.query).includes('from') && Object.keys(req.query).includes('to')) {
+        delete query.from;
+        delete query.to;
+        query['city'] = { "$lte": parseInt(req.query['to']), "$gte": parseInt(req.query['from']) };
+    }
+    else if (Object.keys(req.query).includes('from')) {
+        delete query.from;
+        query['city'] = { "$gte": parseInt(req.query['from']) };
+    }
+    else if (Object.keys(req.query).includes('to')) {
+        delete query.to;
+        query['city'] = { "$lte": parseInt(req.query['to']) };
+    }
+    
+    companies.find(query).skip(offset).limit(limit).toArray((error, companiesArray) => {
         if (error) {
             console.log("Error: " + error);
         }
