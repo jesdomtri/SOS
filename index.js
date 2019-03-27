@@ -27,7 +27,7 @@ app.use("/", express.static(path.join(__dirname, "public"))); // __dircountry eq
 
 //GET /api/v1/companies/docs
 app.get("/api/v1/companies/docs/", (req, res) => {
-    res.redirect("https://documenter.getpostman.com/view/7046928/S17tPnEJ");
+    res.redirect("https://documenter.getpostman.com/view/7046928/S17utmxK");
 });
 
 
