@@ -443,25 +443,35 @@ app.post("/api/v1/computers-attacks-stats/:country", (req, res) => {
 });
 //// PUT /computers-attacks-stats/FRANCE
 app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
-
     var country = req.params.country;
-    var year = req.params.year;
-    var updatedStat = req.body;
+    var updatedStats = req.body;
 
-    attacks.find({ "country": country, "year": year }).toArray((error, filteredattacks) => {
-        if (error) {
-            console.log("Error: " + error);
+    var keys = ["country", "year", "attacktype", "economicimpactmillion", "affectedequipments","overallpercentage"];
+
+    for (var i = keys.length - 1; i--;) {
+        if (!updatedStats.hasOwnProperty(keys[i])) {
+            return res.sendStatus(400);
         }
-        if (filteredattacks.length == 0) {
+    }
+
+
+    stats.find({ "country": country }).toArray((err, statsArray) => {
+        if (err)
+            console.log(err);
+        if (statsArray == 0) {
             res.sendStatus(400);
         }
         else {
-            attacks.updateOne({ "country": country, "year": year }, { $set: updatedStat });
+
+            stats.updateOne({
+                "country": country,
+            }, {
+                $set: updatedStats
+            });
             res.sendStatus(200);
+
         }
     });
-
-
 });
 //// DELETE /computers-attacks-stats/FRANCE
 app.delete("/api/v1/computers-attacks-stats/:country", (req, res) => {
