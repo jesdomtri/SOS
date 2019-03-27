@@ -463,7 +463,7 @@ app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
         }
         else {
 
-            stats.updateOne({
+            attacks.updateOne({
                 "country": country,
             }, {
                 $set: updatedStats
