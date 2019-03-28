@@ -228,9 +228,6 @@ app.get("/api/v1/country-stats/docs/", (req, res) => {
     res.redirect("https://documenter.getpostman.com/view/6926352/S17tPnEL");
 });
 
-
-
-
 //GET /country-stats/loadInitialData
 app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
     var newStats = [
@@ -244,10 +241,10 @@ app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
     stats.find({}).toArray((error, statsArray) => {
         if (statsArray.length == 0) {
             stats.insert(newStats);
-            res.sendStatus(200);
+            res.sendStatus(200);    //OK
         }
         else {
-            res.sendStatus(409);
+            res.sendStatus(409);    //Conflict
         }
     });
 });
@@ -259,7 +256,7 @@ app.get("/api/v1/country-stats", (req, res) => {
     });
 });
 
-//GET /country-stats/France
+//GET /country-stats/País
 app.get("/api/v1/country-stats/:country", (req, res) => {
     var country = req.params.country;
     stats.find({ "country": country }).toArray((error, filteredstats) => {
@@ -270,23 +267,24 @@ app.get("/api/v1/country-stats/:country", (req, res) => {
             res.send(filteredstats);
         }
         else {
-            res.sendStatus(404);
+            res.sendStatus(404);    //Not Found
         }
     });
 });
 
-//GET /country-stats/France
+//GET /country-stats/País/Año
 app.get("/api/v1/country-stats/:country/:year", (req, res) => {
     var country = req.params.country;
-    stats.find({ "country": country }).toArray((error, filteredstats) => {
+    var year = req.params.year;
+    stats.find({ "country": country, "year": parseInt(year) }).toArray((error, filteredstats) => {
         if (error) {
             console.log("Error: " + error);
         }
         if (filteredstats.length >= 1) {
-            res.send(filteredstats);
+            res.send(filteredstats[0]);
         }
         else {
-            res.sendStatus(404);
+            res.sendStatus(404);    //Not Found
         }
     });
 });
@@ -298,25 +296,25 @@ app.post("/api/v1/country-stats", (req, res) => {
 
     for (var i = keys.length - 1; i--;) {
         if (!newStat.hasOwnProperty(keys[i])) {
-            return res.sendStatus(400);
+            return res.sendStatus(400);     //Bad Request
         }
     }
 
     var countryStat = req.body.country;
     stats.find({ "country": countryStat }).toArray((error, statsArray) => {
         if (statsArray.length > 0) {
-            res.sendStatus(409);
+            res.sendStatus(409);    //Conflict
         }
         else {
             stats.insert(newStat);
-            res.sendStatus(201);
+            res.sendStatus(201);    //Created
         }
     });
 });
 //DELETE /country-stats/
 app.delete("/api/v1/country-stats", (req, res) => {
     stats.remove({});
-    res.sendStatus(200);
+    res.sendStatus(200);    //OK
 });
 
 //PUT /companies/France
@@ -328,7 +326,7 @@ app.put("/api/v1/country-stats/:country", (req, res) => {
 
     for (var i = keys.length - 1; i--;) {
         if (!updatedStats.hasOwnProperty(keys[i])) {
-            return res.sendStatus(400);
+            return res.sendStatus(400);     //Bad Request
         }
     }
 
@@ -337,7 +335,7 @@ app.put("/api/v1/country-stats/:country", (req, res) => {
         if (err)
             console.log(err);
         if (statsArray == 0) {
-            res.sendStatus(400);
+            res.sendStatus(400);    //Bad Request
         }
         else {
 
@@ -346,7 +344,7 @@ app.put("/api/v1/country-stats/:country", (req, res) => {
             }, {
                 $set: updatedStats
             });
-            res.sendStatus(200);
+            res.sendStatus(200); //     OK
 
         }
     });
@@ -360,22 +358,22 @@ app.delete("/api/v1/country-stats/:country", (req, res) => {
             console.log("Error: " + error);
         }
         if (filteredstats.length == 0) {
-            res.sendStatus(404);
+            res.sendStatus(404);    // Not Found
         }
         else {
             stats.deleteOne({ "country": country });
-            res.sendStatus(200);
+            res.sendStatus(200);    // OK
         }
     });
 });
 
 //POST ERROR
 app.post("/api/v1/country-stats/:country", (req, res) => {
-    res.sendStatus(405);
+    res.sendStatus(405);    // Method Not Allowed
 });
 //PUT ERROR
 app.put("/api/v1/country-stats", (req, res) => {
-    res.sendStatus(405);
+    res.sendStatus(405);    // Method Not Allowed
 });
 
 
