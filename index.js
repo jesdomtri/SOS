@@ -203,6 +203,38 @@ app.get("/api/v1/country-stats", (req, res) => {
         res.send(companiesArray);
     });
 });
+
+//GET /country-stats/France
+app.get("/api/v1/country-stats/:country", (req, res) => {
+    var country = req.params.country;
+    stats.find({ "country": country }).toArray((error, filteredstats) => {
+        if (error) {
+            console.log("Error: " + error);
+        }
+        if (filteredstats.length >= 1) {
+            res.send(filteredstats);
+        }
+        else {
+            res.sendStatus(404);
+        }
+    });
+});
+
+//GET /country-stats/France
+app.get("/api/v1/country-stats/:country/:year", (req, res) => {
+    var country = req.params.country;
+    stats.find({ "country": country }).toArray((error, filteredstats) => {
+        if (error) {
+            console.log("Error: " + error);
+        }
+        if (filteredstats.length >= 1) {
+            res.send(filteredstats);
+        }
+        else {
+            res.sendStatus(404);
+        }
+    });
+});
 //POST /country-stats/
 app.post("/api/v1/country-stats", (req, res) => {
     var newStat = req.body;
@@ -231,21 +263,7 @@ app.delete("/api/v1/country-stats", (req, res) => {
     stats.remove({});
     res.sendStatus(200);
 });
-//GET /country-stats/France
-app.get("/api/v1/country-stats/:country", (req, res) => {
-    var country = req.params.country;
-    stats.find({ "country": country }).toArray((error, filteredstats) => {
-        if (error) {
-            console.log("Error: " + error);
-        }
-        if (filteredstats.length >= 1) {
-            res.send(filteredstats);
-        }
-        else {
-            res.sendStatus(404);
-        }
-    });
-});
+
 //PUT /companies/France
 app.put("/api/v1/country-stats/:country", (req, res) => {
     var country = req.params.country;
