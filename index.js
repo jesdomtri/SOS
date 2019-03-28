@@ -1,4 +1,5 @@
 var express = require("express");
+var companiesApi = require("/sos1819-03/companies-api/companies.js")
 var app = express();
 var port = process.env.PORT || 8080;
 var bodyParser = require("body-parser");
