@@ -250,7 +250,7 @@ app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
 });
 
 //GET /country-stats/
-    app.get("/api/v1/country-stats", (req, res) => {
+app.get("/api/v1/country-stats", (req, res) => {
     var query = {};
     let offset = 0;
     let limit = Number.MAX_SAFE_INTEGER;
@@ -287,14 +287,15 @@ app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
         query["country"] = { "$lte": parseInt(req.query["to"]) };
     }
 
-    stats.find(query).skip(offset).limit(limit).toArray((error, statsArray) => {
+    stats.find(query).skip(offset).limit(limit).toArray((error, companiesArray) => {
         if (error) {
             console.log("Error: " + error);
         }
         else {
-            res.send(statsArray);
+            res.send(companiesArray);
         }
     });
+});
 //GET /country-stats/País
 app.get("/api/v1/country-stats/:country", (req, res) => {
     var country = req.params.country;
