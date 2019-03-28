@@ -27,7 +27,7 @@ app.use("/", express.static(path.join(__dirname, "public"))); // __dircountry eq
 
 //GET /api/v1/companies/docs
 app.get("/api/v1/companies/docs/", (req, res) => {
-    res.redirect("https://documenter.getpostman.com/view/7046928/S17tPnEJ");
+    res.redirect("https://documenter.getpostman.com/view/7046928/S17utmxK");
 });
 
 
@@ -55,7 +55,43 @@ app.get("/api/v1/companies/loadInitialData", (req, res) => {
 
 //GET /companies/
 app.get("/api/v1/companies", (req, res) => {
-    companies.find({}).toArray((error, companiesArray) => {
+    var query = {};
+    let offset = 0;
+    let limit = Number.MAX_SAFE_INTEGER;
+
+    if (req.query.offset) {
+        offset = parseInt(req.query.offset);
+        delete req.query.offset;
+    }
+    if (req.query.limit) {
+        limit = parseInt(req.query.limit);
+        delete req.query.limit;
+    }
+
+    Object.keys(req.query).forEach((i) => {
+        if (isNaN(req.query[i]) == false) {
+            query[i] = parseInt(req.query[i]);
+        }
+        else {
+            query[i] = req.query[i];
+        }
+    });
+
+    if (Object.keys(req.query).includes("from") && Object.keys(req.query).includes("to")) {
+        delete query.from;
+        delete query.to;
+        query["country"] = { "$lte": parseInt(req.query["to"]), "$gte": parseInt(req.query["from"]) };
+    }
+    else if (Object.keys(req.query).includes('from')) {
+        delete query.from;
+        query["country"] = { "$gte": parseInt(req.query["from"]) };
+    }
+    else if (Object.keys(req.query).includes("to")) {
+        delete query.to;
+        query["country"] = { "$lte": parseInt(req.query["to"]) };
+    }
+
+    companies.find(query).skip(offset).limit(limit).toArray((error, companiesArray) => {
         if (error) {
             console.log("Error: " + error);
         }
@@ -77,7 +113,8 @@ app.post("/api/v1/companies", (req, res) => {
     }
 
     var countryCompany = req.body.country;
-    companies.find({ "country": countryCompany }).toArray((error, companiesArray) => {
+    var yearCompany = req.body.year;
+    companies.find({ "country": countryCompany, "year": yearCompany }).toArray((error, companiesArray) => {
         if (error) {
             console.log("Error: " + error);
         }
@@ -107,6 +144,24 @@ app.get("/api/v1/companies/:country", (req, res) => {
         else {
             if (filteredcompanies.length >= 1) {
                 res.send(filteredcompanies);
+            }
+            else {
+                res.sendStatus(404);
+            }
+        }
+    });
+});
+//GET /companies/France/2017
+app.get("/api/v1/companies/:country/:year", (req, res) => {
+    var country = req.params.country;
+    var year = req.params.year;
+    companies.find({ "country": country, "year": parseInt(year) }).toArray((error, filteredcompanies) => {
+        if (error) {
+            console.log("Error: " + error);
+        }
+        else {
+            if (filteredcompanies.length >= 1) {
+                res.send(filteredcompanies[0]);
             }
             else {
                 res.sendStatus(404);
@@ -461,25 +516,35 @@ app.post("/api/v1/computers-attacks-stats/:country", (req, res) => {
 });
 //// PUT /computers-attacks-stats/FRANCE
 app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
-
     var country = req.params.country;
-    var year = req.params.year;
-    var updatedStat = req.body;
+    var updatedStats = req.body;
 
-    attacks.find({ "country": country, "year": year }).toArray((error, filteredattacks) => {
-        if (error) {
-            console.log("Error: " + error);
+    var keys = ["country", "year", "attacktype", "economicimpactmillions", "affectedequipments", "overallpercentage"];
+
+    for (var i = keys.length - 1; i--;) {
+        if (!updatedStats.hasOwnProperty(keys[i])) {
+            return res.sendStatus(400);
         }
-        if (filteredattacks.length == 0) {
-            res.sendStatus(400);
+    }
+
+
+    attacks.find({ "country": country }).toArray((error, statsArray) => {
+        if (error)
+            console.log(error);
+        if (statsArray == 0) {
+            res.sendStatus(404);
         }
         else {
-            attacks.updateOne({ "country": country, "year": year }, { $set: updatedStat });
+
+            attacks.updateOne({
+                "country": country,
+            }, {
+                $set: updatedStats
+            });
             res.sendStatus(200);
+
         }
     });
-
-
 });
 //// DELETE /computers-attacks-stats/FRANCE
 app.delete("/api/v1/computers-attacks-stats/:country", (req, res) => {
