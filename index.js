@@ -557,9 +557,9 @@ app.post("/api/v1/computers-attacks-stats/:country", (req, res) => {
     res.sendStatus(405);
 });
 //// PUT /computers-attacks-stats/FRANCE
-app.put("/api/v1/computers-attacks-stats/:country:year", (req, res) => {
+app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
     var country = req.params.country;
-    var year = req.params.year;
+    
     var updatedattacks = req.body;
 
     var keys = ["country","year","attacktype","economicimpactmillions","affectedequipments","overallpercentage"];
@@ -570,12 +570,12 @@ app.put("/api/v1/computers-attacks-stats/:country:year", (req, res) => {
         }
     }
 
-    attacks.find({ "country": country,"year":year}).toArray((error, attackfilter) => {
+    attacks.find({ "country": country}).toArray((error, attackfilter) => {
         if (error) {
             console.log("Error: " + error);
         }
         if(attackfilter.length >0) {
-            attacks.updateOne({ "country": country ,"year": year}, { $set: updatedattacks });
+            attacks.updateOne({ "country": country }, { $set: updatedattacks });
             res.sendStatus(200);
         }else{
             res.sendStatus(404);
