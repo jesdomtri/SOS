@@ -509,6 +509,17 @@ app.get("/api/v1/computers-attacks-stats", (req, res) => {
 app.post("/api/v1/computers-attacks-stats", (req, res) => {
     var newStat = req.body;
     var countryattack = req.body.country;
+    
+    
+    var keys = ["country","year","attacktype","economicimpactmillions","affectedequipments","overallpercentage"];
+
+    for (var i = keys.length - 1; i--;) {
+        if (!newStat.hasOwnProperty(keys[i])) {
+            return res.sendStatus(400);
+        }
+    }
+    
+    
     attacks.find({ "country": countryattack }).toArray((error, attacksArray) => {
         if (error) {
             console.log("Error: " + error);
