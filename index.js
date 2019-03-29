@@ -559,7 +559,7 @@ app.post("/api/v1/computers-attacks-stats/:country", (req, res) => {
 //// PUT /computers-attacks-stats/FRANCE
 app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
     var country = req.params.country;
-    var year=req.params.country;
+    var year=req.params.year;
     var updatedStats = req.body;
 
     var keys = ["country", "year", "attacktype", "economicimpactmillions", "affectedequipments", "overallpercentage"];
