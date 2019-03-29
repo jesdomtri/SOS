@@ -586,20 +586,17 @@ app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
 app.delete("/api/v1/computers-attacks-stats/:country", (req, res) => {
 
     var country = req.params.country;
-    var year = req.params.year;
-
-
-
-    attacks.find({ "country": country, "year": year }).toArray((error, filteredattacks) => {
+    
+    attacks.find({ "country": country }).toArray((error, filteredattacks) => {
         if (error) {
             console.log("Error: " + error);
         }
-        if (filteredattacks.length == 0) {
-            res.sendStatus(404);
+        if (filteredattacks.length >0) {
+            attacks.deleteOne({ "country": country });
+            res.sendStatus(200);
         }
         else {
-            attacks.deleteOne({ "country": country, "year": year });
-            res.sendStatus(200);
+            res.sendStatus(404);
         }
     });
 
