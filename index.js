@@ -557,7 +557,7 @@ app.post("/api/v1/computers-attacks-stats/:country", (req, res) => {
     res.sendStatus(405);
 });
 //// PUT /computers-attacks-stats/FRANCE
-app.put("/api/v1/computers-attacks-stats/:country/:year", (req, res) => {
+app.put("/api/v1/computers-attacks-stats/:country:year", (req, res) => {
     var country = req.params.country;
     var year = req.params.year;
     var updatedattacks = req.body;
