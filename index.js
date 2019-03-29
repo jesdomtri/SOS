@@ -362,6 +362,9 @@ app.get("/api/v1/computers-attacks-stats/loadInitialData", (req, res) => {
 
     ];
     attacks.find({}).toArray((error, attacksArray) => {
+        if(error){
+            console.log("ERROR ; "+error);
+        }
         if (attacksArray.length == 0) {
             attacks.insert(computersattacksstats);
             res.sendStatus(200);
@@ -424,7 +427,8 @@ app.delete("/api/v1/computers-attacks-stats", (req, res) => {
 //// GET /computers-attacks-stats/FRANCE
 app.get("/api/v1/computers-attacks-stats/:country", (req, res) => {
     var country = req.params.country;
-    attacks.find({ "country": country }).toArray((error, filteredattacks) => {
+    var year = req.params.year;
+    attacks.find({ "country": country } , {"year":year}).toArray((error, filteredattacks) => {
         if (error) {
             console.log("Error: " + error);
         }
@@ -444,6 +448,7 @@ app.post("/api/v1/computers-attacks-stats/:country", (req, res) => {
 //// PUT /computers-attacks-stats/FRANCE
 app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
     var country = req.params.country;
+    var year=req.params.country;
     var updatedStats = req.body;
 
     var keys = ["country", "year","attacktype","economicimpactmillions","affectedequipments","overallpercentage"];
@@ -455,7 +460,7 @@ app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
     }
 
 
-    attacks.find({ "country": country }).toArray((error, statsArray) => {
+    attacks.find({ "country": country },{"year":year}).toArray((error, statsArray) => {
         if (error)
             console.log(error);
         if (statsArray == 0) {
@@ -464,7 +469,7 @@ app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
         else {
 
             attacks.updateOne({
-                "country": country,
+                "country": country, "year":year
             }, {
                 $set: updatedStats
             });
