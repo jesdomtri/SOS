@@ -557,35 +557,27 @@ app.post("/api/v1/computers-attacks-stats/:country", (req, res) => {
     res.sendStatus(405);
 });
 //// PUT /computers-attacks-stats/FRANCE
-app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
+app.put("/api/v1/computers-attacks-statss/:country", (req, res) => {
     var country = req.params.country;
-    var year=req.params.year;
-    var updatedStats = req.body;
+    var updatedattacks = req.body;
 
-    var keys = ["country", "year", "attacktype", "economicimpactmillions", "affectedequipments", "overallpercentage"];
+    var keys = ["country","year","attacktype","economicimpactmillions","affectedequipments","overallpercentage"];
 
     for (var i = keys.length - 1; i--;) {
-        if (!updatedStats.hasOwnProperty(keys[i])) {
+        if (!updatedattacks.hasOwnProperty(keys[i])) {
             return res.sendStatus(400);
         }
     }
 
-
-    attacks.find({ "country": country },{"year":year}).toArray((error, statsArray) => {
-        if (error)
-            console.log(error);
-        if (statsArray == 0) {
-            res.sendStatus(404);
+    attacks.find({ "country": country }).toArray((error, attackfilter) => {
+        if (error) {
+            console.log("Error: " + error);
         }
-        else {
-
-            attacks.updateOne({
-                "country": country, "year":year
-            }, {
-                $set: updatedStats
-            });
+        if(attackfilter.length >0) {
+            attacks.updateOne({ "country": country }, { $set: updatedattacks });
             res.sendStatus(200);
-
+        }else{
+            res.sendStatus(404);
         }
     });
 });
