@@ -113,6 +113,7 @@ module.exports = function(app, stats) {
             }
         });
     });
+    
     //POST /country-stats/
     app.post("/api/v1/country-stats", (req, res) => {
         var newStat = req.body;
@@ -171,6 +172,33 @@ module.exports = function(app, stats) {
                 });
                 res.sendStatus(200); //     OK
 
+            }
+        });
+    });
+    
+    //PUT /country-stats/País/Año
+    
+     app.get("/api/v1/country-stats/:country/:year", (req, res) => {
+        var country = req.params.country;
+        var year = req.params.year;
+        var updatedStats = req.body;
+        
+        stats.find({ "country": country, "year": parseInt(year) }).toArray((error, filteredstats) => {
+            if (error) {
+                console.log("Error: " + error);
+            }
+            if (filteredstats.length == 1) {
+                stats.updateOne({
+                    "country": country,
+                    "year": parseInt(year)
+                }, {
+                    $set: updatedStats
+                });
+                res.sendStatus(200); //     OK
+
+            }
+            else {
+                res.sendStatus(404); //Not Found
             }
         });
     });
