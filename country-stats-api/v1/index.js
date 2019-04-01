@@ -179,11 +179,11 @@ module.exports = function(app, stats) {
     //PUT /country-stats/País/Año
     
      app.get("/api/v1/country-stats/:country/:year", (req, res) => {
-        var country = req.params.country;
+       var country = req.params.country;
         var year = req.params.year;
         var updatedStats = req.body;
-        
-        var keys = ["country", "year", "numberOfCompanies", "sector", "page"];
+
+        var keys = ["country", "year", "extensionOfBorders", "population", "territorialExtension"];
 
         for (var i = keys.length - 1; i--;) {
             if (!updatedStats.hasOwnProperty(keys[i])) {
