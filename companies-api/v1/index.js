@@ -70,6 +70,9 @@ module.exports = function(app, companies, BASE_PATH) {
                 console.log("Error: " + error);
             }
             else {
+                companiesArray = companiesArray.forEach(function(element) {
+                    delete element["_id"];
+                });
                 res.send(companiesArray);
             }
         });
