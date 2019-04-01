@@ -208,7 +208,7 @@ module.exports = function(app, stats) {
     });
     
     //DELETE /country-stats/France
-    app.delete("api/v1/country-stats/:country/:year", (req, res) => {
+    app.delete("/api/v1/country-stats/:country/:year", (req, res) => {
         var country = req.params.country;
         var year = req.params.year;
         
