@@ -72,7 +72,7 @@ module.exports = function(app, companies, BASE_PATH) {
             else {
                 var resultados = companiesArray;
                 resultados = resultados.forEach(function(element) {
-                    delete element._id;
+                    delete element.country;
                 });
                 res.send(resultados);
             }
