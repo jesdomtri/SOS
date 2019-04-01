@@ -207,5 +207,11 @@ module.exports = function(app, companies, BASE_PATH) {
     app.put(BASE_PATH + "/companies", (req, res) => {
         res.sendStatus(405);
     });
+    app.put(BASE_PATH + "/companies/:country", (req, res) => {
+        res.sendStatus(405);
+    });
+    app.put(BASE_PATH + "/companies/:year", (req, res) => {
+        res.sendStatus(405);
+    });
 
 }
