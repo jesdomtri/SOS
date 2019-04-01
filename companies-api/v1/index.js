@@ -71,6 +71,7 @@ module.exports = function(app, companies, BASE_PATH) {
             }
             else {
                 companiesArray = companiesArray.forEach(function(element) {
+                    console.log(element);
                     delete element["_id"];
                 });
                 res.send(companiesArray);
