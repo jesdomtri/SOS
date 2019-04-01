@@ -75,42 +75,6 @@ module.exports = function(app, stats) {
             }
         });
     });
-//GET /country-stats/País
-app.get("/api/v1/country-stats/:country", (req, res) => {
-    var country = req.params.country;
-    stats.find({ "country": country }).toArray((error, filteredstats) => {
-        if (error) {
-            console.log("Error: " + error);
-        }
-        if (filteredstats.length >= 1) {
-             filteredstats.forEach(function(element) {
-                  delete element._id;
-                });
-            res.send(filteredstats);
-        }
-        else {
-            res.sendStatus(404); //Not Found
-        }
-    });
-});
-
-//GET /country-stats/País/Año
-app.get("/api/v1/country-stats/:country/:year", (req, res) => {
-    var country = req.params.country;
-    var year = req.params.year;
-    stats.find({ "country": country, "year": parseInt(year) }).toArray((error, filteredstats) => {
-        if (error) {
-            console.log("Error: " + error);
-        }
-        if (filteredstats.length >= 1) {
-             filteredstats.forEach(function(element) {
-                  delete element._id;
-                });
-            res.send(filteredstats[0]);
-        }
-        else {
-            res.sendStatus(404); //Not Found
-        }
     //GET /country-stats/País
     app.get("/api/v1/country-stats/:country", (req, res) => {
         var country = req.params.country;
@@ -119,6 +83,9 @@ app.get("/api/v1/country-stats/:country/:year", (req, res) => {
                 console.log("Error: " + error);
             }
             if (filteredstats.length >= 1) {
+                filteredstats.forEach(function(element) {
+                    delete element._id;
+                });
                 res.send(filteredstats);
             }
             else {
@@ -136,6 +103,9 @@ app.get("/api/v1/country-stats/:country/:year", (req, res) => {
                 console.log("Error: " + error);
             }
             if (filteredstats.length >= 1) {
+                filteredstats.forEach(function(element) {
+                    delete element._id;
+                });
                 res.send(filteredstats[0]);
             }
             else {
