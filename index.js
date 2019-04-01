@@ -1,19 +1,13 @@
 var express = require("express");
-
 var app = express();
-var countrystatsAPI = require("./country-stats-api");
 var port = process.env.PORT || 8080;
-
 var bodyParser = require("body-parser");
-
 var path = require("path");
-
 app.use(bodyParser.json());
-
 const BASE_PATH = "/api";
 
 var companiesAPI = require("./companies-api");
-
+var countrystatsAPI = require("./country-stats-api");
 
 
 //CONEXION A LA BASE DE DATOS
@@ -29,17 +23,13 @@ client.connect(error => {
     attacks = client.db("sos181903").collection("computers-attacks-stats");
     console.log("Connected to database.");
     companiesAPI(app, companies, BASE_PATH);
+    countrystatsAPI(app, stats, BASE_PATH);
 });
 
 
 
 app.use("/", express.static(path.join(__dirname, "public"))); // __dircountry equivale a la ruta raiz donde se esta ejecutando el jnode
 
-
-//API Antonio
-
-
-countrystatsAPI(app, stats);
 
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
