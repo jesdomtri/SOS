@@ -63,16 +63,15 @@ app.get("/api/v1/country-stats", (req, res) => {
         query["country"] = { "$lte": parseInt(req.query["to"]) };
     }
 
-    stats.find(query).skip(offset).limit(limit).toArray((error, countriesStatsArray) => {
+    stats.find(query).skip(offset).limit(limit).toArray((error, statsArray) => {
         if (error) {
             console.log("Error: " + error);
         }
         else {
-            var fin = countriesStatsArray;
-            for (var i = 0; i < fin.length; i++) {
-                delete fin[i][i]
-            }
-            res.send(fin);
+           statsArray.forEach(function(element) {
+                  delete element._id;
+                });
+                res.send(statsArray);
         }
     });
 });
