@@ -1,15 +1,9 @@
 var express = require("express");
-
 var app = express();
-var countrystatsAPI = require("./country-stats-api");
 var port = process.env.PORT || 8080;
-
 var bodyParser = require("body-parser");
-
 var path = require("path");
-
 app.use(bodyParser.json());
-
 const BASE_PATH = "/api";
 
 
@@ -44,6 +38,7 @@ companiesAPI(app, companies, BASE_PATH);
 
 //API Antonio
 
+var countrystatsAPI = require("./country-stats-api");
 
 countrystatsAPI(app, stats);
 
