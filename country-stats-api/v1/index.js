@@ -68,7 +68,11 @@ app.get("/api/v1/country-stats", (req, res) => {
             console.log("Error: " + error);
         }
         else {
-            res.send(countriesStatsArray);
+            var fin = countriesStatsArray;
+            for (var prop in fin) {
+                delete prop[0];
+            }
+            res.send(fin);
         }
     });
 });
