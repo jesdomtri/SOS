@@ -74,9 +74,6 @@ module.exports = function(app, companies, BASE_PATH) {
                 for (var v in companiesArray) {
                     fin.add(v);
                 }
-                for (var v in fin) {
-                    v.remove(0);
-                }
                 res.send(fin);
             }
         });
