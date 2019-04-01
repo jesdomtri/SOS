@@ -16,23 +16,13 @@ const BASE_PATH = "/api";
 
 
 //CONEXION A LA BASE DE DATOS
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://paco:paco@sos181903-tlda3.mongodb.net/sos181903?retryWrites=true";
 var companies;
 var stats;
 var attacks;
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect(error => {
-    companies = client.db("sos181903").collection("companies");
-    stats = client.db("sos181903").collection("country-stats");
-    attacks = client.db("sos181903").collection("computers-attacks-stats");
-    console.log("Connected to database.");
-});
 
 
 
 
-app.use("/", express.static(__dirname + "/public"));
 app.use("/", express.static(path.join(__dirname, "public"))); // __dircountry equivale a la ruta raiz donde se esta ejecutando el jnode
 
 //API Jesus
