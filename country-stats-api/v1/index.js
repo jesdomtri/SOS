@@ -68,9 +68,6 @@ app.get("/api/v1/country-stats", (req, res) => {
             console.log("Error: " + error);
         }
         else {
-            companiesArray = companiesArray.map(function(x) {
-                x.splice(1,x.length());
-            });
             res.send(companiesArray);
         }
     });
