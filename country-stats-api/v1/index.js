@@ -178,8 +178,8 @@ module.exports = function(app, stats) {
     
     //PUT /country-stats/País/Año
     
-     app.get("/api/v1/country-stats/:country/:year", (req, res) => {
-       var country = req.params.country;
+     app.put("/api/v1/country-stats/:country/:year", (req, res) => {
+        var country = req.params.country;
         var year = req.params.year;
         var updatedStats = req.body;
 
