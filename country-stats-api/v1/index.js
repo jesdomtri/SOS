@@ -69,7 +69,7 @@ app.get("/api/v1/country-stats", (req, res) => {
         }
         else {
             companiesArray = companiesArray.map(function(x) {
-                x.delete(companiesArray[x][0]);
+                x.delete(x[0]);
             });
             res.send(companiesArray);
         }
