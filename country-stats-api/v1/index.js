@@ -69,8 +69,8 @@ app.get("/api/v1/country-stats", (req, res) => {
         }
         else {
             var fin = countriesStatsArray;
-            for (var prop in fin) {
-                delete prop[0];
+            for (var i = 0; i < fin.length; i++) {
+                delete fin[i][i]
             }
             res.send(fin);
         }
