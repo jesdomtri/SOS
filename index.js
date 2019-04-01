@@ -17,7 +17,6 @@ client.connect(error => {
     stats = client.db("sos181903").collection("country-stats");
     attacks = client.db("sos181903").collection("computers-attacks-stats");
     console.log("Connected to database.");
-
 });
 
 
