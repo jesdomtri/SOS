@@ -72,7 +72,7 @@ module.exports = function(app, companies, BASE_PATH) {
             else {
                 var fin = {}
                 for (var v in companiesArray) {
-                    fin.insert(v);
+                    fin.push(v);
                 }
                 res.send(fin);
             }
