@@ -153,7 +153,7 @@ module.exports = function(app, companies, BASE_PATH) {
         });
     });
     //PUT /companies/:country/:year
-    app.put(BASE_PATH + "/companies/:country", (req, res) => {
+    app.put(BASE_PATH + "/companies/:country/:year", (req, res) => {
         var country = req.params.country;
         var year = req.params.year;
         var updatedCompany = req.body;
