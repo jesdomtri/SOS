@@ -70,10 +70,11 @@ module.exports = function(app, companies, BASE_PATH) {
                 console.log("Error: " + error);
             }
             else {
-                companiesArray = companiesArray.forEach(function(element) {
+                var resultados = companiesArray;
+                resultados = resultados.forEach(function(element) {
                     delete element._id;
                 });
-                res.send(companiesArray);
+                res.send(resultados);
             }
         });
     });
