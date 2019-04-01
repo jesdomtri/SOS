@@ -1,5 +1,14 @@
 module.exports = function(app, stats) {
     
+const client = new MongoClient(uri, { useNewUrlParser: true });
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://paco:paco@sos181903-tlda3.mongodb.net/sos181903?retryWrites=true";
+    
+client.connect(error => {
+    stats = client.db("sos181903").collection("country-stats");
+    console.log("Connected to database.");
+});
+    
 app.get("/api/v1/country-stats/docs/", (req, res) => {
     res.redirect("https://documenter.getpostman.com/view/6926352/S17tPnEL");
 });
