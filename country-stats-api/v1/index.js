@@ -75,7 +75,6 @@ module.exports = function(app, stats) {
             }
         });
     });
-});
 //GET /country-stats/País
 app.get("/api/v1/country-stats/:country", (req, res) => {
     var country = req.params.country;
