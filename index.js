@@ -29,18 +29,11 @@ client.connect(error => {
     attacks = client.db("sos181903").collection("computers-attacks-stats");
     console.log("Connected to database.");
     companiesAPI(app, companies, BASE_PATH);
-
 });
 
 
 
 app.use("/", express.static(path.join(__dirname, "public"))); // __dircountry equivale a la ruta raiz donde se esta ejecutando el jnode
-
-//API Jesus
-//var companies = [];
-
-
-
 
 
 //API Antonio
