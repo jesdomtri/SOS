@@ -152,9 +152,10 @@ module.exports = function(app, companies, BASE_PATH) {
             }
         });
     });
-    //PUT /companies/France
+    //PUT /companies/:country/:year
     app.put(BASE_PATH + "/companies/:country", (req, res) => {
         var country = req.params.country;
+        var year = req.params.year;
         var updatedCompany = req.body;
 
         var keys = ["country", "year", "numberOfCompanies", "sector", "page"];
@@ -165,12 +166,12 @@ module.exports = function(app, companies, BASE_PATH) {
             }
         }
 
-        companies.find({ "country": country }).toArray((error, filteredcompanies) => {
+        companies.find({ "country": country, "year": parseInt(year) }).toArray((error, filteredcompanies) => {
             if (error) {
                 console.log("Error: " + error);
             }
             else {
-                companies.updateOne({ "country": country }, { $set: updatedCompany });
+                companies.updateOne({ "country": country, "year": parseInt(year) }, { $set: updatedCompany });
                 res.sendStatus(200);
             }
         });
