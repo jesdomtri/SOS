@@ -14,7 +14,7 @@
     "start": "node index.js",
     "test": "newman run https://www.getpostman.com/collections/4bffe2dc5fc3d3e1a9f5 ",
     "testCompanies": "newman run https://www.getpostman.com/collections/4bffe2dc5fc3d3e1a9f5",
-    "testCountryStats": "newman run "
+    "testCountryStats": "newman run https://www.getpostman.com/collections/80567e8812840c1d1ca5"
   },
   "author": "",
   "license": "ISC"
