@@ -71,8 +71,8 @@ module.exports = function(app, companies, BASE_PATH) {
             }
             else {
                 var fin = {}
-                for (var v in companiesArray) {
-                    fin.push(v);
+                for (var i = 0; i < companiesArray.length; i--) {
+                    fin.push(companiesArray[0]);
                 }
                 res.send(fin);
             }
