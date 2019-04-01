@@ -182,9 +182,10 @@ module.exports = function(app, companies, BASE_PATH) {
         });
     });
     //DELETE /companies/France
-    app.delete(BASE_PATH + "/companies/:country", (req, res) => {
+    app.delete(BASE_PATH + "/companies/:country/:year", (req, res) => {
         var country = req.params.country;
-        companies.find({ "country": country }).toArray((error, filteredcompanies) => {
+        var year = req.params.year;
+        companies.find({ "country": country, "year": parseInt(year) }).toArray((error, filteredcompanies) => {
             if (error) {
                 console.log("Error: " + error);
             }
@@ -193,7 +194,7 @@ module.exports = function(app, companies, BASE_PATH) {
                     res.sendStatus(404);
                 }
                 else {
-                    companies.deleteOne({ "country": country });
+                    companies.deleteOne({ "country": country, "year": parseInt(year) });
                     res.sendStatus(200);
                 }
             }
