@@ -180,7 +180,7 @@ module.exports = function(app, stats) {
     
      app.get("/api/v1/country-stats/:country/:year", (req, res) => {
         var country = req.params.country;
-        var year = parseInt(req.params.year);
+        var year = req.params.year;
         var updatedStats = req.body;
         
         var keys = ["country", "year", "numberOfCompanies", "sector", "page"];
