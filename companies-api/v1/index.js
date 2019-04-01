@@ -1,12 +1,12 @@
-module.exports = function(app, companies) {
-    //GET /api/v1/companies/docs
-    app.get("/api/v1/companies/docs/", (req, res) => {
+module.exports = function(app, companies, BASE_PATH) {
+    //GET companies/docs
+    app.get(BASE_PATH + "/companies/docs/", (req, res) => {
         res.redirect("https://documenter.getpostman.com/view/7046928/S17utmxK");
     });
 
 
     //GET /companies/loadInitialData
-    app.get("/api/v1/companies/loadInitialData", (req, res) => {
+    app.get(BASE_PATH + "/companies/loadInitialData", (req, res) => {
         var initialCompanies = [
             { country: "France", year: 2017, numberOfCompanies: 6380, sector: 24, page: 6236 },
             { country: "UK", year: 2017, numberOfCompanies: 7311, sector: 25, page: 6391 },
@@ -28,7 +28,7 @@ module.exports = function(app, companies) {
     });
 
     //GET /companies/
-    app.get("/api/v1/companies", (req, res) => {
+    app.get(BASE_PATH + "/companies", (req, res) => {
         var query = {};
         let offset = 0;
         let limit = Number.MAX_SAFE_INTEGER;
@@ -75,7 +75,7 @@ module.exports = function(app, companies) {
         });
     });
     //POST /companies/
-    app.post("/api/v1/companies", (req, res) => {
+    app.post(BASE_PATH + "/companies", (req, res) => {
         var newCompany = req.body;
 
         var keys = ["country", "year", "numberOfCompanies", "sector", "page"];
@@ -104,12 +104,12 @@ module.exports = function(app, companies) {
         });
     });
     //DELETE /companies/
-    app.delete("/api/v1/companies", (req, res) => {
+    app.delete(BASE_PATH + "/companies", (req, res) => {
         companies.remove({});
         res.sendStatus(200);
     });
     //GET /companies/France
-    app.get("/api/v1/companies/:country", (req, res) => {
+    app.get(BASE_PATH + "/companies/:country", (req, res) => {
         var country = req.params.country;
         companies.find({ "country": country }).toArray((error, filteredcompanies) => {
             if (error) {
@@ -126,7 +126,7 @@ module.exports = function(app, companies) {
         });
     });
     //GET /companies/France/2017
-    app.get("/api/v1/companies/:country/:year", (req, res) => {
+    app.get(BASE_PATH + "/companies/:country/:year", (req, res) => {
         var country = req.params.country;
         var year = req.params.year;
         companies.find({ "country": country, "year": parseInt(year) }).toArray((error, filteredcompanies) => {
@@ -144,7 +144,7 @@ module.exports = function(app, companies) {
         });
     });
     //PUT /companies/France
-    app.put("/api/v1/companies/:country", (req, res) => {
+    app.put(BASE_PATH + "/companies/:country", (req, res) => {
         var country = req.params.country;
         var updatedCompany = req.body;
 
@@ -167,7 +167,7 @@ module.exports = function(app, companies) {
         });
     });
     //DELETE /companies/France
-    app.delete("/api/v1/companies/:country", (req, res) => {
+    app.delete(BASE_PATH + "/companies/:country", (req, res) => {
         var country = req.params.country;
         companies.find({ "country": country }).toArray((error, filteredcompanies) => {
             if (error) {
@@ -185,11 +185,11 @@ module.exports = function(app, companies) {
         });
     });
     //POST ERROR
-    app.post("/api/v1/companies/:country", (req, res) => {
+    app.post(BASE_PATH + "/companies/:country", (req, res) => {
         res.sendStatus(405);
     });
     //PUT ERROR
-    app.put("/api/v1/companies", (req, res) => {
+    app.put(BASE_PATH + "/companies", (req, res) => {
         res.sendStatus(405);
     });
 
