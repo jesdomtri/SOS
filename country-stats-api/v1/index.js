@@ -223,7 +223,27 @@ module.exports = function(app, stats) {
             }
         });
     });
-
+    
+    //DELETE /country-stats/France
+    app.delete("api/v1/country-stats/:country/:year", (req, res) => {
+        var country = req.params.country;
+        var year = req.params.year;
+        
+        stats.find({ "country": country, "year": parseInt(year) }).toArray((error, filteredstats) => {
+            if (error) {
+                console.log("Error: " + error);
+            }
+            else {
+                if (filteredstats.length == 0) {
+                    res.sendStatus(404);
+                }
+                else {
+                    stats.deleteOne({ "country": country, "year": parseInt(year) });
+                    res.sendStatus(200);
+                }
+            }
+        });
+    });
     //POST ERROR
     app.post("/api/v1/country-stats/:country", (req, res) => {
         res.sendStatus(405); // Method Not Allowed
