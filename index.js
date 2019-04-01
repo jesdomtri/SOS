@@ -26,8 +26,6 @@ client.connect(error => {
     countrystatsAPI(app, stats, BASE_PATH);
 });
 
-
-
 app.use("/", express.static(path.join(__dirname, "public"))); // __dircountry equivale a la ruta raiz donde se esta ejecutando el jnode
 
 /////////////////////////////////////////////////////////
