@@ -70,7 +70,7 @@ module.exports = function(app, companies, BASE_PATH) {
                 console.log("Error: " + error);
             }
             else {
-                res.send(companiesArray[0]);
+                res.send(companiesArray[0][1]);
             }
         });
     });
