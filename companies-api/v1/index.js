@@ -172,7 +172,7 @@ module.exports = function(app, companies, BASE_PATH) {
             }
             else {
                 if (filteredcompanies.length > 0) {
-                    companies.updateOne({ "country": country, "year": parseInt(year) }, { $set: updatedCompany });
+                    companies.update({ "country": country, "year": parseInt(year) }, updatedCompany);
                     res.sendStatus(200);
                 }
                 else {
