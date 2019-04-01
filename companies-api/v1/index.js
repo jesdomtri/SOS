@@ -71,7 +71,7 @@ module.exports = function(app, companies, BASE_PATH) {
             }
             else {
                 companiesArray.forEach(function(element) {
-                  delete element._id;
+                    delete element._id;
                 });
                 res.send(companiesArray);
             }
@@ -120,6 +120,9 @@ module.exports = function(app, companies, BASE_PATH) {
             }
             else {
                 if (filteredcompanies.length >= 1) {
+                    filteredcompanies.forEach(function(element) {
+                        delete element._id;
+                    });
                     res.send(filteredcompanies);
                 }
                 else {
@@ -138,6 +141,9 @@ module.exports = function(app, companies, BASE_PATH) {
             }
             else {
                 if (filteredcompanies.length >= 1) {
+                    filteredcompanies.forEach(function(element) {
+                        delete element._id;
+                    });
                     res.send(filteredcompanies[0]);
                 }
                 else {
