@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 
 const BASE_PATH = "/api";
 
+var companiesAPI = require("./companies-api");
 
 
 
@@ -27,6 +28,7 @@ client.connect(error => {
     stats = client.db("sos181903").collection("country-stats");
     attacks = client.db("sos181903").collection("computers-attacks-stats");
     console.log("Connected to database.");
+    companiesAPI(app, companies, BASE_PATH);
 
 });
 
@@ -37,9 +39,8 @@ app.use("/", express.static(path.join(__dirname, "public"))); // __dircountry eq
 //API Jesus
 //var companies = [];
 
-var companiesAPI = require("./companies-api");
 
-companiesAPI(app, companies, BASE_PATH);
+
 
 
 //API Antonio
