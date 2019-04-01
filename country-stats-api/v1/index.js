@@ -183,22 +183,26 @@ module.exports = function(app, stats) {
         var year = req.params.year;
         var updatedStats = req.body;
         
+        var keys = ["country", "year", "numberOfCompanies", "sector", "page"];
+
+        for (var i = keys.length - 1; i--;) {
+            if (!updatedStats.hasOwnProperty(keys[i])) {
+                return res.sendStatus(400);
+            }
+        }
+
         stats.find({ "country": country, "year": parseInt(year) }).toArray((error, filteredstats) => {
             if (error) {
                 console.log("Error: " + error);
             }
-            if (filteredstats.length == 1) {
-                stats.updateOne({
-                    "country": country,
-                    "year": parseInt(year)
-                }, {
-                    $set: updatedStats
-                });
-                res.sendStatus(200); //     OK
-
-            }
             else {
-                res.sendStatus(404); //Not Found
+                if (filteredstats.length > 0) {
+                    stats.update({ "country": country, "year": parseInt(year) }, updatedStats);
+                    res.sendStatus(200);
+                }
+                else {
+                    res.sendStatus(404);
+                }
             }
         });
     });
