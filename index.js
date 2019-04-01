@@ -30,13 +30,6 @@ client.connect(error => {
 
 app.use("/", express.static(path.join(__dirname, "public"))); // __dircountry equivale a la ruta raiz donde se esta ejecutando el jnode
 
-//API Jesus
-//var companies = [];
-
-
-//API Antonio
-
-
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
 ////////////////////API JOAQUÍN////////////////////////// 
