@@ -1,11 +1,22 @@
 var express = require("express");
+
 var app = express();
-var companiesAPI = require("./companies-api");
+
+
 var port = process.env.PORT || 8080;
+
 var bodyParser = require("body-parser");
+
 var path = require("path");
+
 app.use(bodyParser.json());
 
+const BASE_PATH = "/api";
+
+
+
+
+//CONEXION A LA BASE DE DATOS
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://paco:paco@sos181903-tlda3.mongodb.net/sos181903?retryWrites=true";
 var companies;
@@ -20,12 +31,17 @@ client.connect(error => {
 });
 
 
+
+
+app.use("/", express.static(__dirname + "/public"));
 app.use("/", express.static(path.join(__dirname, "public"))); // __dircountry equivale a la ruta raiz donde se esta ejecutando el jnode
 
 //API Jesus
 //var companies = [];
 
-companiesAPI(app, companies);
+var companiesAPI = require("./companies-api");
+
+companiesAPI(app, companies, BASE_PATH);
 
 
 
