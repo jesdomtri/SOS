@@ -281,6 +281,9 @@ app.get("/api/v1/computers-attacks-stats/loadInitialData", (req, res) => {
 
     ];
     attacks.find({}).toArray((error, attacksArray) => {
+        if(error){
+            console.log("ERROR ; "+error);
+        }
         if (attacksArray.length == 0) {
             attacks.insert(computersattacksstats);
             res.sendStatus(200);
@@ -314,6 +317,17 @@ app.get("/api/v1/computers-attacks-stats", (req, res) => {
 app.post("/api/v1/computers-attacks-stats", (req, res) => {
     var newStat = req.body;
     var countryattack = req.body.country;
+    
+    
+    var keys = ["country","year","attacktype","economicimpactmillions","affectedequipments","overallpercentage"];
+
+    for (var i = keys.length - 1; i--;) {
+        if (!newStat.hasOwnProperty(keys[i])) {
+            return res.sendStatus(400);
+        }
+    }
+    
+    
     attacks.find({ "country": countryattack }).toArray((error, attacksArray) => {
         if (error) {
             console.log("Error: " + error);
@@ -343,7 +357,8 @@ app.delete("/api/v1/computers-attacks-stats", (req, res) => {
 //// GET /computers-attacks-stats/FRANCE
 app.get("/api/v1/computers-attacks-stats/:country", (req, res) => {
     var country = req.params.country;
-    attacks.find({ "country": country }).toArray((error, filteredattacks) => {
+    var year = req.params.year;
+    attacks.find({ "country": country } , {"year":year}).toArray((error, filteredattacks) => {
         if (error) {
             console.log("Error: " + error);
         }
@@ -363,32 +378,26 @@ app.post("/api/v1/computers-attacks-stats/:country", (req, res) => {
 //// PUT /computers-attacks-stats/FRANCE
 app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
     var country = req.params.country;
-    var updatedStats = req.body;
+    
+    var updatedattacks = req.body;
 
-    var keys = ["country", "year", "attacktype", "economicimpactmillions", "affectedequipments", "overallpercentage"];
+    var keys = ["country","year","attacktype","economicimpactmillions","affectedequipments","overallpercentage"];
 
     for (var i = keys.length - 1; i--;) {
-        if (!updatedStats.hasOwnProperty(keys[i])) {
+        if (!updatedattacks.hasOwnProperty(keys[i])) {
             return res.sendStatus(400);
         }
     }
 
-
-    attacks.find({ "country": country }).toArray((error, statsArray) => {
-        if (error)
-            console.log(error);
-        if (statsArray == 0) {
-            res.sendStatus(404);
+    attacks.find({ "country": country}).toArray((error, attackfilter) => {
+        if (error) {
+            console.log("Error: " + error);
         }
-        else {
-
-            attacks.updateOne({
-                "country": country,
-            }, {
-                $set: updatedStats
-            });
+        if(attackfilter.length >0) {
+            attacks.updateOne({ "country": country }, { $set: updatedattacks });
             res.sendStatus(200);
-
+        }else{
+            res.sendStatus(404);
         }
     });
 });
@@ -396,20 +405,17 @@ app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
 app.delete("/api/v1/computers-attacks-stats/:country", (req, res) => {
 
     var country = req.params.country;
-    var year = req.params.year;
-
-
-
-    attacks.find({ "country": country, "year": year }).toArray((error, filteredattacks) => {
+    
+    attacks.find({ "country": country }).toArray((error, filteredattacks) => {
         if (error) {
             console.log("Error: " + error);
         }
-        if (filteredattacks.length == 0) {
-            res.sendStatus(404);
+        if (filteredattacks.length >0) {
+            attacks.deleteOne({ "country": country });
+            res.sendStatus(200);
         }
         else {
-            attacks.deleteOne({ "country": country, "year": year });
-            res.sendStatus(200);
+            res.sendStatus(404);
         }
     });
 
