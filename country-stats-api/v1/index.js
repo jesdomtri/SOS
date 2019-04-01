@@ -63,12 +63,12 @@ app.get("/api/v1/country-stats", (req, res) => {
         query["country"] = { "$lte": parseInt(req.query["to"]) };
     }
 
-    stats.find(query).skip(offset).limit(limit).toArray((error, companiesArray) => {
+    stats.find(query).skip(offset).limit(limit).toArray((error, countriesStatsArray) => {
         if (error) {
             console.log("Error: " + error);
         }
         else {
-            res.send(companiesArray);
+            res.send(countriesStatsArray);
         }
     });
 });
