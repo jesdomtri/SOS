@@ -74,12 +74,16 @@ app.get(BASE_PATH+"/computers-attacks-stats", (req, res) => {
     attacks.find({}).toArray((error, attacksArray) => {
         if (error) {
             console.log("Eror : " + error);
-        }
-        if (attacksArray.length >= 1) {
-            res.send(attacksArray);
-        }
-        else {
-            res.sendStatus(404);
+        }else{
+            if (attacksArray.length >= 1) {
+                attacksArray.forEach((e) =>{
+                    delete e._id;
+                })
+                res.send(attacksArray);
+            }
+            else {
+                res.sendStatus(404);
+            }
         }
     });
 
