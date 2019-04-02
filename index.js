@@ -31,7 +31,6 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(error => {
 
     companies = client.db("sos181903").collection("companies");
-    stats = client.db("sos181903").collection("country-stats");
 
     console.log("Connected to database Jesus .");
 
@@ -44,14 +43,26 @@ client.connect(error => {
         attacks = clientJoaquin.db("Sos-1819-JMP").collection("computers-attacks-stats");
 
         console.log("Connected to database Joaquín .");
+        
+        const MongoClient = require('mongodb').MongoClient;
+        const urlAntonio = "mongodb+srv://root:root@sos1819-jmp-dhhii.mongodb.net/test?retryWrites=true";
+        const clientAntonio = new MongoClient(urlAntonio, { useNewUrlParser: true });
+          
+          clientAntonio.connect(error => {
 
-          countrystatsAPI(app, stats, BASE_PATH);
-          attacksAPI(app, attacks, BASE_PATH);
+            stats = clientAntonio.db("sos1819-03").collection("country-stats");
 
-        app.listen(port, () => {
-            console.log("Server is ready!!");
-        }); // Debe dejarse la conexión a la aplicacón dentro ya que si queda afuera puede que se inicie la aplicación pero no la base de datos .
+            console.log("Connected to database Antonio .");
 
+            app.listen(port, () => {
+                console.log("Server is ready!!");
+            }); // Debe dejarse la conexión a la aplicacón dentro ya que si queda afuera puede que se inicie la aplicación pero no la base de datos .
+            
+            countrystatsAPI(app, stats, BASE_PATH);
+
+        });
+        
+        attacksAPI(app, attacks, BASE_PATH);
     });
 
     companiesAPI(app, companies, BASE_PATH);
