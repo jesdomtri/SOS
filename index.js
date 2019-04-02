@@ -35,13 +35,14 @@ client.connect(error => {
     stats = client.db("sos181903").collection("country-stats");
     
     console.log("Connected to database Jesus .");
-    
-        const uriJoaquin = "mongodb+srv://joapuemar:NaRanJa94_@sos1819-jpm-1od50.mongodb.net/test?retryWrites=true";
+        
+        const MongoClient = require('mongodb').MongoClient;
+        const uriJoaquin = "mongodb+srv://sos:sos@sos1819-jpm-1od50.mongodb.net/test?retryWrites=true";
         const clientJoaquin = new MongoClient(uriJoaquin, { useNewUrlParser: true });
       
         clientJoaquin.connect(error => {
            
-            attacks = clientJoaquin.db("sos181903-jpm").collection("computers-attacks-stats");
+            attacks = clientJoaquin.db("Sos-1819-JMP").collection("computers-attacks-stats");
                      
                        console.log("Connected to database Joaquín .");
                        
