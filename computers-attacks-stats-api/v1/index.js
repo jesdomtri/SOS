@@ -172,8 +172,8 @@ app.get(BASE_PATH+"/computers-attacks-stats/:country/:year/:attacktype", (req, r
     
      attacks.find({ "country": country }).toArray((error, filteredattacks) => {
             
-           var sol =  filteredattacks.filter(filteredattack => filteredattack.year = year );
-               sol=sol.filter( sol => sol.attacktype =attacktype);
+           var sol =  filteredattacks.filter(filteredattack => filteredattack.year === year );
+               sol=sol.filter( sol => sol.attacktype === attacktype);
                 
                 if (error) {
                     console.log("Error: " + error);
