@@ -134,7 +134,7 @@ app.get(BASE_PATH+"/computers-attacks-stats/:country", (req, res) => {
             console.log("Error: " + error);
         }
         if (filteredattacks.length >= 1) {
-            res.send(filteredattacks);
+            res.send(filteredattacks[0]);
         }
         else {
             res.sendStatus(404);
@@ -147,15 +147,18 @@ app.get(BASE_PATH+"/computers-attacks-stats/:country/:year", (req, res) => {
     var country = req.params.country;
     var year  = parseInt(req.params.year);
     
-     attacks.find({ "country": country }).toArray((error, filteredattacks) => {
+     attacks.find({ "country": country , "year" : year }).toArray((error, filteredattacks) => {
             
-           var sol =  filteredattacks.filter(filteredattack => filteredattack.year = year ) ;
-               
-                if (error) {
+            if (error) {
                     console.log("Error: " + error);
                 }
-                if (sol.length >= 1) {
-                    res.send(sol[0]);
+                if (filteredattacks.length >= 1) {
+                    
+                    filteredattacks.forEach((e) =>{
+                        delete e._id;
+                    })
+                    
+                    res.send(filteredattacks[0]);
                 }
                 else {
                     res.sendStatus(404);
