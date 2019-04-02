@@ -155,7 +155,7 @@ app.get(BASE_PATH+"/computers-attacks-stats/:country/:year", (req, res) => {
                     console.log("Error: " + error);
                 }
                 if (sol.length >= 1) {
-                    res.send(sol);
+                    res.send(sol[0]);
                 }
                 else {
                     res.sendStatus(404);
