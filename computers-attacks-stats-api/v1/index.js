@@ -125,10 +125,16 @@ app.delete("/api/v1/computers-attacks-stats", (req, res) => {
 });
 
 //// GET /computers-attacks-stats/FRANCE
-app.get("/api/v1/computers-attacks-stats/:country", (req, res) => {
+app.get("/api/v1/computers-attacks-stats/:country/:year/:attacktype/:economicimpactmillions/:affectedequipments/:overallpercentage", (req, res) => {
     var country = req.params.country;
+    var year= req.params.year;
+    var attacktype=req.params.attacktype;
+    var economicimpactmillions=req.params.economicimpactmillions;
+    var affectedequipments=req.params.affectedequipments;
+    var overallpercentage=req.params.overallpercentage;
+    
     var year = req.params.year;
-    attacks.find({ "country": country }, { "year": year }).toArray((error, filteredattacks) => {
+    attacks.find({ "country": country ,"year": year }).toArray((error, filteredattacks) => {
         if (error) {
             console.log("Error: " + error);
         }
