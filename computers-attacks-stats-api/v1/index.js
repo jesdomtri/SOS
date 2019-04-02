@@ -41,7 +41,7 @@ app.get(BASE_PATH+"/computers-attacks-stats/loadInitialData", (req, res) => {
             overallpercentage: 18.75
         },
         {
-            country: "EEyU",
+            country: "EEEU",
             year: 2017,
             attacktype: "ransomware",
             economicimpactmillions: 21.22,
