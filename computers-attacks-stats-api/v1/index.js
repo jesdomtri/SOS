@@ -70,63 +70,92 @@ app.get(BASE_PATH+"/computers-attacks-stats/loadInitialData", (req, res) => {
 
 app.get(BASE_PATH+"/computers-attacks-stats", (req, res) => {
 
-    attacks.find({}).toArray((error, attacksArray) => {
-        if (error) {
-            console.log("Eror : " + error);
+         var query = {};
+        let offset = 0;
+        let limit = Number.MAX_SAFE_INTEGER;
+
+        //Paginacion
+        if (req.query.offset) {
+            offset = parseInt(req.query.offset);
+            delete req.query.offset;
         }
-        if (attacksArray.length >= 1) {
-            res.send(attacksArray);
+        if (req.query.limit) {
+            limit = parseInt(req.query.limit);
+            delete req.query.limit;
         }
-        else {
-            res.sendStatus(404);
-        }
-    });
+
+        //Busqueda
+        Object.keys(req.query).forEach((i) => {
+            if (isNaN(req.query[i]) == false) {
+                query[i] = parseInt(req.query[i]);
+            }
+            else {
+                query[i] = req.query[i];
+            }
+        });
+
+        attacks.find(query).skip(offset).limit(limit).toArray((error, attacksArray) => {
+            if (error) {
+                console.log("Error: " + error);
+            }
+            else {
+                attacksArray.forEach(function(e) {
+                    delete e._id;
+                });
+                res.send(attacks);
+            }
+        });
 
 });
 //// POST /computers-attacks-stats/
-app.post(BASE_PATH+"/computers-attacks-stats", (req, res) => {
-    var newStat = req.body;
-    var countryattack = req.body.country;
-
-
-    var keys = ["country", "year", "attacktype", "economicimpactmillions", "affectedequipments", "overallpercentage"];
-
-    for (var i = keys.length - 1; i--;) {
-        if (!newStat.hasOwnProperty(keys[i])) {
-            return res.sendStatus(400);
+    app.post(BASE_PATH+"/computers-attacks-stats", (req, res) => {
+        var newStat = req.body;
+        var countryattack = req.body.country;
+        var year = req.body.year;
+    
+    
+        var keys = ["country", "year", "attacktype", "economicimpactmillions", "affectedequipments", "overallpercentage"];
+    
+        for (var i = keys.length - 1; i--;) {
+            if (!newStat.hasOwnProperty(keys[i])) {
+                return res.sendStatus(400);
+            }
         }
-    }
-
-
-    attacks.find({ "country": countryattack }).toArray((error, attacksArray) => {
-        if (error) {
-            console.log("Error: " + error);
-        }
-        if (attacksArray.length > 0) {
-            res.sendStatus(409);
-        }
-        else {
-            attacks.insert(newStat);
-            res.sendStatus(201);
-        }
+    
+    
+        attacks.find({ "country": countryattack ,"year" : parseInt(year)}).toArray((error, attacksArray) => {
+            if (error) {
+                console.log("Error: " + error);
+            }else{
+                
+           
+                if (attacksArray.length > 0) {
+                    res.sendStatus(409);
+                }
+                else {
+                    attacks.insert(newStat);
+                    res.sendStatus(201);
+                }
+                
+            }
+        });
+    
     });
-
-});
-
-//// PUT
-app.put(BASE_PATH+"/computers-attacks-stats", (req, res) => {
-    res.sendStatus(405);
-});
-
-//// DELETE /computers-attacks-stats/
-app.delete(BASE_PATH+"/computers-attacks-stats", (req, res) => {
-    attacks.remove({});
-    res.sendStatus(200);
-});
-
-//// GET /computers-attacks-stats/FRANCE
-app.get(BASE_PATH+"/computers-attacks-stats/:country", (req, res) => {
-    var country = req.params.country;
+    
+    //// PUT
+    app.put(BASE_PATH+"/computers-attacks-stats", (req, res) => {
+        res.sendStatus(405);
+    });
+    
+    //// DELETE /computers-attacks-stats/
+    app.delete(BASE_PATH+"/computers-attacks-stats", (req, res) => {
+        attacks.remove({});
+        res.sendStatus(200);
+    });
+    
+    //// GET /computers-attacks-stats/FRANCE
+    app.get(BASE_PATH+"/computers-attacks-stats/:country", (req, res) => {
+        var country = req.params.country;
    
 
     attacks.find({ "country": country }).toArray((error, filteredattacks) => {
@@ -175,7 +204,7 @@ app.get(BASE_PATH+"/computers-attacks-stats/:country/:year", (req, res) => {
 });
 app.get(BASE_PATH+"/computers-attacks-stats/:country/:year/:attacktype", (req, res) => {
     var country = req.params.country;
-    var year  = parseInt(req.params.year);
+    var year  = req.params.year;
     var attacktype=req.params.attacktype;
     
     
@@ -203,9 +232,9 @@ app.post(BASE_PATH+"/computers-attacks-stats/:country", (req, res) => {
     res.sendStatus(405);
 });
 //// PUT /computers-attacks-stats/FRANCE
-app.put(BASE_PATH+"/computers-attacks-stats/:country", (req, res) => {
+app.put(BASE_PATH+"/computers-attacks-stats/:country/:year", (req, res) => {
     var country = req.params.country;
-
+    var year = req.params.year;
     var updatedattacks = req.body;
 
     var keys = ["country", "year", "attacktype", "economicimpactmillions", "affectedequipments", "overallpercentage"];
@@ -216,44 +245,87 @@ app.put(BASE_PATH+"/computers-attacks-stats/:country", (req, res) => {
         }
     }
 
-    attacks.find({ "country": country }).toArray((error, attackfilter) => {
+    attacks.find({ "country": country , "year" : parseInt(year) }).toArray((error, attackfilter) => {
         if (error) {
             console.log("Error: " + error);
-        }
-        if (attackfilter.length > 0) {
-            attacks.updateOne({ "country": country }, { $set: updatedattacks });
-            res.sendStatus(200);
-        }
-        else {
-            res.sendStatus(404);
+        }else{
+            
+            if (attackfilter.length > 0) {
+                attacks.update({ "country": country ,"year": parseInt(year)},  updatedattacks );
+                res.sendStatus(200);
+            }
+            else {
+                res.sendStatus(404);
+            }
         }
     });
 });
 //// DELETE /computers-attacks-stats/FRANCE
-app.delete(BASE_PATH+"/computers-attacks-stats/:country", (req, res) => {
+app.delete(BASE_PATH+"/computers-attacks-stats/:country/:year", (req, res) => {
 
     var country = req.params.country;
+    var year  = req.params.year;
 
-    attacks.find({ "country": country }).toArray((error, filteredattacks) => {
+    attacks.find({ "country": country , "year": parseInt(year)}).toArray((error, filteredattacks) => {
         if (error) {
             console.log("Error: " + error);
-        }
-        if (filteredattacks.length > 0) {
-            attacks.deleteOne({ "country": country });
-            res.sendStatus(200);
-        }
-        else {
-            res.sendStatus(404);
+        }else{
+            
+       
+            if (filteredattacks.length > 0) {
+                attacks.deleteOne({ "country": country, "year" : parseInt(year) });
+                res.sendStatus(200);
+            }
+            else {
+                res.sendStatus(404);
+            }
         }
     });
-
-});
+    
+    });
+    
+    app.put(BASE_PATH+"/computers-attacks-stats/:country",(req,res) =>{
+       
+       
+       res.sendStatus(405);
+        
+    });
+ 
+    app.put(BASE_PATH+"/computers-attacks-stats/:year",(req,res) =>{
+       
+       
+       res.sendStatus(405);
+        
+    });
+    
+    app.put(BASE_PATH+"/computers-attacks-stats/:attacktype",(req,res) =>{
+       
+       
+       res.sendStatus(405);
+        
+    });
+     app.put(BASE_PATH+"/computers-attacks-stats/:economicimpactmillions",(req,res) =>{
+       
+       
+       res.sendStatus(405);
+        
+    });
+    
+    app.put(BASE_PATH+"/computers-attacks-stats/:affectedequipments",(req,res) =>{
+       
+       
+       res.sendStatus(405);
+        
+    });
     
     
     
-    
-    
-    
+     app.put(BASE_PATH+"/computers-attacks-stats/:overallpercentage",(req,res) =>{
+       
+       
+       res.sendStatus(405);
+        
+    });
     
     
     
