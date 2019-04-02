@@ -142,24 +142,25 @@ app.get(BASE_PATH+"/computers-attacks-stats/:country", (req, res) => {
     });
 
 });
+
 app.get(BASE_PATH+"/computers-attacks-stats/:country/:year", (req, res) => {
     var country = req.params.country;
     var year  = req.params.year;
     
-   
-
-    attacks.find({ "country": country,"year":year }).toArray((error, filteredattacks) => {
-       
-        if (error) {
-            console.log("Error: " + error);
-        }
-        if (filteredattacks.length >= 1) {
-            res.send(filteredattacks);
-        }
-        else {
-            res.sendStatus(404);
-        }
-    });
+     attacks.find({ "country": country," year ":year }).toArray((error, filteredattacks) => {
+            filteredattacks.find({ " year ":year }).toArray((error, filterfin) => {
+                if (error) {
+                    console.log("Error: " + error);
+                }
+                if (filterfin.length >= 1) {
+                    res.send(filterfin);
+                }
+                else {
+                    res.sendStatus(404);
+                }
+                
+            });
+        });
 
 });
 //// POST 
