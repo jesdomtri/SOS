@@ -33,6 +33,7 @@ module.exports = function(app, companies, BASE_PATH) {
         let offset = 0;
         let limit = Number.MAX_SAFE_INTEGER;
 
+        //Paginacion
         if (req.query.offset) {
             offset = parseInt(req.query.offset);
             delete req.query.offset;
@@ -42,6 +43,7 @@ module.exports = function(app, companies, BASE_PATH) {
             delete req.query.limit;
         }
 
+        //Busqueda
         Object.keys(req.query).forEach((i) => {
             if (isNaN(req.query[i]) == false) {
                 query[i] = parseInt(req.query[i]);
