@@ -70,31 +70,19 @@ app.get(BASE_PATH+"/computers-attacks-stats/loadInitialData", (req, res) => {
 
 app.get(BASE_PATH+"/computers-attacks-stats", (req, res) => {
 
-var newStat = req.body;
-    var countryattack = req.body.country;
     
-    
-    var keys = ["country","year","attacktype","economicimpactmillions","affectedequipments","overallpercentage"];
-
-    for (var i = keys.length - 1; i--;) {
-        if (!newStat.hasOwnProperty(keys[i])) {
-            return res.sendStatus(400);
-        }
-    }
-    
-    
-    attacks.find({ "country": countryattack }).toArray((error, attacksArray) => {
+    attacks.find({}).toArray((error, attacksArray) => {
         if (error) {
-            console.log("Error: " + error);
+            console.log("Eror : " + error);
         }
-        if (attacksArray.length > 0) {
-            res.sendStatus(409);
+        if (attacksArray.length >= 1) {
+            res.send(attacksArray);
         }
         else {
-            attacks.insert(newStat);
-            res.sendStatus(201);
+            res.sendStatus(404);
         }
     });
+
 });
 //// POST /computers-attacks-stats/
     app.post(BASE_PATH+"/computers-attacks-stats", (req, res) => {
