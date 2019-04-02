@@ -298,37 +298,7 @@ app.delete(BASE_PATH+"/computers-attacks-stats/:country/:year", (req, res) => {
         
     });
     
-    app.put(BASE_PATH+"/computers-attacks-stats/:attacktype",(req,res) =>{
-       
-       
-       res.sendStatus(405);
-        
-    });
-     app.put(BASE_PATH+"/computers-attacks-stats/:economicimpactmillions",(req,res) =>{
-       
-       
-       res.sendStatus(405);
-        
-    });
-    
-    app.put(BASE_PATH+"/computers-attacks-stats/:affectedequipments",(req,res) =>{
-       
-       
-       res.sendStatus(405);
-        
-    });
-    
-    
-    
-     app.put(BASE_PATH+"/computers-attacks-stats/:overallpercentage",(req,res) =>{
-       
-       
-       res.sendStatus(405);
-        
-    });
-    
-    
-    
+
     
     
 }
