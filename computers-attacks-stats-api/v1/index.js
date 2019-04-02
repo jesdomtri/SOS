@@ -70,42 +70,31 @@ app.get(BASE_PATH+"/computers-attacks-stats/loadInitialData", (req, res) => {
 
 app.get(BASE_PATH+"/computers-attacks-stats", (req, res) => {
 
-         var query = {};
-        let offset = 0;
-        let limit = Number.MAX_SAFE_INTEGER;
+var newStat = req.body;
+    var countryattack = req.body.country;
+    
+    
+    var keys = ["country","year","attacktype","economicimpactmillions","affectedequipments","overallpercentage"];
 
-        //Paginacion
-        if (req.query.offset) {
-            offset = parseInt(req.query.offset);
-            delete req.query.offset;
+    for (var i = keys.length - 1; i--;) {
+        if (!newStat.hasOwnProperty(keys[i])) {
+            return res.sendStatus(400);
         }
-        if (req.query.limit) {
-            limit = parseInt(req.query.limit);
-            delete req.query.limit;
+    }
+    
+    
+    attacks.find({ "country": countryattack }).toArray((error, attacksArray) => {
+        if (error) {
+            console.log("Error: " + error);
         }
-
-        //Busqueda
-        Object.keys(req.query).forEach((i) => {
-            if (isNaN(req.query[i]) == false) {
-                query[i] = parseInt(req.query[i]);
-            }
-            else {
-                query[i] = req.query[i];
-            }
-        });
-
-        attacks.find(query).skip(offset).limit(limit).toArray((error, attacksArray) => {
-            if (error) {
-                console.log("Error: " + error);
-            }
-            else {
-                attacksArray.forEach(function(e) {
-                    delete e._id;
-                });
-                res.send(attacks);
-            }
-        });
-
+        if (attacksArray.length > 0) {
+            res.sendStatus(409);
+        }
+        else {
+            attacks.insert(newStat);
+            res.sendStatus(201);
+        }
+    });
 });
 //// POST /computers-attacks-stats/
     app.post(BASE_PATH+"/computers-attacks-stats", (req, res) => {
@@ -126,7 +115,7 @@ app.get(BASE_PATH+"/computers-attacks-stats", (req, res) => {
         attacks.find({ "country": countryattack ,"year" : parseInt(year)}).toArray((error, attacksArray) => {
             if (error) {
                 console.log("Error: " + error);
-            }else{
+            }else {
                 
            
                 if (attacksArray.length > 0) {
