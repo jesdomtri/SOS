@@ -132,27 +132,27 @@ app.get(BASE_PATH+"/computers-attacks-stats/:country", (req, res) => {
     attacks.find({ "country": country }).toArray((error, filteredattacks) => {
         if (error) {
             console.log("Error: " + error);
-        }
-        if (filteredattacks.length >= 1) {
-            res.send(filteredattacks[0]);
-        }
-        else {
-            res.sendStatus(404);
-        }
-    });
-
+        }else{
+            if (filteredattacks.length >= 1) {
+                res.send(filteredattacks[0]);
+            }
+            else {
+                res.sendStatus(404);
+            }
+    }
+});
 });
 
 app.get(BASE_PATH+"/computers-attacks-stats/:country/:year", (req, res) => {
     var country = req.params.country;
     var year  = parseInt(req.params.year);
     
-     attacks.find({ "country": country , "year" : year }).toArray((error, filteredattacks) => {
+     attacks.find({ "country": country , "year" : parseInt(year) }).toArray((error, filteredattacks) => {
             
             if (error) {
                     console.log("Error: " + error);
-                }
-                if (filteredattacks.length >= 1) {
+             }else{ 
+                 if(filteredattacks.length >= 1) {
                     
                     filteredattacks.forEach((e) =>{
                         delete e._id;
@@ -160,10 +160,12 @@ app.get(BASE_PATH+"/computers-attacks-stats/:country/:year", (req, res) => {
                     
                     res.send(filteredattacks[0]);
                 }
-                else {
+                     
+                 
+                      else {
                     res.sendStatus(404);
-                }
-                
+                         }
+                 }
            
         });
 
@@ -174,7 +176,7 @@ app.get(BASE_PATH+"/computers-attacks-stats/:country/:year/:attacktype", (req, r
     var attacktype=req.params.attacktype;
     
     
-     attacks.find({ "country": country , "year" : year }).toArray((error, filteredattacks) => {
+     attacks.find({ "country": country , "year" : parseInt(year) }).toArray((error, filteredattacks) => {
             
                if (error) {
                     console.log("Error: " + error);
