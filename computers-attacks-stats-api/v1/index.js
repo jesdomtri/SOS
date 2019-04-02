@@ -148,19 +148,20 @@ app.get(BASE_PATH+"/computers-attacks-stats/:country/:year", (req, res) => {
     var year  = req.params.year;
     
      attacks.find({ "country": country }).toArray((error, filteredattacks) => {
-            filteredattacks.find({ "year ":year }).toArray((error, filterfin) => {
+            
+           var sol =  filteredattacks.filter(filteredattack => filteredattack.year = year ) ;
                
                 if (error) {
                     console.log("Error: " + error);
                 }
-                if (filterfin.length >= 1) {
-                    res.send(filterfin);
+                if (sol.length >= 1) {
+                    res.send(sol);
                 }
                 else {
                     res.sendStatus(404);
                 }
                 
-            });
+           
         });
 
 });
