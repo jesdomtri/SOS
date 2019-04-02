@@ -68,26 +68,56 @@ app.get(BASE_PATH+"/computers-attacks-stats/loadInitialData", (req, res) => {
 
 //// GET /computers-attacks-stats/
 
-app.get(BASE_PATH+"/computers-attacks-stats", (req, res) => {
+ app.get(BASE_PATH + "/computers-attacks-stats", (req, res) => {
+         var query = {};
+        let offset = 0;
+        let limit = Number.MAX_SAFE_INTEGER;
 
-    
-    attacks.find({}).toArray((error, attacksArray) => {
-        if (error) {
-            console.log("Eror : " + error);
-        }else{
-            if (attacksArray.length >= 1) {
-                attacksArray.forEach((e) =>{
-                    delete e._id;
-                })
-                res.send(attacksArray);
+        if (req.query.offset) {
+            offset = parseInt(req.query.offset);
+            delete req.query.offset;
+        }
+        if (req.query.limit) {
+            limit = parseInt(req.query.limit);
+            delete req.query.limit;
+        }
+
+        Object.keys(req.query).forEach((i) => {
+            if (isNaN(req.query[i]) == false) {
+                query[i] = parseInt(req.query[i]);
             }
             else {
-                res.sendStatus(404);
+                query[i] = req.query[i];
             }
-        }
-    });
+        });
 
-});
+        if (Object.keys(req.query).includes("from") && Object.keys(req.query).includes("to")) {
+            delete query.from;
+            delete query.to;
+            query["country"] = { "$lte": parseInt(req.query["to"]), "$gte": parseInt(req.query["from"]) };
+        }
+        else if (Object.keys(req.query).includes('from')) {
+            delete query.from;
+            query["country"] = { "$gte": parseInt(req.query["from"]) };
+        }
+        else if (Object.keys(req.query).includes("to")) {
+            delete query.to;
+            query["country"] = { "$lte": parseInt(req.query["to"]) };
+        }
+
+       attacks.find(query).skip(offset).limit(limit).toArray((error, attackArray) => {
+            if (error) {
+                console.log("Error: " + error);
+            }
+            else {
+                attackArray.forEach(function(e) {
+                    delete e._id;
+                });
+                res.send(attackArray);
+            }
+        });
+    });
+    
 //// POST /computers-attacks-stats/
     app.post(BASE_PATH+"/computers-attacks-stats", (req, res) => {
         var newStat = req.body;
@@ -311,4 +341,4 @@ app.delete(BASE_PATH+"/computers-attacks-stats/:country/:year", (req, res) => {
     
     
     
-}
+};
