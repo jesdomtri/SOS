@@ -33,7 +33,7 @@ client.connect(error => {
     companies = client.db("sos181903").collection("companies");
     stats = client.db("sos181903").collection("country-stats");
 
-    console.log("Connected to database Jesus .");
+    console.log("Connected to database Jesus.");
 
     const MongoClient = require('mongodb').MongoClient;
     const uriJoaquin = "mongodb+srv://sos:sos@sos1819-jpm-1od50.mongodb.net/test?retryWrites=true";

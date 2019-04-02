@@ -51,20 +51,6 @@ module.exports = function(app, companies, BASE_PATH) {
             }
         });
 
-        if (Object.keys(req.query).includes("from") && Object.keys(req.query).includes("to")) {
-            delete query.from;
-            delete query.to;
-            query["country"] = { "$lte": parseInt(req.query["to"]), "$gte": parseInt(req.query["from"]) };
-        }
-        else if (Object.keys(req.query).includes('from')) {
-            delete query.from;
-            query["country"] = { "$gte": parseInt(req.query["from"]) };
-        }
-        else if (Object.keys(req.query).includes("to")) {
-            delete query.to;
-            query["country"] = { "$lte": parseInt(req.query["to"]) };
-        }
-
         companies.find(query).skip(offset).limit(limit).toArray((error, companiesArray) => {
             if (error) {
                 console.log("Error: " + error);
