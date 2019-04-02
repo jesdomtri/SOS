@@ -35,7 +35,7 @@ client.connect(error => {
     console.log("Connected to database Jesus.");
 
     const MongoClient = require('mongodb').MongoClient;
-    const uriJoaquin = "mongodb+srv://sos:sos@sos1819-jpm-1od50.mongodb.net/test?retryWrites=true";
+    const uriJoaquin = "mongodb+srv://joapuemar:NaRanJa94_@sos1819-jpm-1od50.mongodb.net/test?retryWrites=true";
     const clientJoaquin = new MongoClient(uriJoaquin, { useNewUrlParser: true });
 
     clientJoaquin.connect(error => {
