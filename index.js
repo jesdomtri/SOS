@@ -45,7 +45,8 @@ client.connect(error => {
 
         console.log("Connected to database Joaquín .");
 
-        
+          countrystatsAPI(app, stats, BASE_PATH);
+          attacksAPI(app, attacks, BASE_PATH);
 
         app.listen(port, () => {
             console.log("Server is ready!!");
@@ -54,7 +55,6 @@ client.connect(error => {
     });
 
     companiesAPI(app, companies, BASE_PATH);
-    countrystatsAPI(app, stats, BASE_PATH);
-    attacksAPI(app, attacks, BASE_PATH);
+  
     
 });
