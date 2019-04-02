@@ -184,17 +184,17 @@ app.get(BASE_PATH+"/computers-attacks-stats/:country/:year/:attacktype", (req, r
                if (error) {
                     console.log("Error: " + error);
                 }
-                if (filteredattacks.length >= 1) {
+                else{
+                    if (filteredattacks.length >= 1) {
                     filteredattacks.forEach( (e) =>{
                         delete e._id;
-                    })
+                    });
                     res.send(filteredattacks[0]);
-                }
-                else {
+                 }else {
                     res.sendStatus(404);
                 }
                 
-           
+                }
         });
 
 });
