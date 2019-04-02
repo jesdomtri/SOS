@@ -1,12 +1,12 @@
 module.exports =function ( app , attacks , BASE_PATH){
 
 //GET /api/v1/computers-attacks-stats/docs
-app.get("/api/v1/computers-attacks-stats/docs/", (req, res) => {
+app.get(BASE_PATH+"/computers-attacks-stats/docs/", (req, res) => {
     res.redirect("https://documenter.getpostman.com/view/6899262/S17oyWAv");
 });
 // ruta /api/v1/computers-attacks-stats/loadInitialData que al hacer un GET cree 2 o más recursos.
 
-app.get("/api/v1/computers-attacks-stats/loadInitialData", (req, res) => {
+app.get(BASE_PATH+"/computers-attacks-stats/loadInitialData", (req, res) => {
 
     var computersattacksstats = [{
             country: "France",
@@ -68,7 +68,7 @@ app.get("/api/v1/computers-attacks-stats/loadInitialData", (req, res) => {
 
 //// GET /computers-attacks-stats/
 
-app.get("/api/v1/computers-attacks-stats", (req, res) => {
+app.get(BASE_PATH+"/computers-attacks-stats", (req, res) => {
 
     attacks.find({}).toArray((error, attacksArray) => {
         if (error) {
@@ -84,7 +84,7 @@ app.get("/api/v1/computers-attacks-stats", (req, res) => {
 
 });
 //// POST /computers-attacks-stats/
-app.post("/api/v1/computers-attacks-stats", (req, res) => {
+app.post(BASE_PATH+"/computers-attacks-stats", (req, res) => {
     var newStat = req.body;
     var countryattack = req.body.country;
 
@@ -114,27 +114,42 @@ app.post("/api/v1/computers-attacks-stats", (req, res) => {
 });
 
 //// PUT
-app.put("/api/v1/computers-attacks-stats", (req, res) => {
+app.put(BASE_PATH+"/computers-attacks-stats", (req, res) => {
     res.sendStatus(405);
 });
 
 //// DELETE /computers-attacks-stats/
-app.delete("/api/v1/computers-attacks-stats", (req, res) => {
+app.delete(BASE_PATH+"/computers-attacks-stats", (req, res) => {
     attacks.remove({});
     res.sendStatus(200);
 });
 
 //// GET /computers-attacks-stats/FRANCE
-app.get("/api/v1/computers-attacks-stats/:country/:year/:attacktype/:economicimpactmillions/:affectedequipments/:overallpercentage", (req, res) => {
+app.get(BASE_PATH+"/computers-attacks-stats/:country", (req, res) => {
     var country = req.params.country;
-    var year= req.params.year;
-    var attacktype=req.params.attacktype;
-    var economicimpactmillions=req.params.economicimpactmillions;
-    var affectedequipments=req.params.affectedequipments;
-    var overallpercentage=req.params.overallpercentage;
+   
+
+    attacks.find({ "country": country }).toArray((error, filteredattacks) => {
+        if (error) {
+            console.log("Error: " + error);
+        }
+        if (filteredattacks.length >= 1) {
+            res.send(filteredattacks);
+        }
+        else {
+            res.sendStatus(404);
+        }
+    });
+
+});
+app.get(BASE_PATH+"/computers-attacks-stats/:country/:year", (req, res) => {
+    var country = req.params.country;
+    var year  = req.params.year;
     
-    var year = req.params.year;
-    attacks.find({ "country": country ,"year": year }).toArray((error, filteredattacks) => {
+   
+
+    attacks.find({ "country": country,"year":year }).toArray((error, filteredattacks) => {
+       
         if (error) {
             console.log("Error: " + error);
         }
@@ -148,11 +163,11 @@ app.get("/api/v1/computers-attacks-stats/:country/:year/:attacktype/:economicimp
 
 });
 //// POST 
-app.post("/api/v1/computers-attacks-stats/:country", (req, res) => {
+app.post(BASE_PATH+"/computers-attacks-stats/:country", (req, res) => {
     res.sendStatus(405);
 });
 //// PUT /computers-attacks-stats/FRANCE
-app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
+app.put(BASE_PATH+"/computers-attacks-stats/:country", (req, res) => {
     var country = req.params.country;
 
     var updatedattacks = req.body;
@@ -179,7 +194,7 @@ app.put("/api/v1/computers-attacks-stats/:country", (req, res) => {
     });
 });
 //// DELETE /computers-attacks-stats/FRANCE
-app.delete("/api/v1/computers-attacks-stats/:country", (req, res) => {
+app.delete(BASE_PATH+"/computers-attacks-stats/:country", (req, res) => {
 
     var country = req.params.country;
 
