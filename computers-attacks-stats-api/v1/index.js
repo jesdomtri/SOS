@@ -177,7 +177,7 @@ app.get(BASE_PATH+"/computers-attacks-stats/loadInitialData", (req, res) => {
                 filteredattacks.forEach((e) =>{
                     delete e._id;
                 });
-                res.send(filteredattacks[0]);
+                res.send(filteredattacks);
             }
             else {
                 res.sendStatus(404);
@@ -242,7 +242,7 @@ app.get(BASE_PATH+"/computers-attacks-stats/:country/:year/:attacktype", (req, r
 app.post(BASE_PATH+"/computers-attacks-stats/:country", (req, res) => {
     res.sendStatus(405);
 });
-//// PUT /computers-attacks-stats/FRANCE
+
 app.put(BASE_PATH+"/computers-attacks-stats/:country/:year", (req, res) => {
     var country = req.params.country;
     var year = req.params.year;
