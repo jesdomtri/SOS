@@ -159,12 +159,17 @@ module.exports = function(app, companies, BASE_PATH) {
                 console.log("Error: " + error);
             }
             else {
-                if (filteredcompanies.length > 0) {
-                    companies.update({ "country": country, "year": parseInt(year) }, updatedCompany);
-                    res.sendStatus(200);
+                if (req.body.country != country && req.body.year != year) {
+                    res.sendStatus(400);
                 }
                 else {
-                    res.sendStatus(404);
+                    if (filteredcompanies.length > 0) {
+                        companies.update({ "country": country, "year": parseInt(year) }, updatedCompany);
+                        res.sendStatus(200);
+                    }
+                    else {
+                        res.sendStatus(404);
+                    }
                 }
             }
         });
