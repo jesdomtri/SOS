@@ -159,7 +159,7 @@ module.exports = function(app, companies, BASE_PATH) {
                 console.log("Error: " + error);
             }
             else {
-                if (req.body.country != country && req.body.year != year) {
+                if (req.body.country != country || req.body.year != year) {
                     res.sendStatus(400);
                 }
                 else {
