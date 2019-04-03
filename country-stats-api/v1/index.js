@@ -163,12 +163,17 @@ module.exports = function(app, stats) {
                 console.log("Error: " + error);
             }
             else {
-                if (filteredstats.length > 0) {
-                    stats.update({ "country": country, "year": parseInt(year) }, updatedStats);
-                    res.sendStatus(200);
+                if (req.body.country != country || req.body.year != year) {
+                    res.sendStatus(400);
                 }
                 else {
-                    res.sendStatus(404);
+                    if (filteredstats.length > 0) {
+                        stats.update({ "country": country, "year": parseInt(year) }, updatedStats);
+                        res.sendStatus(200);
+                    }
+                    else {
+                        res.sendStatus(404);
+                    }
                 }
             }
         });
