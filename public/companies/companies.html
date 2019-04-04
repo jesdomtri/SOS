@@ -12,12 +12,14 @@
 
 <body ng-controller="MainCtrl">
     <h1>Postman Companies</h1>
-    <div>
+    <div class="container">
+        <div>
         <label>URL: <input class="form-control text-center" ng-model="url"/></label>
         <button class="btn btn-primary" ng-click="send()">Send</button>
     </div>
     <div style="padding-top:20px">
         <textarea class="form-control" rows="20" ng-model="data"></textarea>
+    </div>
     </div>
 </body>
 
