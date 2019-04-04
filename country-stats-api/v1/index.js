@@ -142,39 +142,6 @@ module.exports = function(app, stats) {
         stats.remove({});
         res.sendStatus(200); //OK
     });
-
-    //PUT /companies/France
-    app.put("/api/v1/country-stats/:country", (req, res) => {
-        var country = req.params.country;
-        var updatedStats = req.body;
-
-        var keys = ["country", "year", "extensionOfBorders", "population", "territorialExtension"];
-
-        for (var i = keys.length - 1; i--;) {
-            if (!updatedStats.hasOwnProperty(keys[i])) {
-                return res.sendStatus(400); //Bad Request
-            }
-        }
-
-
-        stats.find({ "country": country }).toArray((err, statsArray) => {
-            if (err)
-                console.log(err);
-            if (statsArray == 0) {
-                res.sendStatus(400); //Bad Request
-            }
-            else {
-
-                stats.updateOne({
-                    "country": country,
-                }, {
-                    $set: updatedStats
-                });
-                res.sendStatus(200); //     OK
-
-            }
-        });
-    });
     
     //PUT /country-stats/País/Año
     
@@ -196,12 +163,17 @@ module.exports = function(app, stats) {
                 console.log("Error: " + error);
             }
             else {
-                if (filteredstats.length > 0) {
-                    stats.update({ "country": country, "year": parseInt(year) }, updatedStats);
-                    res.sendStatus(200);
+                if (req.body.country != country || req.body.year != year) {
+                    res.sendStatus(400);
                 }
                 else {
-                    res.sendStatus(404);
+                    if (filteredstats.length > 0) {
+                        stats.update({ "country": country, "year": parseInt(year) }, updatedStats);
+                        res.sendStatus(200);
+                    }
+                    else {
+                        res.sendStatus(404);
+                    }
                 }
             }
         });
