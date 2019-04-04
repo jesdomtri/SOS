@@ -4,22 +4,38 @@
 <head>
     <title>Companies</title>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="postman-app.js"></script>
     <script type="text/javascript" src="main-ctrl.js"></script>
+    <style>
+        html,
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Roboto", sans-serif;
+        }
+    </style>
 </head>
 
 <body ng-controller="MainCtrl">
-    <h1>Postman Companies</h1>
+    <div class="container">
+        <img class="img-thumbnail" src="/img/logo-postman.png"></img>
+        <h1>Postman Companies</h1>
+    </div>
     <div class="container">
         <div>
-        <label>URL: <input class="form-control text-center" ng-model="url"/></label>
-        <button class="btn btn-primary" ng-click="send()">Send</button>
-    </div>
-    <div style="padding-top:20px">
-        <textarea class="form-control" rows="20" ng-model="data"></textarea>
-    </div>
+            <label>URL: <input class="form-control text-center" ng-model="url"/></label>
+            <button class="btn btn-primary" ng-click="send()">Send</button>
+        </div>
+        <div style="padding-top:20px">
+            <textarea class="form-control" rows="20" ng-model="data"></textarea>
+        </div>
     </div>
 </body>
 
