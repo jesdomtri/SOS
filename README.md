@@ -6,7 +6,7 @@
 # 3. Joaquin Puerto Martinez: https://github.com/joaquinpuertomartinez
 
 # Project description
-# The relationship between countries and computer attacks, tecnology companies and PIB.
+# Relationship between countries and computer attacks, technology companies and country stats.
 
 # Repository
 # gti-sos/SOS1819-03: https://github.com/gti-sos/SOS1819-03
