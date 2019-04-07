@@ -174,7 +174,7 @@ module.exports = function(app, companies, BASE_PATH) {
         companies.remove({});
         res.sendStatus(200);
     });
-    //DELETE /companies/France
+    //DELETE /companies/France/2017
     app.delete(BASE_PATH + "/companies/:country/:year", (req, res) => {
         var country = req.params.country;
         var year = req.params.year;

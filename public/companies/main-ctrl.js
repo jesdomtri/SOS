@@ -8,7 +8,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.data = JSON.stringify(response.data, null, 2);
         });
     }
-    $scope.lid = function() {
+    $scope.loadinitial = function() {
         $http.get($scope.url + "/loadInitialData").then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
         });
