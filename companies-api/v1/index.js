@@ -65,40 +65,6 @@ module.exports = function(app, companies, BASE_PATH) {
             }
         });
     });
-    //POST /companies/
-    app.post(BASE_PATH + "/companies", (req, res) => {
-        var newCompany = req.body;
-
-        var keys = ["country", "year", "numberOfCompanies", "sector", "page"];
-
-        for (var i = keys.length - 1; i--;) {
-            if (!newCompany.hasOwnProperty(keys[i])) {
-                return res.sendStatus(400);
-            }
-        }
-
-        var countryCompany = req.body.country;
-        var yearCompany = req.body.year;
-        companies.find({ "country": countryCompany, "year": yearCompany }).toArray((error, companiesArray) => {
-            if (error) {
-                console.log("Error: " + error);
-            }
-            else {
-                if (companiesArray.length > 0) {
-                    res.sendStatus(409);
-                }
-                else {
-                    companies.insert(newCompany);
-                    res.sendStatus(201);
-                }
-            }
-        });
-    });
-    //DELETE /companies/
-    app.delete(BASE_PATH + "/companies", (req, res) => {
-        companies.remove({});
-        res.sendStatus(200);
-    });
     //GET /companies/France
     app.get(BASE_PATH + "/companies/:country", (req, res) => {
         var country = req.params.country;
@@ -140,6 +106,35 @@ module.exports = function(app, companies, BASE_PATH) {
             }
         });
     });
+    //POST /companies/
+    app.post(BASE_PATH + "/companies", (req, res) => {
+        var newCompany = req.body;
+
+        var keys = ["country", "year", "numberOfCompanies", "sector", "page"];
+
+        for (var i = keys.length - 1; i--;) {
+            if (!newCompany.hasOwnProperty(keys[i])) {
+                return res.sendStatus(400);
+            }
+        }
+
+        var countryCompany = req.body.country;
+        var yearCompany = req.body.year;
+        companies.find({ "country": countryCompany, "year": yearCompany }).toArray((error, companiesArray) => {
+            if (error) {
+                console.log("Error: " + error);
+            }
+            else {
+                if (companiesArray.length > 0) {
+                    res.sendStatus(409);
+                }
+                else {
+                    companies.insert(newCompany);
+                    res.sendStatus(201);
+                }
+            }
+        });
+    });
     //PUT /companies/:country/:year
     app.put(BASE_PATH + "/companies/:country/:year", (req, res) => {
         var country = req.params.country;
@@ -174,6 +169,11 @@ module.exports = function(app, companies, BASE_PATH) {
             }
         });
     });
+    //DELETE /companies/
+    app.delete(BASE_PATH + "/companies", (req, res) => {
+        companies.remove({});
+        res.sendStatus(200);
+    });
     //DELETE /companies/France
     app.delete(BASE_PATH + "/companies/:country/:year", (req, res) => {
         var country = req.params.country;
@@ -201,9 +201,11 @@ module.exports = function(app, companies, BASE_PATH) {
     app.put(BASE_PATH + "/companies", (req, res) => {
         res.sendStatus(405);
     });
+    //PUT ERROR
     app.put(BASE_PATH + "/companies/:country", (req, res) => {
         res.sendStatus(405);
     });
+    //PUT ERROR
     app.put(BASE_PATH + "/companies/:year", (req, res) => {
         res.sendStatus(405);
     });
