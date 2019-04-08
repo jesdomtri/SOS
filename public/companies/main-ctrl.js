@@ -6,19 +6,16 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     $scope.get = function() {
         $http.get($scope.url).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
-            $scope.status = JSON.stringify(response.status, null, 2);
         });
     }
     $scope.loadinitial = function() {
         $http.get($scope.url + "/loadInitialData").then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
-            $scope.status = JSON.stringify(response.status, null, 2);
         });
     }
     $scope.del = function() {
         $http.delete($scope.url).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
-            $scope.status = JSON.stringify(response.status, null, 2);
         });
     }
     $scope.post = function() {
@@ -30,7 +27,6 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             page: parseInt($scope.page)
         }).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
-            $scope.status = JSON.stringify(response.status, null, 2);
         });
     }
     $scope.put = function() {
@@ -42,7 +38,6 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             page: parseInt($scope.page)
         }).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
-            $scope.status = JSON.stringify(response.status, null, 2);
         });
     }
 }]);
