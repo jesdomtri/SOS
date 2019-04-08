@@ -32,11 +32,11 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     }
     $scope.put = function() {
         $http.put($scope.url, {
-            country: $scope.country,
-            year: parseInt($scope.year),
-            numberOfCompanies: parseInt($scope.numberOfCompanies),
-            sector: parseInt($scope.sector),
-            page: parseInt($scope.page)
+            country: $scope.data.country,
+            year: parseInt($scope.data.year),
+            numberOfCompanies: parseInt($scope.data.numberOfCompanies),
+            sector: parseInt($scope.data.sector),
+            page: parseInt($scope.data.page)
         }).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
         });

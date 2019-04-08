@@ -117,7 +117,10 @@
                             <input class="form-control text-center" ng-model="url"/>
                         </label>
                     <button class="btn btn-primary" ng-click="put()">
-                            Send
+                            Save
+                        </button>
+                    <button class="btn btn-secondary" ng-click="get()">
+                            Load
                         </button>
                 </div>
                 <div style=" padding-top: 2%;">
@@ -125,13 +128,13 @@
                             <h6 style="color: white; font-size: 13px">
                                 Country:
                             </h6>
-                            <input class="form-control text-center" ng-model="country"/>
+                            <input class="form-control text-center" ng-model="data.country"/>
                         </label>
                     <label>
                             <h6 style="color: white; font-size: 13px">
                                 Year:
                             </h6>
-                            <input class="form-control text-center" ng-model="year"/>
+                            <input class="form-control text-center" ng-model="data.year"/>
                         </label>
                 </div>
                 <div style=" padding-top: 2%;">
@@ -139,19 +142,19 @@
                             <h6 style="color: white; font-size: 13px">
                                 Number of companies:
                             </h6>
-                            <input class="form-control text-center" ng-model="numberOfCompanies"/>
+                            <input class="form-control text-center" ng-model="data.numberOfCompanies"/>
                         </label>
                     <label>
                             <h6 style="color: white; font-size: 13px">
                                 Sector:
                             </h6>
-                            <input class="form-control text-center" ng-model="sector"/>
+                            <input class="form-control text-center" ng-model="data.sector"/>
                         </label>
                     <label>
                             <h6 style="color: white; font-size: 13px">
                                 Page:
                             </h6>
-                            <input class="form-control text-center" ng-model="page"/>
+                            <input class="form-control text-center" ng-model="data.page"/>
                         </label>
                 </div>
                 <div style="padding-top:20px">
