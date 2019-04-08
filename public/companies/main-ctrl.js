@@ -19,7 +19,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         });
     }
     $scope.post = function() {
-        $http.post($scope.url, {
+        $http.post($scope.url + "/" + $scope.country + "/" + $scope.year, {
             "country": $scope.country,
             "year": $scope.year,
             "numberOfCompanies": $scope.numberOfCompanies,
@@ -31,7 +31,13 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         });
     }
     $scope.put = function() {
-        $http.put($scope.url).then(function(response) {
+        $http.put($scope.url, {
+            "country": $scope.country,
+            "year": $scope.year,
+            "numberOfCompanies": $scope.numberOfCompanies,
+            "sector": $scope.sector,
+            "page": $scope.page
+        }).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
         });
     }
