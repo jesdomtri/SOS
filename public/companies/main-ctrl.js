@@ -19,8 +19,13 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         });
     }
     $scope.post = function() {
-        $http.post($scope.url, { "country": $scope.country, "year": $scope.year, "numberOfCompanies": $scope.numberOfCompanies,
-            "sector": $scope.sector, "page": $scope.page}).then(function(response) {
+        $http.post($scope.url, {
+            "country": $scope.country,
+            "year": $scope.year,
+            "numberOfCompanies": $scope.numberOfCompanies,
+            "sector": $scope.sector,
+            "page": $scope.page
+        }).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
 
         });
