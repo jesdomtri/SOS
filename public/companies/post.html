@@ -6,7 +6,7 @@
         Companies
     </title>
     <!--<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">-->
-    <link rel="shortcut icon" type="image/png" href="../img/favicon.png"/>
+    <link rel="shortcut icon" type="image/png" href="../img/favicon.png" />
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript">
@@ -119,6 +119,40 @@
                     <button class="btn btn-primary" ng-click="post()">
                             Send
                         </button>
+                </div>
+                <div style=" padding-top: 2%;">
+                    <label>
+                            <h6 style="color: white; font-size: 13px">
+                                Country:
+                            </h6>
+                            <input class="form-control text-center" ng-model="country"/>
+                        </label>
+                    <label>
+                            <h6 style="color: white; font-size: 13px">
+                                Year:
+                            </h6>
+                            <input class="form-control text-center" ng-model="year"/>
+                        </label>
+                </div>
+                <div style=" padding-top: 2%;">
+                    <label>
+                            <h6 style="color: white; font-size: 13px">
+                                Number of companies:
+                            </h6>
+                            <input class="form-control text-center" ng-model="numberOfCompanies"/>
+                        </label>
+                    <label>
+                            <h6 style="color: white; font-size: 13px">
+                                Sector:
+                            </h6>
+                            <input class="form-control text-center" ng-model="sector"/>
+                        </label>
+                    <label>
+                            <h6 style="color: white; font-size: 13px">
+                                Page:
+                            </h6>
+                            <input class="form-control text-center" ng-model="page"/>
+                        </label>
                 </div>
                 <div style="padding-top:20px">
                     <label>

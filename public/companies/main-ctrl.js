@@ -20,7 +20,8 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     }
     $scope.post = function() {
         $http.post($scope.url).then(function(response) {
-            $scope.data = JSON.stringify(response.data, null, 2);
+            $scope.data = { "Country": $scope.country, "Year": $scope.year, "numberOfCompanies": $scope.numberOfCompanies,
+            "sector": $scope.sector, "page": $scope.page};
         });
     }
     $scope.put = function() {
