@@ -27,7 +27,6 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             page: parseInt($scope.page)
         }).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
-
         });
     }
     $scope.put = function() {
