@@ -31,7 +31,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         });
     }
     $scope.put = function() {
-        $http.put($scope.url, {
+        $http.put($scope.url + "/", {
             "country": $scope.country,
             "year": $scope.year,
             "numberOfCompanies": $scope.numberOfCompanies,
