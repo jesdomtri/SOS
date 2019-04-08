@@ -21,10 +21,10 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     $scope.post = function() {
         $http.post($scope.url, {
             country: $scope.country,
-            year: $scope.year,
-            numberOfCompanies: $scope.numberOfCompanies,
-            sector: $scope.sector,
-            page: $scope.page
+            year: parseInt($scope.year),
+            numberOfCompanies: parseInt($scope.numberOfCompanies),
+            sector: parseInt($scope.sector),
+            page: parseInt($scope.page)
         }).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
 
@@ -32,11 +32,11 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     }
     $scope.put = function() {
         $http.put($scope.url, {
-            "country": $scope.country,
-            "year": $scope.year,
-            "numberOfCompanies": $scope.numberOfCompanies,
-            "sector": $scope.sector,
-            "page": $scope.page
+            country: $scope.country,
+            year: parseInt($scope.year),
+            numberOfCompanies: parseInt($scope.numberOfCompanies),
+            sector: parseInt($scope.sector),
+            page: parseInt($scope.page)
         }).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
         });
