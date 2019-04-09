@@ -74,7 +74,7 @@
         $scope.put = function(){
             
             $http.put($scope.url,{
-                 country : $scope.country,
+                    country : $scope.country,
                     year : parseInt($scope.year),
                     attacktype: $scope.attacktype,
                     economicimpactmillions: parseInt($scope.economicimpactmillions),
