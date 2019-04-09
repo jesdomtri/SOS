@@ -71,27 +71,22 @@
         };
             
         
-        $scope.put = function(){
-            
-            $http.put($scope.url,{
-                    country : $scope.country,
-                    year : parseInt($scope.year),
-                    attacktype: $scope.attacktype,
-                    economicimpactmillions: parseInt($scope.economicimpactmillions),
-                    affectedequipments:  parseInt($scope.affectedequipments),
-                    overallpercentage: parseInt($scope.overallpercentage)
-            
-            }).them(function(response){
-                
-                $scope.data = JSON.stringify(response.data,null,2);
-                $scope.status = JSON.stringify(response.status,null,2);
-                
-            } , function(response){
-                $scope.data= response.data || "Request failed";
-                $scope.status= response.status;
-            });
-            
-        };
+       $scope.put = function() {
+        $http.put($scope.url, {
+            country: $scope.country,
+            year: parseInt($scope.year),
+            attacktype: $scope.attacktype,
+            economicimpactmillions:$scope.economicimpactmillions,
+            affectedequipments: $scope.affectedequipments,
+            overallpercentage: $scope.overallpercentage
+        }).then(function(response) {
+            $scope.data = JSON.stringify(response.data, null, 2);
+            $scope.status = JSON.stringify(response.status, null, 2);
+        }, function(response) {
+          $scope.data = response.data || 'Request failed';
+          $scope.status = response.status;
+      });
+    }
         
         
         
