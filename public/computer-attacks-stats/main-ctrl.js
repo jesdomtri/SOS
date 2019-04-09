@@ -34,7 +34,7 @@
            
             $http.delete($scope.url).then(function(response){
                 $scope.data = JSON.stringify(response.data,null,2);
-                $scope.status=JSON.stringify(response.stats,null,2);
+                $scope.status=JSON.stringify(response.status,null,2);
                 
           
             } , function (response){
