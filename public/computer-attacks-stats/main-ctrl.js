@@ -20,23 +20,17 @@
                 );
         };
         
-        $scope.loadinitial= function(){
-         $http.loadinitial($scope.url + "/loadInitialData").them(function(response){
-             
-             $scope.data=JSON.stringify(response.data,null,2);
-             $scope.status=JSON.stringify(response.status,null,2);
-         
-             
-         } , function ( response){
-           
-             $scope.data = response.data || "Request failed";
-             $scope.status=response.status ; 
-        
-         })   ;
-        
-        }
+        $scope.loadinitial = function() {
+        $http.get($scope.url + "/loadInitialData").then(function(response) {
+            $scope.data = JSON.stringify(response.data, null, 2);
+            $scope.status = JSON.stringify(response.status, null, 2);
+        }, function(response) {
+          $scope.data = response.data || 'Request failed';
+          $scope.status = response.status;
+      });
+    };
        
-        $scope.delete = function(){
+        $scope.del = function(){
            
             $http.delete($scope.url).then(function(response){
                 $scope.data = JSON.stringify(response.data,null,2);
