@@ -3,9 +3,9 @@
     
     var app = angular.module("PostmanApp");
   
-    app.controller("MainController",["$scope","$http", function ($scope,$http) {
+    app.controller("MainCntrl",["$scope","$http", function ($scope,$http) {
         
-        console.log("MainController initialized");
+        console.log("MainCntrl initialized");
         
         $scope.url = "/api/v1/computers-attacks-stats";
         
