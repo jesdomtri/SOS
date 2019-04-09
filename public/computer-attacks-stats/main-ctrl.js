@@ -1,7 +1,5 @@
 /*global angular $scope*/
 var app = angular.module("PostmanApp");
-console.log("Modular App Initialized");
-
     app.controller("MainController",["$scope","$http", function ($scope,$http) {
         
         console.log("MainController initialized");
@@ -21,6 +19,9 @@ console.log("Modular App Initialized");
                 $scope.data = JSON.stringify(response.data,null,2);
                 $scope.status=JSON.stringify(response.stats,null,2);
                 
+            } , function (response){
+                $scope.data=response.data || "Request filed";
+                $scope.status = response.status
             });
         };
         
