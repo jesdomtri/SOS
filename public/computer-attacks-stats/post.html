@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html ng-app="PostmanApp">
+
+<head>
+    <title>
+        Attacks
+    </title>
+    <!--<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">-->
+    <link rel="shortcut icon" type="image/png" href="../img/favicon.png" />
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript">
+    </script>
+    <script src="/bower_components/angular/angular.min.js" type="text/javascript">
+    </script>
+    <script src="postman-app.js" type="text/javascript">
+    </script>
+    <script src="main-ctrl.js" type="text/javascript">
+    </script>
+    <style>
+        html,
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Roboto", sans-serif;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            float: left;
+            display: inline;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        /* Change the link color to #111 (black) on hover */
+
+        li a:hover {
+            background-color: #111;
+        }
+    </style>
+    </link>
+    </link>
+</head>
+
+<body ng-controller="MainCtrl" style="padding-top: 2%; background: linear-gradient(to top right,#41295a, #2F0743); background-size:100% 1920px;">
+    <!-- POSTMAN ATTACKS-->
+    <div class="container" style="padding-bottom: 1%;">
+        <h1 style="color: white">
+            <img class="navbar-toggler-icon" src="/img/logo-postman.png" /> Postman Attacks
+        </h1>
+    </div>
+    <!-- CONTAINER -->
+    <div class="container" style="background-color: rgb(46, 49, 49); padding-bottom: 3%; border-radius: 20px;box-shadow: 0px 0px 16px -2px rgba(0,0,0,0.52);">
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-md navbar-dark info-color" style="background-color: #2e3131;">
+            <a class="navbar-brand" href="../">
+                    Home
+                </a>
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+                    <span class="navbar-toggler-icon">
+                    </span>
+                </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto" style="background-color: #2e3131;">
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light" href="./get.html">
+                                Get
+                            </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link waves-effect waves-light" href="./post.html">
+                                Post
+                                <span class="sr-only">
+                                    (current)
+                                </span>
+                            </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light" href="./put.html">
+                                Put
+                            </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light" href="./delete.html">
+                                Delete
+                            </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <div>
+                <!-- API -->
+                <div style=" padding-top: 2%;">
+                    <label>
+                            <h5 style="color: white">
+                                URL:
+                            </h5>
+                            <input class="form-control text-center" ng-model="url"/>
+                        </label>
+                    <button class="btn btn-primary" ng-click="post()">
+                            Send
+                        </button>
+                </div>
+                <div style=" padding-top: 2%;">
+                    <label>
+                            <h6 style="color: white; font-size: 13px">
+                                Country:
+                            </h6>
+                            <input class="form-control text-center" ng-model="country"/>
+                        </label>
+                    <label>
+                            <h6 style="color: white; font-size: 13px">
+                                Year:
+                            </h6>
+                            <input class="form-control text-center" ng-model="year"/>
+                        </label>
+                </div>
+                <div style=" padding-top: 2%;">
+                    <label>
+                            <h6 style="color: white; font-size: 13px">
+                                Attack type:
+                            </h6>
+                            <input class="form-control text-center" ng-model="attacktype"/>
+                        </label>
+                    <label>
+                            <h6 style="color: white; font-size: 13px">
+                                Impact in millions:
+                            </h6>
+                            <input class="form-control text-center" ng-model="economicimpactmillions"/>
+                        </label>
+                    <label>
+                            <h6 style="color: white; font-size: 13px">
+                                Affected equipments:
+                            </h6>
+                            <input class="form-control text-center" ng-model="affectedequipments"/>
+                        </label>
+                     <label>
+                            <h6 style="color: white; font-size: 13px">
+                                Overall percentage:
+                            </h6>
+                            <input class="form-control text-center" ng-model="overallpercentage"/>
+                        </label>
+                </div>
+                <div style="padding-top:20px">
+                    <label>
+                            <h5 style="color: white">
+                                API:
+                            </h5>
+                        </label>
+                    <textarea class="form-control" ng-model="data" rows="20">
+                        </textarea>
+                </div>
+                <div style="padding-top:20px">
+                    <label>
+                            <h5 style="color: white">
+                                STATUS CODE:
+                            </h5>
+                        </label>
+                    <textarea class="form-control" ng-model="status" rows="1">
+                        </textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
