@@ -127,13 +127,19 @@ module.exports = function(app, stats) {
         }
 
         var countryStat = req.body.country;
-        stats.find({ "country": countryStat }).toArray((error, statsArray) => {
-            if (statsArray.length > 0) {
-                res.sendStatus(409); //Conflict
+        var yearStat = req.body.year;
+        stats.find({ "country": countryStat, "year": yearStat }).toArray((error, companiesArray) => {
+            if (error) {
+                console.log("Error: " + error);
             }
             else {
-                stats.insert(newStat);
-                res.sendStatus(201); //Created
+                if (companiesArray.length > 0) {
+                    res.sendStatus(409);
+                }
+                else {
+                    stats.insert(newStat);
+                    res.sendStatus(201);
+                }
             }
         });
     });
