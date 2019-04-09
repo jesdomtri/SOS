@@ -77,9 +77,9 @@
                  country : $scope.country,
                     year : parseInt($scope.year),
                     attacktype: $scope.attacktype,
-                    economicimpactmillions: parseFloat($scope.economicimpactmillions),
+                    economicimpactmillions: parseInt($scope.economicimpactmillions),
                     affectedequipments:  parseInt($scope.affectedequipments),
-                    overallpercentage: parseFloat($scope.overallpercentage)
+                    overallpercentage: parseInt($scope.overallpercentage)
             
             }).them(function(response){
                 
