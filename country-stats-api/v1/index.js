@@ -163,10 +163,6 @@ module.exports = function(app, stats) {
                 return res.sendStatus(400);
             }
         }
-        
-        if (updatedStats.length <5){
-            return res.sendStatus(400)
-        }
 
         stats.find({ "country": country, "year": parseInt(year) }).toArray((error, filteredstats) => {
             if (error) {
