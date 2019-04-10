@@ -46,6 +46,17 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
           $scope.status = response.status;
       });
     }
+    
+    $scope.postJSON = function() {
+        $http.post($scope.url, $scope.data).then(function(response) {
+            $scope.data = "";
+            $scope.status = JSON.stringify(response.status, null, 2);
+        }, function(response) {
+            $scope.data = response.data || 'Request failed';
+            $scope.status = response.status;
+        });
+    }
+    
     $scope.put = function() {
         $http.put($scope.url, {
             country: $scope.country,
@@ -60,5 +71,15 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
           $scope.data = response.data || 'Request failed';
           $scope.status = response.status;
       });
+    }
+    
+     $scope.putJSON = function() {
+        $http.put($scope.url, $scope.data).then(function(response) {
+            $scope.data = "";
+            $scope.status = JSON.stringify(response.status, null, 2);
+        }, function(response) {
+            $scope.data = response.data || 'Request failed';
+            $scope.status = response.status;
+        });
     }
 }]);

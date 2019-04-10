@@ -106,7 +106,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="container">
+<div class="container">
             <div>
                 <!-- API -->
                 <div style=" padding-top: 2%;">
@@ -118,6 +118,9 @@
                         </label>
                     <button class="btn btn-primary" ng-click="post()">
                             Send
+                        </button>
+                    <button class="btn btn-primary" ng-click="postJSON()">
+                            Send JSON
                         </button>
                 </div>
                 <div style=" padding-top: 2%;">
@@ -137,7 +140,7 @@
                 <div style=" padding-top: 2%;">
                     <label>
                             <h6 style="color: white; font-size: 13px">
-                                Extension of borders:
+                               Extensions of borders:
                             </h6>
                             <input class="form-control text-center" ng-model="numberOfCompanies"/>
                         </label>
@@ -162,7 +165,7 @@
                         </label>
                     <textarea class="form-control" ng-model="data" rows="20">
                         </textarea>
-                 </div>
+                </div>
                 <div style="padding-top:20px">
                     <label>
                             <h5 style="color: white">
