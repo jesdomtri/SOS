@@ -263,9 +263,7 @@ app.put(BASE_PATH+"/computers-attacks-stats/:country/:year/:attacktype", (req, r
             console.log("Error: " + error);
         }else{
             
-            if  (req.body.country != country || req.body.year != year || req.body.attacktype != attacktype) {
-                    res.sendStatus(400);
-                }else{
+           
                        if (attackfilter.length > 0) {
                     attacks.update({ "country": country ,"year": parseInt(year),"attacktype" : attacktype },  updatedattacks );
                     res.sendStatus(200);
@@ -275,7 +273,7 @@ app.put(BASE_PATH+"/computers-attacks-stats/:country/:year/:attacktype", (req, r
                 }
                     
                 }
-        }
+        
     });
 });
 //// DELETE /computers-attacks-stats/FRANCE
