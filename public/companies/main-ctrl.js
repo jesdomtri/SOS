@@ -6,6 +6,11 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     $scope.get = function() {
         $http.get($scope.url).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
+            $scope.country = response.data.country;
+            $scope.year = response.data.year;
+            $scope.numberOfCompanies = response.data.numberOfCompanies;
+            $scope.sector = response.data.sector;
+            $scope.page = response.data.page;
             $scope.status = JSON.stringify(response.status, null, 2);
         }, function(response) {
             $scope.data = response.data || 'Request failed';
