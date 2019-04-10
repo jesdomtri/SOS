@@ -119,6 +119,9 @@
                     <button class="btn btn-primary" ng-click="post()">
                             Send
                         </button>
+                    <button class="btn btn-primary" ng-click="postJSON()">
+                            Send JSON
+                        </button>
                 </div>
                 <div style=" padding-top: 2%;">
                     <label>
@@ -158,6 +161,13 @@
                     <label>
                             <h5 style="color: white">
                                 API:
+                            </h5>
+                        </label>
+                    <textarea class="form-control" ng-model="data" rows="20">
+                        </textarea>
+                    <label>
+                            <h5 style="color: white">
+                                JSON:
                             </h5>
                         </label>
                     <textarea class="form-control" ng-model="data" rows="20">
