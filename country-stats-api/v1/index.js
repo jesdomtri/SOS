@@ -159,7 +159,7 @@ module.exports = function(app, stats) {
         var keys = ["country", "year", "extensionOfBorders", "population", "territorialExtension"];
 
         for (var i = keys.length - 1; i--;) {
-            if (!updatedStats.hasOwnProperty(keys[i]) || keys[i] == null) {
+            if (!updatedStats.hasOwnProperty(keys[i]) || !keys[i]) {
                 return res.sendStatus(400);
             }
         }
