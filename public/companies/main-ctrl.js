@@ -7,6 +7,9 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         $http.get($scope.url).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.status = JSON.stringify(response.status, null, 2);
+        }, function(response) {
+            $scope.data = response.data || 'Request failed';
+            $scope.status = response.status;
         });
     }
     $scope.loadinitial = function() {
@@ -14,18 +17,18 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.status = JSON.stringify(response.status, null, 2);
         }, function(response) {
-          $scope.data = response.data || 'Request failed';
-          $scope.status = response.status;
-      });
+            $scope.data = response.data || 'Request failed';
+            $scope.status = response.status;
+        });
     }
     $scope.del = function() {
         $http.delete($scope.url).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.status = JSON.stringify(response.status, null, 2);
         }, function(response) {
-          $scope.data = response.data || 'Request failed';
-          $scope.status = response.status;
-      });
+            $scope.data = response.data || 'Request failed';
+            $scope.status = response.status;
+        });
     }
     $scope.post = function() {
         $http.post($scope.url, {
@@ -38,9 +41,9 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.status = JSON.stringify(response.status, null, 2);
         }, function(response) {
-          $scope.data = response.data || 'Request failed';
-          $scope.status = response.status;
-      });
+            $scope.data = response.data || 'Request failed';
+            $scope.status = response.status;
+        });
     }
     $scope.put = function() {
         $http.put($scope.url, {
@@ -53,8 +56,8 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.status = JSON.stringify(response.status, null, 2);
         }, function(response) {
-          $scope.data = response.data || 'Request failed';
-          $scope.status = response.status;
-      });
+            $scope.data = response.data || 'Request failed';
+            $scope.status = response.status;
+        });
     }
 }]);
