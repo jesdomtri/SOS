@@ -121,7 +121,7 @@ module.exports = function(app, stats) {
         var keys = ["country", "year", "extensionOfBorders", "population", "territorialExtension"];
 
         for (var i = keys.length - 1; i--;) {
-            if (!newStat.hasOwnProperty(keys[i])) {
+            if (!newStat.hasOwnProperty(keys[i]) || keys[i] == null) {
                 return res.sendStatus(400); //Bad Request
             }
         }
@@ -159,7 +159,7 @@ module.exports = function(app, stats) {
         var keys = ["country", "year", "extensionOfBorders", "population", "territorialExtension"];
 
         for (var i = keys.length - 1; i--;) {
-            if (!updatedStats.hasOwnProperty(keys[i])) {
+            if (!updatedStats.hasOwnProperty(keys[i]) || !keys[i]) {
                 return res.sendStatus(400);
             }
         }
