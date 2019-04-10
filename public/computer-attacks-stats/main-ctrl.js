@@ -76,9 +76,9 @@
             country: $scope.country,
             year: parseInt($scope.year),
             attacktype: $scope.attacktype,
-            economicimpactmillions:$scope.economicimpactmillions,
-            affectedequipments: $scope.affectedequipments,
-            overallpercentage: $scope.overallpercentage
+            economicimpactmillions:parseFloat($scope.economicimpactmillions),
+            affectedequipments: parseInt($scope.affectedequipments),
+            overallpercentage:parseFloat( $scope.overallpercentage)
         }).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.status = JSON.stringify(response.status, null, 2);
