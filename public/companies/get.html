@@ -60,7 +60,7 @@
     </link>
 </head>
 
-<body ng-controller="MainCtrl" style="padding-top: 2%; background: linear-gradient(to top right,#41295a, #2F0743); background-size:100% 1920px;">
+<body ng-controller="MainCtrl" style="padding-top: 2%;padding-bottom:3%; background: linear-gradient(to top right,#41295a, #2F0743); background-size:100% 1920px;">
     <!-- POSTMAN COMPANIES -->
     <div class="container" style="padding-bottom: 1%;">
         <h1 style="color: white">
@@ -107,40 +107,38 @@
             </div>
         </nav>
         <div class="container">
-            <div>
-                <!-- API -->
-                <div style=" padding-top: 2%;">
-                    <label>
+            <!-- API -->
+            <div style=" padding-top: 2%;">
+                <label>
                             <h5 style="color: white">
                                 URL:
                             </h5>
                             <input class="form-control text-center" ng-model="url"/>
                         </label>
-                    <button class="btn btn-primary" ng-click="get()">
+                <button class="btn btn-primary" ng-click="get()">
                             Send
                         </button>
-                    <button class="btn btn btn-secondary" ng-click="loadinitial()">
+                <button class="btn btn btn-secondary" ng-click="loadinitial()">
                             Load Initial Data
                         </button>
-                </div>
-                <div style="padding-top:20px">
-                    <label>
+            </div>
+            <div style="padding-top:20px;">
+                <label>
                             <h5 style="color: white">
                                 API:
                             </h5>
-                        </label>
-                    <textarea class="form-control" ng-model="data" rows="20">
+                </label>
+                <textarea class="form-control" ng-model="data" rows="20">
                         </textarea>
-                </div>
-                <div style="padding-top:20px">
-                    <label>
+            </div>
+            <div style="padding-top:20px">
+                <label>
                             <h5 style="color: white">
                                 STATUS CODE:
                             </h5>
                         </label>
-                    <textarea class="form-control" ng-model="status" rows="1">
+                <textarea class="form-control" ng-model="status" rows="1">
                         </textarea>
-                </div>
             </div>
         </div>
     </div>

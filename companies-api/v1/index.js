@@ -194,6 +194,14 @@ module.exports = function(app, companies, BASE_PATH) {
         });
     });
     //POST ERROR
+    app.post(BASE_PATH + "/companies/:country", (req, res) => {
+        res.sendStatus(405);
+    });
+    //POST ERROR
+    app.post(BASE_PATH + "/companies/:year", (req, res) => {
+        res.sendStatus(405);
+    });
+    //POST ERROR
     app.post(BASE_PATH + "/companies/:country/:year", (req, res) => {
         res.sendStatus(405);
     });
