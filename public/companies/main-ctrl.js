@@ -1,8 +1,24 @@
-/* global angular */
+/* global angular location*/
 var app = angular.module("PostmanApp");
 app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     console.log("Modular MainCtrl initialized");
     $scope.url = "/api/v1/companies";
+    refresh();
+
+    function refresh() {
+        $http.get($scope.url).then(function(response) {
+            $scope.companies = response.data;
+            $scope.status = response.status;
+
+        }, function(response) {
+            $scope.companies = response.companies || 'Request failed';
+            $scope.status = response.status;
+        });
+    }
+
+    function refreshpage() {
+        location.reload();
+    }
     $scope.get = function() {
         $http.get($scope.url).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
@@ -12,6 +28,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.sector = response.data.sector;
             $scope.page = response.data.page;
             $scope.status = JSON.stringify(response.status, null, 2);
+            refresh();
         }, function(response) {
             $scope.data = response.data || 'Request failed';
             $scope.status = response.status;
@@ -21,6 +38,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         $http.get($scope.url + "/loadInitialData").then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.status = JSON.stringify(response.status, null, 2);
+            refresh();
         }, function(response) {
             $scope.data = response.data || 'Request failed';
             $scope.status = response.status;
@@ -30,6 +48,17 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         $http.delete($scope.url).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.status = JSON.stringify(response.status, null, 2);
+            refresh();
+        }, function(response) {
+            $scope.data = response.data || 'Request failed';
+            $scope.status = response.status;
+        });
+    }
+    $scope.delTable = function(country, year) {
+        $http.delete($scope.url + "/" + country + "/" + year).then(function(response) {
+            $scope.data = JSON.stringify(response.data, null, 2);
+            $scope.status = JSON.stringify(response.status, null, 2);
+            refresh();
         }, function(response) {
             $scope.data = response.data || 'Request failed';
             $scope.status = response.status;
@@ -45,6 +74,23 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         }).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.status = JSON.stringify(response.status, null, 2);
+            refresh();
+        }, function(response) {
+            $scope.data = response.data || 'Request failed';
+            $scope.status = response.status;
+        });
+    }
+    $scope.postTable = function(country, year, numberOfCompanies, sector, page) {
+        $http.post($scope.url, {
+            country: country,
+            year: parseInt(year),
+            numberOfCompanies: parseInt(numberOfCompanies),
+            sector: parseInt(sector),
+            page: parseInt(page)
+        }).then(function(response) {
+            $scope.data = JSON.stringify(response.data, null, 2);
+            $scope.status = JSON.stringify(response.status, null, 2);
+            refreshpage()
         }, function(response) {
             $scope.data = response.data || 'Request failed';
             $scope.status = response.status;
@@ -54,6 +100,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         $http.post($scope.url, $scope.data).then(function(response) {
             $scope.data = "";
             $scope.status = JSON.stringify(response.status, null, 2);
+            refresh();
         }, function(response) {
             $scope.data = response.data || 'Request failed';
             $scope.status = response.status;
@@ -69,6 +116,23 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         }).then(function(response) {
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.status = JSON.stringify(response.status, null, 2);
+            refresh();
+        }, function(response) {
+            $scope.data = response.data || 'Request failed';
+            $scope.status = response.status;
+        });
+    }
+    $scope.putTable = function(country, year, numberOfCompanies, sector, page) {
+        $http.put($scope.url, {
+            country: country,
+            year: parseInt(year),
+            numberOfCompanies: parseInt(numberOfCompanies),
+            sector: parseInt(sector),
+            page: parseInt(page)
+        }).then(function(response) {
+            $scope.data = JSON.stringify(response.data, null, 2);
+            $scope.status = JSON.stringify(response.status, null, 2);
+            refresh();
         }, function(response) {
             $scope.data = response.data || 'Request failed';
             $scope.status = response.status;
@@ -78,6 +142,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         $http.put($scope.url, $scope.data).then(function(response) {
             $scope.data = "";
             $scope.status = JSON.stringify(response.status, null, 2);
+            refresh();
         }, function(response) {
             $scope.data = response.data || 'Request failed';
             $scope.status = response.status;

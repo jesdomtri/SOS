@@ -6,16 +6,16 @@
         Companies
     </title>
     <!--<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">-->
-    <link rel="shortcut icon" type="image/png" href="../img/favicon.png" />
+    <link rel="shortcut icon" type="image/png" href="/img/favicon.png" />
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript">
     </script>
     <script src="/bower_components/angular/angular.min.js" type="text/javascript">
     </script>
-    <script src="postman-app.js" type="text/javascript">
+    <script src="../postman-app.js" type="text/javascript">
     </script>
-    <script src="main-ctrl.js" type="text/javascript">
+    <script src="../main-ctrl.js" type="text/javascript">
     </script>
     <style>
         html,
@@ -27,33 +27,6 @@
         h5,
         h6 {
             font-family: "Roboto", sans-serif;
-        }
-
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #333;
-        }
-
-        li {
-            float: left;
-            display: inline;
-        }
-
-        li a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        /* Change the link color to #111 (black) on hover */
-
-        li a:hover {
-            background-color: #111;
         }
     </style>
     </link>
@@ -72,7 +45,7 @@
         <!-- NAVBAR -->
         <nav class="navbar navbar-expand-md navbar-dark info-color" style="background-color: #2e3131;">
             <a class="navbar-brand" href="../">
-                    Home
+                    Back
                 </a>
             <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
                     <span class="navbar-toggler-icon">
@@ -90,17 +63,17 @@
                                 Post
                             </a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link waves-effect waves-light" href="./put.html">
                                 Put
+                            </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link waves-effect waves-light" href="./delete.html">
+                                Delete
                                 <span class="sr-only">
                                     (current)
                                 </span>
-                            </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light" href="./delete.html">
-                                Delete
                             </a>
                     </li>
                 </ul>
@@ -115,49 +88,9 @@
                             </h5>
                             <input class="form-control text-center" ng-model="url"/>
                         </label>
-                <button class="btn btn-primary" ng-click="put()">
-                            Save
+                <button class="btn btn-danger" ng-click="del()">
+                            Delete
                         </button>
-                <button class="btn btn-primary" ng-click="putJSON()">
-                            Save JSON
-                        </button>
-                <button class="btn btn-secondary" ng-click="get()">
-                            Load
-                        </button>
-            </div>
-            <div style=" padding-top: 2%;">
-                <label>
-                            <h6 style="color: white; font-size: 13px">
-                                Country:
-                            </h6>
-                            <input class="form-control text-center" ng-model="country"/>
-                        </label>
-                <label>
-                            <h6 style="color: white; font-size: 13px">
-                                Year:
-                            </h6>
-                            <input class="form-control text-center" ng-model="year"/>
-                        </label>
-            </div>
-            <div style=" padding-top: 2%;">
-                <label>
-                            <h6 style="color: white; font-size: 13px">
-                                Number of companies:
-                            </h6>
-                            <input class="form-control text-center" ng-model="numberOfCompanies"/>
-                        </label>
-                <label>
-                            <h6 style="color: white; font-size: 13px">
-                                Sector:
-                            </h6>
-                            <input class="form-control text-center" ng-model="sector"/>
-                        </label>
-                <label>
-                            <h6 style="color: white; font-size: 13px">
-                                Page:
-                            </h6>
-                            <input class="form-control text-center" ng-model="page"/>
-                        </label>
             </div>
             <div style="padding-top:20px">
                 <label>
