@@ -21,6 +21,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     }
     $scope.get = function() {
         $http.get($scope.url).then(function(response) {
+            console.log("Get done");
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.country = response.data.country;
             $scope.year = response.data.year;
@@ -36,6 +37,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     }
     $scope.loadinitial = function() {
         $http.get($scope.url + "/loadInitialData").then(function(response) {
+            console.log("Load initial data done");
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.status = JSON.stringify(response.status, null, 2);
             refresh();
@@ -46,6 +48,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     }
     $scope.del = function() {
         $http.delete($scope.url).then(function(response) {
+            console.log("Everything is clean here");
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.status = JSON.stringify(response.status, null, 2);
             refresh();
@@ -56,6 +59,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     }
     $scope.delTable = function(country, year) {
         $http.delete($scope.url + "/" + country + "/" + year).then(function(response) {
+            console.log("Delete one done");
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.status = JSON.stringify(response.status, null, 2);
             refresh();
@@ -88,6 +92,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             sector: parseInt(sector),
             page: parseInt(page)
         }).then(function(response) {
+            console.log("Post table done");
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.status = JSON.stringify(response.status, null, 2);
             refreshpage()
@@ -123,13 +128,14 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         });
     }
     $scope.putTable = function(country, year, numberOfCompanies, sector, page) {
-        $http.put($scope.url, {
+        $http.put($scope.url + "/" + country + "/" + year, {
             country: country,
             year: parseInt(year),
             numberOfCompanies: parseInt(numberOfCompanies),
             sector: parseInt(sector),
             page: parseInt(page)
         }).then(function(response) {
+            console.log("Put table done");
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.status = JSON.stringify(response.status, null, 2);
             refresh();

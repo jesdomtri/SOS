@@ -6,17 +6,21 @@
         Companies
     </title>
     <!--<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">-->
+
     <link rel="shortcut icon" type="image/png" href="/img/favicon.png" />
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <!--<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>-->
+
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript">
-    </script>
-    <script src="/bower_components/angular/angular.min.js" type="text/javascript">
-    </script>
-    <script src="postman-app.js" type="text/javascript">
-    </script>
-    <script src="main-ctrl.js" type="text/javascript">
-    </script>
+
+    <script src="/bower_components/angular/angular.min.js" type="text/javascript"></script>
+
+    <script src="postman-app.js" type="text/javascript"></script>
+    <script src="main-ctrl.js" type="text/javascript"></script>
+
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <style>
         html,
         body,
@@ -83,13 +87,14 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="company in companies">
-                            <td>{{company.country}}</td>
-                            <td>{{ company.year }}</td>
-                            <td>{{ company.numberOfCompanies }}</td>
-                            <td>{{ company.sector }}</td>
-                            <td>{{ company.page }}</td>
+                            <td><input class="form-control text-center" ng-model="company.country" readonly/></td>
+                            <td><input class="form-control text-center" ng-model="company.year" readonly/></td>
+                            <td><input class="form-control text-center" ng-model="company.numberOfCompanies" /></td>
+                            <td><input class="form-control text-center" ng-model="company.sector" /></td>
+                            <td><input class="form-control text-center" ng-model="company.page" /></td>
                             <td>
                                 <button class="btn btn-danger" ng-click="delTable(company.country,company.year)">Delete</button>
+                                <button class="btn btn-warning" ng-click="putTable(company.country,company.year,company.numberOfCompanies,company.sector,company.page)">Update</button>
                             </td>
                         </tr>
                         <tr>
@@ -105,5 +110,8 @@
             </div>
         </div>
     </div>
+
+
 </body>
+
 </html>
