@@ -52,15 +52,15 @@ module.exports = function(app, stats) {
         if (Object.keys(req.query).includes("from") && Object.keys(req.query).includes("to")) {
             delete query.from;
             delete query.to;
-            query["country"] = { "$lte": parseInt(req.query["to"]), "$gte": parseInt(req.query["from"]) };
+            query["year"] = { "$lte": parseInt(req.query["to"]), "$gte": parseInt(req.query["from"]) };
         }
         else if (Object.keys(req.query).includes('from')) {
             delete query.from;
-            query["country"] = { "$gte": parseInt(req.query["from"]) };
+            query["year"] = { "$gte": parseInt(req.query["from"]) };
         }
         else if (Object.keys(req.query).includes("to")) {
             delete query.to;
-            query["country"] = { "$lte": parseInt(req.query["to"]) };
+            query["year"] = { "$lte": parseInt(req.query["to"]) };
         }
 
         stats.find(query).skip(offset).limit(limit).toArray((error, statsArray) => {

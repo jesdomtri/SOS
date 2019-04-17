@@ -13,6 +13,13 @@ module.exports = function(app, companies, BASE_PATH) {
             { country: "Japan", year: 2017, numberOfCompanies: 10442, sector: 22, page: 9254 },
             { country: "Germany", year: 2017, numberOfCompanies: 6243, sector: 31, page: 6041 },
             { country: "EEUU", year: 2017, numberOfCompanies: 31148, sector: 34, page: 28745 },
+            { country: "Germany", year: 2017, numberOfCompanies: 6305, sector: 31, page: 6103 },
+            { country: "Argentina", year: 2017, numberOfCompanies: 4595, sector: 25, page: 4297 },
+            { country: "Georgia", year: 2017, numberOfCompanies: 4, sector: 3, page: 3 },
+            { country: "India", year: 2017, numberOfCompanies: 187, sector: 2, page: 2 },
+            { country: "Norway", year: 2017, numberOfCompanies: 91, sector: 8, page: 65 },
+            { country: "Mexico", year: 2017, numberOfCompanies: 2540, sector: 27, page: 1712 },
+            { country: "Sweden", year: 2017, numberOfCompanies: 386, sector: 13, page: 276 },
             { country: "Spain", year: 2017, numberOfCompanies: 1409159, sector: 46, page: 1409159 }
         ];
 
@@ -52,6 +59,20 @@ module.exports = function(app, companies, BASE_PATH) {
                 query[i] = req.query[i];
             }
         });
+        
+        if (Object.keys(req.query).includes("from") && Object.keys(req.query).includes("to")) {
+            delete query.from;
+            delete query.to;
+            query["year"] = { "$lte": parseInt(req.query["to"]), "$gte": parseInt(req.query["from"]) };
+        }
+        else if (Object.keys(req.query).includes('from')) {
+            delete query.from;
+            query["year"] = { "$gte": parseInt(req.query["from"]) };
+        }
+        else if (Object.keys(req.query).includes("to")) {
+            delete query.to;
+            query["year"] = { "$lte": parseInt(req.query["to"]) };
+        }
 
         companies.find(query).skip(offset).limit(limit).toArray((error, companiesArray) => {
             if (error) {

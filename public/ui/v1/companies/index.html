@@ -28,19 +28,23 @@
     </link>
 </head>
 
-<body ng-controller="MainCtrl" style="padding-top: 2%;padding-bottom:3%; background: linear-gradient(to top right,#41295a, #2F0743); background-size:100% 1080px;">
+<body ng-controller="MainCtrl" style="padding-top: 2%;padding-bottom:3%; background: linear-gradient(to top right,#41295a, #2F0743); background-size:100% 1300px;">
     <!-- POSTMAN COMPANIES -->
     <div class="container" style="padding-bottom: 1%;">
         <h1 style="color: white">
             <img class="navbar-toggler-icon" src="/img/logo-postman.png" /> Postman Companies
         </h1>
     </div>
+    <div style="padding-bottom:1%;" class="container">
+        <alert class="alert alert-primary" ng-repeat="alert in alerts">{{alert.msg}}</alert>
+    </div>
+
     <!-- CONTAINER -->
     <div class="container" style="background-color: rgb(46, 49, 49); padding-bottom: 3%; border-radius: 20px;box-shadow: 0px 0px 16px -2px rgba(0,0,0,0.52);">
         <!-- NAVBAR -->
         <nav class="navbar navbar-expand-md navbar-dark info-color" style="background-color: #2e3131;">
-            <a class="navbar-brand" href="../">
-                    Home
+            <a class="navbar-brand" href="../../../">
+                    Inicio
                 </a>
             <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
                     <span class="navbar-toggler-icon">
@@ -50,42 +54,46 @@
                 <ul class="navbar-nav mr-auto" style="background-color: #2e3131;">
                     <li class="nav-item">
                         <a class="nav-link waves-effect waves-light" href="./developer-mode/get.html">
-                                Developer Mode
-                                <span class="sr-only">
-                                    (current)
-                                </span>
+                                Modo desarrollador
                             </a>
                     </li>
                 </ul>
             </div>
         </nav>
         <div class="container">
-            <div style="padding-bottom:1%;">
-                <button class="btn btn-primary" ng-click="loadinitial()">Load Initial Data</button>
-                <button class="btn btn-danger" ng-click="del()">Delete Data</button>
+            <div style="padding-bottom:2%;">
+                <button class="btn btn-primary" ng-click="loadinitial()">Cargar datos iniciales</button>
+                <button class="btn btn-danger" ng-click="del()">Eliminar todo</button>
+            </div>
+            <div style="padding-bottom:2%;">
+                <input class="form-control text-center" style="display:inline; width:100px;" ng-model="from" placeholder="Desde" />
+                <input class="form-control text-center" style="display:inline; width:100px;" ng-model="to" placeholder="Hasta" />
+                <button class="btn btn-info" style="display:inline; width:100px;" ng-click="getFromTo(from,to)">Buscar</button>
+                <input class="form-control text-center" style="display:inline; width:100px; margin-left: 3%;" ng-model="countrySearch" placeholder="País" />
+                <button class="btn btn-info" style="display:inline; width:100px;" ng-click="getCountry(countrySearch); addAlert()">Buscar</button>
             </div>
             <div class="table-responsive-xl" style="background-color:white;">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">Country</th>
-                            <th scope="col">Year</th>
-                            <th scope="col">Number of companies</th>
-                            <th scope="col">Sector</th>
-                            <th scope="col">Page</th>
-                            <th scope="col" style="width:17%;">Options</th>
+                            <th scope="col">País</th>
+                            <th scope="col">Año</th>
+                            <th scope="col">Número de compañías</th>
+                            <th scope="col">Sectores</th>
+                            <th scope="col">Paginas</th>
+                            <th scope="col" style="width:20%;">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="company in companies">
+                        <tr ng-repeat="company in companies | startFrom: currentPage * pageSize | limitTo: pageSize">
                             <td><input class="form-control text-center" ng-model="company.country" readonly/></td>
                             <td><input class="form-control text-center" ng-model="company.year" readonly/></td>
                             <td><input class="form-control text-center" ng-model="company.numberOfCompanies" /></td>
                             <td><input class="form-control text-center" ng-model="company.sector" /></td>
                             <td><input class="form-control text-center" ng-model="company.page" /></td>
                             <td>
-                                <button class="btn btn-danger" ng-click="delTable(company.country,company.year)">Delete</button>
-                                <button class="btn btn-warning" ng-click="putTable(company.country,company.year,company.numberOfCompanies,company.sector,company.page)">Update</button>
+                                <button class="btn btn-danger" ng-click="delTable(company.country,company.year)">Eliminar</button>
+                                <button class="btn btn-warning" ng-click="putTable(company.country,company.year,company.numberOfCompanies,company.sector,company.page)">Actualizar</button>
                             </td>
                         </tr>
                         <tr>
@@ -94,15 +102,19 @@
                             <td><input class="form-control text-center" ng-model="numberOfCompanies" /></td>
                             <td><input class="form-control text-center" ng-model="sector" /></td>
                             <td><input class="form-control text-center" ng-model="page" /></td>
-                            <td><button class="btn btn-primary" ng-click="postTable(country,year,numberOfCompanies,sector,page)">Create</button></td>
+                            <td><button class="btn btn-primary" ng-click="postTable(country,year,numberOfCompanies,sector,page)">Crear</button></td>
                         </tr>
                     </tbody>
                 </table>
+
+            </div>
+            <div class="btn-group" style="background-color:white;border-radius:7px; margin-left:45%;">
+                <button type='button' class='btn btn-default' ng-disabled='currentPage == 0' ng-click='currentPage = currentPage - 1'>&laquo;</button>
+                <button type='button' class='btn btn-default' ng-disabled='currentPage == page.no - 1' ng-click='setPage(page.no)' ng-repeat='page in pages'>{{page.no}}</button>
+                <button type='button' class='btn btn-default' ng-disabled='currentPage >= companies.length/pageSize - 1' , ng-click='currentPage = currentPage + 1'>&raquo;</button>
             </div>
         </div>
     </div>
-
-
 </body>
 
 </html>
