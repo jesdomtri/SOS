@@ -122,7 +122,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.page = response.data.page;
             $scope.status = JSON.stringify(response.status, null, 2);
             resfreshCountry(country);
-            anadirAlertaCountry(country);
+            anadirAlerta();
         }, function(response) {
             $scope.data = response.data || 'Request failed';
             $scope.status = response.status;
