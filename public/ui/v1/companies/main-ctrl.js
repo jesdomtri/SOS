@@ -85,11 +85,11 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         }
     }
 
-    function anadirAlertaCountry(country){
+    function anadirAlertaCountry(country) {
         if ($scope.status == 404) {
             $scope.alerts = [];
             console.log("Alerta mala añadida de country");
-            $scope.alerts.push({ msg: 'Error 404: No se ha podido encontrar el recurso '  + country});
+            $scope.alerts.push({ msg: 'Error 404: No se ha podido encontrar el recurso ' + country });
         }
     }
 
@@ -112,6 +112,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         });
     }
     $scope.getCountry = function(country) {
+        if (country == undefined) { country = "" }
         $http.get($scope.url + "/" + country).then(function(response) {
             console.log("Get done");
             $scope.data = JSON.stringify(response.data, null, 2);
