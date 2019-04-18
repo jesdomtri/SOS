@@ -112,6 +112,9 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         });
     }
     $scope.getCountry = function(country) {
+        if(country==undefined){
+            country = "";
+        }
         $http.get($scope.url + "/" + country).then(function(response) {
             console.log("Get done");
             $scope.data = JSON.stringify(response.data, null, 2);
