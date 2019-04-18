@@ -85,7 +85,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="company in companies | orderBy:'+year' | orderBy:'+country' | startFrom: currentPage * pageSize | limitTo: pageSize">
+                        <tr ng-repeat="company in companies | startFrom: currentPage * pageSize | limitTo: pageSize">
                             <td><input class="form-control text-center" ng-model="company.country" readonly/></td>
                             <td><input class="form-control text-center" ng-model="company.year" readonly/></td>
                             <td><input class="form-control text-center" ng-model="company.numberOfCompanies" /></td>
