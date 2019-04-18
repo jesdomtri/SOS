@@ -76,7 +76,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="stat in stats | startFrom: currentPage * pageSize | orderBy:'+year' | orderBy:'+country' | limitTo: pageSize">
+                        <tr ng-repeat="stat in stats | startFrom: currentPage * pageSize | orderBy:'-year' | orderBy:'+country' | limitTo: pageSize">
                             <td><input class="form-control text-center" ng-model="stat.country" readonly/></td>
                             <td><input class="form-control text-center" ng-model="stat.year" readonly/></td>
                             <td><input class="form-control text-center" ng-model="stat.extensionOfBorders" /></td>
