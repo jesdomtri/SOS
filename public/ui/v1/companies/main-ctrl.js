@@ -5,7 +5,6 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     $scope.url = "/api/v1/companies";
     $scope.currentPage = 0;
     $scope.pageSize = 10;
-    $scope.pages = [];
     refresh();
 
     function refresh() {
@@ -52,7 +51,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
 
     $scope.alerts = [];
 
-    function anadirAlerta(country) {
+    function anadirAlerta() {
         if ($scope.status == 200) {
             $scope.alerts = [];
             console.log("Alerta correcta añadida");
