@@ -47,6 +47,21 @@ app.get(BASE_PATH+"/computers-attacks-stats/loadInitialData", (req, res) => {
             economicimpactmillions: 21.22,
             affectedequipments: 128088,
             overallpercentage: 35.58
+        },
+        {
+            country: "EEUU",
+            year: 2018,
+            attacktype: "Spy",
+            economicimpactmillions: 21.00,
+            affectedequipments: 12854,
+            overallpercentage: 3.7
+        }, {
+            country: "Japan",
+            year: 2014,
+            attacktype: "ransomware",
+            economicimpactmillions: 10.00,
+            affectedequipments: 636,
+            overallpercentage: 34.87
         }
 
     ];
