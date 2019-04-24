@@ -225,7 +225,12 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         }, function(response) {
             $scope.data = response.data || 'Request failed';
             $scope.status = response.status;
-            anadirAlerta()
+            if ($scope.status == 409) {
+                $scope.alerts = [];
+                $scope.alerts.push({msg:"Error 409: Ya existe este recurso"})
+            } else {
+                anadirAlerta()
+            }
         });
     }
     $scope.postJSON = function() {
