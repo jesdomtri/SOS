@@ -139,7 +139,9 @@ module.exports = function(app, companies, BASE_PATH) {
 
         for (var i = keys.length - 1; i--;) {
             if (!newCompany.hasOwnProperty(keys[i]) || newCompany.country == "" || newCompany.year==""
-                || newCompany.numberOfCompanies=="" || newCompany.sector=="" || newCompany.page =="") {
+                || newCompany.numberOfCompanies=="" || newCompany.sector=="" || newCompany.page ==""
+                || newCompany.country == undefined || newCompany.year==undefined
+                || newCompany.numberOfCompanies==undefined || newCompany.sector==undefined || newCompany.page ==undefined) {
                 return res.sendStatus(400);
             }
         }
@@ -170,7 +172,8 @@ module.exports = function(app, companies, BASE_PATH) {
         var keys = ["country", "year", "numberOfCompanies", "sector", "page"];
 
         for (var i = keys.length - 1; i--;) {
-            if (!updatedCompany.hasOwnProperty(keys[i])) {
+            if (!updatedCompany.hasOwnProperty(keys[i]) || updatedCompany.country == "" || updatedCompany.year=="" || updatedCompany.numberOfCompanies=="" || updatedCompany.sector=="" || updatedCompany.page =="" || updatedCompany.country == undefined || updatedCompany.year==undefined
+                || updatedCompany.numberOfCompanies==undefined || updatedCompany.sector==undefined || updatedCompany.page ==undefined) {
                 return res.sendStatus(400);
             }
         }

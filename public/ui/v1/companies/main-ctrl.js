@@ -5,6 +5,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     $scope.url = "/api/v1/companies";
     $scope.currentPage = 0;
     $scope.pageSize = 10;
+    
     refresh();
 
     function refresh() {
@@ -211,36 +212,33 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         });
     }
     $scope.postTable = function(country, year, numberOfCompanies, sector, page) {
-        if (country == undefined || year == undefined || numberOfCompanies == undefined || sector == undefined || page == undefined) {
-            $scope.alerts = [];
-            $scope.alerts.push({ msg: "Error 404: Datos insuficientes" })
-        }
-        else {
-            $http.post($scope.url, {
-                country: country,
-                year: parseInt(year),
-                numberOfCompanies: parseInt(numberOfCompanies),
-                sector: parseInt(sector),
-                page: parseInt(page)
-            }).then(function(response) {
-                console.log("Post table done");
-                $scope.data = JSON.stringify(response.data, null, 2);
-                $scope.status = JSON.stringify(response.status, null, 2);
-                refreshpage()
+        $http.post($scope.url, {
+            country: country,
+            year: parseInt(year),
+            numberOfCompanies: parseInt(numberOfCompanies),
+            sector: parseInt(sector),
+            page: parseInt(page)
+        }).then(function(response) {
+            console.log("Post table done");
+            $scope.data = JSON.stringify(response.data, null, 2);
+            $scope.status = JSON.stringify(response.status, null, 2);
+            refresh()
+            anadirAlerta()
+        }, function(response) {
+            $scope.data = response.data || 'Request failed';
+            $scope.status = response.status;
+            if ($scope.status == 409) {
+                $scope.alerts = [];
+                $scope.alerts.push({ msg: "Error 409: Ya existe este recurso" })
+            }
+            else if ($scope.status == 400) {
+                $scope.alerts = [];
+                $scope.alerts.push({ msg: "Error 400: Datos insuficientes" })
+            }
+            else {
                 anadirAlerta()
-            }, function(response) {
-                $scope.data = response.data || 'Request failed';
-                $scope.status = response.status;
-                if ($scope.status == 409) {
-                    $scope.alerts = [];
-                    $scope.alerts.push({ msg: "Error 409: Ya existe este recurso" })
-                }
-                else {
-                    anadirAlerta()
-                }
-            });
-        }
-
+            }
+        });
     }
     $scope.postJSON = function() {
         $http.post($scope.url, $scope.data).then(function(response) {
@@ -288,8 +286,15 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         }, function(response) {
             $scope.data = response.data || 'Request failed';
             $scope.status = response.status;
-            anadirAlerta()
+            if ($scope.status == 400) {
+                $scope.alerts = [];
+                $scope.alerts.push({ msg: "Error 400: Datos insuficientes" })
+            }
+            else {
+                anadirAlerta()
+            }
         });
+
     }
     $scope.putJSON = function() {
         $http.put($scope.url, $scope.data).then(function(response) {
