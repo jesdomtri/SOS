@@ -209,12 +209,11 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         });
     }
     $scope.postTable = function(country, year, extensionOfBorders, population, territorialExtension) {
-         if (country == undefined || year == undefined || numberOfCompanies == undefined || sector == undefined || page == undefined) {
+        if (country == undefined || year == undefined || extensionOfBorders == undefined || population == undefined || territorialExtension == undefined) {
             $scope.alerts = [];
             $scope.alerts.push({ msg: "Error 404: Datos insuficientes" })
-        }
-        else {
-        $http.post($scope.url, {
+        } else {
+            $http.post($scope.url, {
             country: country,
             year: parseInt(year),
             extensionOfBorders: parseInt(extensionOfBorders),
@@ -231,6 +230,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.status = response.status;
             anadirAlerta()
         });
+        }
     }
     $scope.postJSON = function() {
         $http.post($scope.url, $scope.data).then(function(response) {
