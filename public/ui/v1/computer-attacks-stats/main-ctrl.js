@@ -61,12 +61,7 @@
             $scope.status = response.status;
         });
     }
-        function refreshpage() {
-        location.reload();
-    }
-     $scope.setPage = function(index) {
-        $scope.currentPage = index - 1;
-    };
+   
         $scope.alerts = [];
 
     function anadirAlerta() {

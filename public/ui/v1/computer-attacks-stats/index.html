@@ -89,7 +89,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="attack in attacks | orderBy:'+year' | orderBy:'+country' | startFrom: currentPage * pageSize | limitTo: pageSize">
+                        <tr ng-repeat="attack in attacks | orderBy:'+year' | orderBy:'+country' ">
                             <td><input class="form-control text-center" ng-model="attack.country" readonly/></td>
                             <td><input class="form-control text-center" ng-model="attack.year" readonly/></td>
                             <td><input class="form-control text-center" ng-model="attack.attacktype" /></td>
