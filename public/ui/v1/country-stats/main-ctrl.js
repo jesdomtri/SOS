@@ -72,7 +72,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         if ($scope.status == 409) {
             $scope.alerts = [];
             console.log("Alerta mala añadida");
-            $scope.alerts.push({ msg: 'Error 409: Ha habido conflicto en su operación' });
+            $scope.alerts.push({ msg: 'Error 409: El recurso que ha intentado añadir ya existe' });
         }
         if ($scope.status == 405) {
             $scope.alerts = [];
