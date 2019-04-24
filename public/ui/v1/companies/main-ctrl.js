@@ -3,13 +3,21 @@ var app = angular.module("PostmanApp");
 app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     console.log("Modular MainCtrl initialized");
     $scope.url = "/api/v1/companies";
-    $scope.currentPage = 0;
-    $scope.pageSize = 10;
-    
+    $scope.offset = 0;
+    $scope.limit = 10;
+    $scope.datos = 0;
+
     refresh();
+    numDatos();
+
+    function numDatos() {
+        $http.get($scope.url).then(function(response) {
+            $scope.datos = response.data.length;
+        });
+    }
 
     function refresh() {
-        $http.get($scope.url).then(function(response) {
+        $http.get($scope.url + "?limit=" + $scope.limit + "&offset=" + $scope.offset).then(function(response) {
             $scope.companies = response.data;
             $scope.status = response.status;
 
@@ -41,15 +49,6 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.status = response.status;
         });
     }
-
-    function refreshpage() {
-        location.reload();
-    }
-
-    $scope.setPage = function(index) {
-        $scope.currentPage = index - 1;
-    };
-
     $scope.alerts = [];
 
     function anadirAlerta() {
@@ -93,8 +92,21 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         }
     }
 
+    $scope.avanzar = function() {
+        if ($scope.offset + $scope.limit <= $scope.datos) {
+            $scope.offset = $scope.offset + $scope.limit;
+            refresh();
+        }
+    }
+
+    $scope.retroceder = function() {
+        $scope.offset = $scope.offset - $scope.limit;
+        refresh();
+    }
+
+
     $scope.get = function() {
-        $http.get($scope.url).then(function(response) {
+        $http.get($scope.url + "?limit=" + $scope.limit + "&offset=" + $scope.offset).then(function(response) {
             console.log("Get done");
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.country = response.data.country;
@@ -308,9 +320,4 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             anadirAlerta()
         });
     }
-}]).filter("startFrom", function() {
-    return function(input, start) {
-        start = +start;
-        return input.slice(start);
-    }
-});
+}]);

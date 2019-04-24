@@ -88,7 +88,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="company in companies | orderBy:'+year' | orderBy:'+country' | startFrom: currentPage * pageSize | limitTo: pageSize">
+                        <tr ng-repeat="company in companies | orderBy:'+year' | orderBy:'+country'">
                             <td><input class="form-control text-center" ng-model="company.country" readonly/></td>
                             <td><input class="form-control text-center" ng-model="company.year" readonly/></td>
                             <td><input class="form-control text-center" ng-model="company.numberOfCompanies" /></td>
@@ -112,9 +112,8 @@
 
             </div>
             <div class="btn-group" style="background-color:white;border-radius:7px; margin-left:45%;">
-                <button type='button' class='btn btn-default' ng-disabled='currentPage == 0' ng-click='currentPage = currentPage - 1'>&laquo;</button>
-                <button type='button' class='btn btn-default' ng-disabled='currentPage == page.no - 1' ng-click='setPage(page.no)' ng-repeat='page in pages'>{{page.no}}</button>
-                <button type='button' class='btn btn-default' ng-disabled='currentPage >= companies.length/pageSize - 1' , ng-click='currentPage = currentPage + 1'>&raquo;</button>
+                <button type='button' class='btn btn-default' ng-disabled="offset == 0" ng-click="retroceder()">&laquo;</button>
+                <button type='button' class='btn btn-default' ng-disabled="offset + limit >= datos" ng-click="avanzar()">&raquo;</button>
             </div>
         </div>
     </div>
