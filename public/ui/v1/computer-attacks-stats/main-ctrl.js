@@ -11,6 +11,7 @@
         $scope.datos = 0;
          
          refresh();
+         numDatos();
        
           function numDatos() {
         $http.get($scope.url).then(function(response) {
