@@ -6,8 +6,8 @@
     app.controller("MainCtrl",["$scope","$http", function ($scope,$http) {
         console.log("MainCtrl initialized");
         $scope.url = "/api/v1/computers-attacks-stats";
-        $scope.currentPage = 0;
-        $scope.pageSize = 10;
+        $scope.offset = 0;
+        $scope.limit = 10;
         $scope.datos = 0;
          
          refresh();
