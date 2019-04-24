@@ -209,6 +209,12 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         });
     }
     $scope.postTable = function(country, year, extensionOfBorders, population, territorialExtension) {
+        if(country == null){
+            country = "";
+        }
+        if(year == null){
+            year = "";
+        }
         $http.post($scope.url, {
             country: country,
             year: parseInt(year),
