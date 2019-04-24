@@ -209,12 +209,11 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         });
     }
     $scope.postTable = function(country, year, extensionOfBorders, population, territorialExtension) {
-        if(country == null){
-            country = "";
+         if (country == undefined || year == undefined || numberOfCompanies == undefined || sector == undefined || page == undefined) {
+            $scope.alerts = [];
+            $scope.alerts.push({ msg: "Error 404: Datos insuficientes" })
         }
-        if(year == null){
-            year = "";
-        }
+        else {
         $http.post($scope.url, {
             country: country,
             year: parseInt(year),
