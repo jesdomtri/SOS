@@ -170,7 +170,7 @@ app.get(BASE_PATH+"/computers-attacks-stats/loadInitialData", (req, res) => {
         });
         
     }else{
-            res.sendStatus(409);
+            res.sendStatus(400);
         }
     
     });

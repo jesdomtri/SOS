@@ -8,11 +8,18 @@
         $scope.url = "/api/v1/computers-attacks-stats";
         $scope.currentPage = 0;
         $scope.pageSize = 10;
+        $scope.datos = 0;
+         
          refresh();
        
-       
-       function refresh() {
+          function numDatos() {
         $http.get($scope.url).then(function(response) {
+            $scope.datos = response.data.length;
+        });
+    }
+
+       function refresh() {
+      $http.get($scope.url + "?limit=" + $scope.limit + "&offset=" + $scope.offset).then(function(response) {
             $scope.attacks = response.data;
             $scope.status = response.status;
 
@@ -21,6 +28,17 @@
             $scope.status = response.status;
         });
     }
+        $scope.avanzar = function() {
+            if ($scope.offset + $scope.limit <= $scope.datos) {
+                $scope.offset = $scope.offset + $scope.limit;
+                refresh();
+            }
+        }
+    
+        $scope.retroceder = function() {
+            $scope.offset = $scope.offset - $scope.limit;
+            refresh();
+        }
         
         function resfreshCountry(country) {
         $http.get($scope.url + "/" + country).then(function(response) {
@@ -160,7 +178,14 @@
         }, function(response) {
           $scope.data = response.data || 'Request failed';
           $scope.status = response.status;
-          anadirAlerta();
+          if ($scope.status == 409) {
+                $scope.alerts = [];
+                $scope.alerts.push({ msg: "Error 409: No puede haber datos si quiere cargar los datos iniciales" })
+            }
+            else {
+                anadirAlerta()
+            }
+        
       });
     };
        
@@ -249,10 +274,20 @@
             $scope.status = JSON.stringify(response.status, null, 2);
             refreshpage();
             anadirAlerta();
-        }, function(response) {
+        },function(response) {
             $scope.data = response.data || 'Request failed';
             $scope.status = response.status;
-            anadirAlerta();
+            if ($scope.status == 409) {
+                $scope.alerts = [];
+                $scope.alerts.push({ msg: "Error 409: Ya existe este recurso" })
+            }
+            else if ($scope.status == 400) {
+                $scope.alerts = [];
+                $scope.alerts.push({ msg: "Error 400: Datos insuficientes" })
+            }
+            else {
+                anadirAlerta()
+            }
         });
     };
         
@@ -303,10 +338,16 @@
             $scope.status = JSON.stringify(response.status, null, 2);
             refresh();
             anadirAlerta();
-        }, function(response) {
+        },  function(response) {
             $scope.data = response.data || 'Request failed';
             $scope.status = response.status;
-            anadirAlerta();
+            if ($scope.status == 400) {
+                $scope.alerts = [];
+                $scope.alerts.push({ msg: "Error 400: Datos insuficientes" })
+            }
+            else {
+                anadirAlerta()
+            }
         });
     };
         
