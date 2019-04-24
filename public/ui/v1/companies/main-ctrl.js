@@ -159,8 +159,9 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.status = response.status;
             if ($scope.status == 409) {
                 $scope.alerts = [];
-                $scope.alerts.push({msg:"Error 409: No puede haber datos si quiere cargar los datos iniciales"})
-            } else {
+                $scope.alerts.push({ msg: "Error 409: No puede haber datos si quiere cargar los datos iniciales" })
+            }
+            else {
                 anadirAlerta()
             }
         });
@@ -210,28 +211,36 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         });
     }
     $scope.postTable = function(country, year, numberOfCompanies, sector, page) {
-        $http.post($scope.url, {
-            country: country,
-            year: parseInt(year),
-            numberOfCompanies: parseInt(numberOfCompanies),
-            sector: parseInt(sector),
-            page: parseInt(page)
-        }).then(function(response) {
-            console.log("Post table done");
-            $scope.data = JSON.stringify(response.data, null, 2);
-            $scope.status = JSON.stringify(response.status, null, 2);
-            refreshpage()
-            anadirAlerta()
-        }, function(response) {
-            $scope.data = response.data || 'Request failed';
-            $scope.status = response.status;
-            if ($scope.status == 409) {
-                $scope.alerts = [];
-                $scope.alerts.push({msg:"Error 409: Ya existe este recurso"})
-            } else {
+        if (country == undefined || year == undefined || numberOfCompanies == undefined || sector == undefined || page == undefined) {
+            $scope.alerts = [];
+            $scope.alerts.push({ msg: "Error 404: Datos insuficientes" })
+        }
+        else {
+            $http.post($scope.url, {
+                country: country,
+                year: parseInt(year),
+                numberOfCompanies: parseInt(numberOfCompanies),
+                sector: parseInt(sector),
+                page: parseInt(page)
+            }).then(function(response) {
+                console.log("Post table done");
+                $scope.data = JSON.stringify(response.data, null, 2);
+                $scope.status = JSON.stringify(response.status, null, 2);
+                refreshpage()
                 anadirAlerta()
-            }
-        });
+            }, function(response) {
+                $scope.data = response.data || 'Request failed';
+                $scope.status = response.status;
+                if ($scope.status == 409) {
+                    $scope.alerts = [];
+                    $scope.alerts.push({ msg: "Error 409: Ya existe este recurso" })
+                }
+                else {
+                    anadirAlerta()
+                }
+            });
+        }
+
     }
     $scope.postJSON = function() {
         $http.post($scope.url, $scope.data).then(function(response) {

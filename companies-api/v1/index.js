@@ -138,7 +138,8 @@ module.exports = function(app, companies, BASE_PATH) {
         var keys = ["country", "year", "numberOfCompanies", "sector", "page"];
 
         for (var i = keys.length - 1; i--;) {
-            if (!newCompany.hasOwnProperty(keys[i])) {
+            if (!newCompany.hasOwnProperty(keys[i]) || newCompany.country == "" || newCompany.year==""
+                || newCompany.numberOfCompanies=="" || newCompany.sector=="" || newCompany.page =="") {
                 return res.sendStatus(400);
             }
         }
