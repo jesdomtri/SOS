@@ -209,6 +209,12 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         });
     }
     $scope.postTable = function(country, year, extensionOfBorders, population, territorialExtension) {
+        if(country == null){
+            country = "";
+        }
+        if(year == null){
+            year = "";
+        }
         $http.post($scope.url, {
             country: country,
             year: parseInt(year),
@@ -219,7 +225,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             console.log("Post table done");
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.status = JSON.stringify(response.status, null, 2);
-            refreshpage()
+            refresh()
             anadirAlerta()
         }, function(response) {
             $scope.data = response.data || 'Request failed';
