@@ -149,7 +149,7 @@ app.get(BASE_PATH+"/computers-attacks-stats/loadInitialData", (req, res) => {
             }
         }
     
-    
+    if (req.body.country !=null || req.body.year !=null){
         attacks.find({ "country": countryattack ,"year" : parseInt(year),"attacktype" : attacktype}).toArray((error, attacksArray) => {
             if (error) {
                 console.log("Error: " + error);
@@ -165,7 +165,13 @@ app.get(BASE_PATH+"/computers-attacks-stats/loadInitialData", (req, res) => {
                 }
                 
             }
+            
+        
         });
+        
+    }else{
+            res.sendStatus(400);
+        }
     
     });
     
