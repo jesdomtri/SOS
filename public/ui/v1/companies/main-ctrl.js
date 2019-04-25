@@ -93,10 +93,8 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     }
 
     $scope.avanzar = function() {
-        if ($scope.offset + $scope.limit <= $scope.datos) {
-            $scope.offset = $scope.offset + $scope.limit;
-            refresh();
-        }
+        $scope.offset = $scope.offset + $scope.limit;
+        refresh();
     }
 
     $scope.retroceder = function() {
