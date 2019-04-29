@@ -1,3 +1,13 @@
 /* global angular */
-var app = angular.module("PostmanApp", []);
-console.log("Modular App Initialized");
+
+    angular
+        .module("PostmanApp",["ngRoute"])
+        .config(function($routeProvider){
+            $routeProvider
+                .when("/",{
+                   controller : "ListCtrl",
+                   templateUrl: "list.html"
+                });
+        });
+
+    console.log("Postman App Initialized.");

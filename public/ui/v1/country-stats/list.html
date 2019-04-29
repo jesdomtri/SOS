@@ -1,0 +1,76 @@
+<!-- POSTMAN COUNTRY-STATS -->
+    <div class="container" style="padding-bottom: 1%;">
+        <h1 style="color: white">
+            <img class="navbar-toggler-icon" src="/img/logo-postman.png" /> Postman Country Stats
+        </h1>
+    </div>
+    <div style="padding-bottom:1%;" class="container">
+        <alert class="alert alert-primary" ng-repeat="alert in alerts">{{alert.msg}}</alert>
+    </div>
+
+    <!-- CONTAINER -->
+    <div class="container" style="background-color: rgb(46, 49, 49); padding-bottom: 3%; border-radius: 20px;box-shadow: 0px 0px 16px -2px rgba(0,0,0,0.52);">
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-md navbar-dark info-color" style="background-color: #2e3131;">
+            <a class="navbar-brand" href="../../../">
+                    Inicio
+                </a>
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+                    <span class="navbar-toggler-icon">
+                    </span>
+                </button>
+        </nav>
+        <div class="container">
+            <div style="padding-bottom:2%;">
+                <button class="btn btn-primary" ng-click="loadinitial()">Cargar datos iniciales</button>
+                <button class="btn btn-danger" ng-click="del()">Eliminar todo</button>
+            </div>
+            <div style="padding-bottom:2%;">
+                <input class="form-control text-center" style="display:inline; width:100px;" ng-model="from" placeholder="Desde" />
+                <input class="form-control text-center" style="display:inline; width:100px;" ng-model="to" placeholder="Hasta" />
+                <button class="btn btn-info" style="display:inline; width:100px;" ng-click="getFromTo(from,to)">Buscar</button>
+                <input class="form-control text-center" style="display:inline; width:100px; margin-left: 3%;" ng-model="countrySearch" placeholder="País" />
+                <button class="btn btn-info" style="display:inline; width:100px;" ng-click="getCountry(countrySearch)">Buscar</button>
+            </div>
+            <div class="table-responsive-xl" style="background-color:white;">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">País</th>
+                            <th scope="col">Año</th>
+                            <th scope="col">Extensión de fronteras</th>
+                            <th scope="col">Población</th>
+                            <th scope="col">Superficie</th>
+                            <th scope="col" style="width:20%;">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="stat in stats | orderBy:'-year' | orderBy:'+country'">
+                            <td><input class="form-control text-center" ng-model="stat.country" readonly/></td>
+                            <td><input class="form-control text-center" ng-model="stat.year" readonly/></td>
+                            <td><input class="form-control text-center" ng-model="stat.extensionOfBorders" /></td>
+                            <td><input class="form-control text-center" ng-model="stat.population" /></td>
+                            <td><input class="form-control text-center" ng-model="stat.territorialExtension" /></td>
+                            <td>
+                                <button class="btn btn-danger" ng-click="delTable(stat.country,stat.year)">Eliminar</button>
+                                <button class="btn btn-warning" ng-click="putTable(stat.country,stat.year,stat.extensionOfBorders,stat.population,stat.territorialExtension)">Actualizar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input class="form-control text-center" ng-model="country" /></td>
+                            <td><input class="form-control text-center" ng-model="year" /></td>
+                            <td><input class="form-control text-center" ng-model="extensionOfBorders" /></td>
+                            <td><input class="form-control text-center" ng-model="population" /></td>
+                            <td><input class="form-control text-center" ng-model="territorialExtension" /></td>
+                            <td><button class="btn btn-primary" ng-click="postTable(country,year,extensionOfBorders,population,territorialExtension)">Crear</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+           <div class="btn-group" style="background-color:white;border-radius:7px; margin-left:45%;">
+                <button type='button' class='btn btn-default' ng-disabled="offset == 0" ng-click="retroceder()">&laquo;</button>
+                <button type='button' class='btn btn-default' ng-disabled="offset + limit >= datos" ng-click="avanzar()">&raquo;</button>
+            </div>
+        </div>
+    </div>
