@@ -52,7 +52,7 @@ client.connect(error => {
 
             stats = clientAntonio.db("sos1819-03").collection("country-stats");
 
-            console.log("Connected to database Antonio .");
+            console.log("Conectado a la base de datos de Antonio");
 
             app.listen(port, () => {
                 console.log("Server is ready!!");
