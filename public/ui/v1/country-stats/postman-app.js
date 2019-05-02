@@ -1,6 +1,6 @@
 /* global angular */
 
-    var app = angular.module("PostmanApp",["ngRoute"])
+    angular.module("PostmanApp",["ngRoute"])
         .config(function($routeProvider){
             $routeProvider
                 .when("/",{

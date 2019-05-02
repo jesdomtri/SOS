@@ -1,6 +1,6 @@
 /* global angular */
 console.log("Prueba 1");
-var app = angular.module("PostmanApp")
+angular.module("PostmanApp")
     .controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
         console.log("List Controller initialized.");
 
