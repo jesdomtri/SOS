@@ -70,6 +70,48 @@ module.exports = function(app, stats) {
             delete query.to;
             query["year"] = { "$lte": parseInt(req.query["to"]) };
         }
+        
+        if (Object.keys(req.query).includes("minext") && Object.keys(req.query).includes("maxext")) {
+            delete query.minext;
+            delete query.maxext;
+            query["extensionOfBorders"] = { "$lte": parseInt(req.query["maxext"]), "$gte": parseInt(req.query["minext"]) };
+        }
+        else if (Object.keys(req.query).includes('minext')) {
+            delete query.minext;
+            query["extensionOfBorders"] = { "$gte": parseInt(req.query["minext"]) };
+        }
+        else if (Object.keys(req.query).includes("maxext")) {
+            delete query.maxext;
+            query["extensionOfBorders"] = { "$lte": parseInt(req.query["maxext"]) };
+        }
+        
+        if (Object.keys(req.query).includes("minpop") && Object.keys(req.query).includes("maxpop")) {
+            delete query.minpop;
+            delete query.maxpop;
+            query["population"] = { "$lte": parseInt(req.query["maxpop"]), "$gte": parseInt(req.query["minpop"]) };
+        }
+        else if (Object.keys(req.query).includes('minpop')) {
+            delete query.minpop;
+            query["population"] = { "$gte": parseInt(req.query["minpop"]) };
+        }
+        else if (Object.keys(req.query).includes("maxpop")) {
+            delete query.maxpop;
+            query["population"] = { "$lte": parseInt(req.query["maxpop"]) };
+        }
+        
+        if (Object.keys(req.query).includes("minter") && Object.keys(req.query).includes("maxter")) {
+            delete query.minter;
+            delete query.maxter;
+            query["territorialExtension"] = { "$lte": parseInt(req.query["maxter"]), "$gte": parseInt(req.query["minter"]) };
+        }
+        else if (Object.keys(req.query).includes('minter')) {
+            delete query.minter;
+            query["territorialExtension"] = { "$gte": parseInt(req.query["minter"]) };
+        }
+        else if (Object.keys(req.query).includes("maxter")) {
+            delete query.maxter;
+            query["territorialExtension"] = { "$lte": parseInt(req.query["maxter"]) };
+        }
 
         stats.find(query).skip(offset).limit(limit).toArray((error, statsArray) => {
             if (error) {
