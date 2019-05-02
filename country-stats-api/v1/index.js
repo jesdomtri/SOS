@@ -128,7 +128,87 @@ module.exports = function(app, stats) {
     //GET /country-stats/País
     app.get("/api/v1/country-stats/:country", (req, res) => {
         var country = req.params.country;
-        stats.find({ "country": country }).toArray((error, filteredstats) => {
+        var query = {};
+        let offset = 0;
+        let limit = Number.MAX_SAFE_INTEGER;
+
+        //Paginacion
+        if (req.query.offset) {
+            offset = parseInt(req.query.offset);
+            delete req.query.offset;
+        }
+        if (req.query.limit) {
+            limit = parseInt(req.query.limit);
+            delete req.query.limit;
+        }
+
+        //Busqueda
+        Object.keys(req.query).forEach((i) => {
+            if (isNaN(req.query[i]) == false) {
+                query[i] = parseInt(req.query[i]);
+            }
+            else {
+                query[i] = req.query[i];
+            }
+        });
+        
+        if (Object.keys(req.query).includes("from") && Object.keys(req.query).includes("to")) {
+            delete query.from;
+            delete query.to;
+            query["year"] = { "$lte": parseInt(req.query["to"]), "$gte": parseInt(req.query["from"]) };
+        }
+        else if (Object.keys(req.query).includes('from')) {
+            delete query.from;
+            query["year"] = { "$gte": parseInt(req.query["from"]) };
+        }
+        else if (Object.keys(req.query).includes("to")) {
+            delete query.to;
+            query["year"] = { "$lte": parseInt(req.query["to"]) };
+        }
+        
+        if (Object.keys(req.query).includes("minext") && Object.keys(req.query).includes("maxext")) {
+            delete query.minext;
+            delete query.maxext;
+            query["extensionOfBorders"] = { "$lte": parseInt(req.query["maxext"]), "$gte": parseInt(req.query["minext"]) };
+        }
+        else if (Object.keys(req.query).includes('minext')) {
+            delete query.minext;
+            query["extensionOfBorders"] = { "$gte": parseInt(req.query["minext"]) };
+        }
+        else if (Object.keys(req.query).includes("maxext")) {
+            delete query.maxext;
+            query["extensionOfBorders"] = { "$lte": parseInt(req.query["maxext"]) };
+        }
+        
+        if (Object.keys(req.query).includes("minpop") && Object.keys(req.query).includes("maxpop")) {
+            delete query.minpop;
+            delete query.maxpop;
+            query["population"] = { "$lte": parseInt(req.query["maxpop"]), "$gte": parseInt(req.query["minpop"]) };
+        }
+        else if (Object.keys(req.query).includes('minpop')) {
+            delete query.minpop;
+            query["population"] = { "$gte": parseInt(req.query["minpop"]) };
+        }
+        else if (Object.keys(req.query).includes("maxpop")) {
+            delete query.maxpop;
+            query["population"] = { "$lte": parseInt(req.query["maxpop"]) };
+        }
+        
+        if (Object.keys(req.query).includes("minter") && Object.keys(req.query).includes("maxter")) {
+            delete query.minter;
+            delete query.maxter;
+            query["territorialExtension"] = { "$lte": parseInt(req.query["maxter"]), "$gte": parseInt(req.query["minter"]) };
+        }
+        else if (Object.keys(req.query).includes('minter')) {
+            delete query.minter;
+            query["territorialExtension"] = { "$gte": parseInt(req.query["minter"]) };
+        }
+        else if (Object.keys(req.query).includes("maxter")) {
+            delete query.maxter;
+            query["territorialExtension"] = { "$lte": parseInt(req.query["maxter"]) };
+        }
+        
+        stats.find({ $and: [{ "country": country }, query] }).skip(offset).limit(limit).toArray((error,filteredstats) => {
             if (error) {
                 console.log("Error: " + error);
             }
