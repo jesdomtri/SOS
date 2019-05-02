@@ -64,7 +64,6 @@ module.exports = function(app, companies, BASE_PATH) {
             }
         });
 
-
         //FROM AND TO
         if (Object.keys(req.query).includes("from") && Object.keys(req.query).includes("to")) {
             delete query.from;
@@ -141,7 +140,90 @@ module.exports = function(app, companies, BASE_PATH) {
     //GET /companies/France
     app.get(BASE_PATH + "/companies/:country", (req, res) => {
         var country = req.params.country;
-        companies.find({ "country": country }).toArray((error, filteredcompanies) => {
+        var query = {};
+        let offset = 0;
+        let limit = Number.MAX_SAFE_INTEGER;
+
+        //Paginacion
+        if (req.query.offset) {
+            offset = parseInt(req.query.offset);
+            delete req.query.offset;
+        }
+        if (req.query.limit) {
+            limit = parseInt(req.query.limit);
+            delete req.query.limit;
+        }
+
+        //Busqueda
+        Object.keys(req.query).forEach((i) => {
+            if (isNaN(req.query[i]) == false) {
+                query[i] = parseInt(req.query[i]);
+            }
+            else {
+                query[i] = req.query[i];
+            }
+        });
+
+        //FROM AND TO
+        if (Object.keys(req.query).includes("from") && Object.keys(req.query).includes("to")) {
+            delete query.from;
+            delete query.to;
+            query["year"] = { "$lte": parseInt(req.query["to"]), "$gte": parseInt(req.query["from"]) };
+        }
+        else if (Object.keys(req.query).includes('from')) {
+            delete query.from;
+            query["year"] = { "$gte": parseInt(req.query["from"]) };
+        }
+        else if (Object.keys(req.query).includes("to")) {
+            delete query.to;
+            query["year"] = { "$lte": parseInt(req.query["to"]) };
+        }
+
+        //NUMBER OF COMPANIES MIN AND MAX
+        if (Object.keys(req.query).includes("mincom") && Object.keys(req.query).includes("maxcom")) {
+            delete query.mincom;
+            delete query.maxcom;
+            query["numberOfCompanies"] = { "$lte": parseInt(req.query["maxcom"]), "$gte": parseInt(req.query["mincom"]) };
+        }
+        else if (Object.keys(req.query).includes('mincom')) {
+            delete query.mincom;
+            query["numberOfCompanies"] = { "$gte": parseInt(req.query["mincom"]) };
+        }
+        else if (Object.keys(req.query).includes("maxcom")) {
+            delete query.maxcom;
+            query["numberOfCompanies"] = { "$lte": parseInt(req.query["maxcom"]) };
+        }
+
+        //SECTOR MIN AND MAX
+        if (Object.keys(req.query).includes("minsec") && Object.keys(req.query).includes("maxsec")) {
+            delete query.minsec;
+            delete query.maxsec;
+            query["sector"] = { "$lte": parseInt(req.query["maxsec"]), "$gte": parseInt(req.query["minsec"]) };
+        }
+        else if (Object.keys(req.query).includes('minsec')) {
+            delete query.minsec;
+            query["sector"] = { "$gte": parseInt(req.query["minsec"]) };
+        }
+        else if (Object.keys(req.query).includes("maxsec")) {
+            delete query.maxsec;
+            query["sector"] = { "$lte": parseInt(req.query["maxsec"]) };
+        }
+
+        //PAGE MIN AND MAX
+        if (Object.keys(req.query).includes("minpag") && Object.keys(req.query).includes("maxpag")) {
+            delete query.minpag;
+            delete query.maxpag;
+            query["page"] = { "$lte": parseInt(req.query["maxpag"]), "$gte": parseInt(req.query["minpag"]) };
+        }
+        else if (Object.keys(req.query).includes('minpag')) {
+            delete query.minpag;
+            query["page"] = { "$gte": parseInt(req.query["minpag"]) };
+        }
+        else if (Object.keys(req.query).includes("maxpag")) {
+            delete query.maxpag;
+            query["page"] = { "$lte": parseInt(req.query["maxpag"]) };
+        }
+        companies.find({ "country": country } + query).skip(offset).limit(limit).toArray((error, filteredcompanies) => {
             if (error) {
                 console.log("Error: " + error);
             }

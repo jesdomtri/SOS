@@ -27,8 +27,9 @@ app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
         });
     }
 
-    function resfreshCountry(country) {
-        $http.get($scope.url + "/" + country).then(function(response) {
+    function refreshFilters(countrySearch, from, to, mincom, maxcom, minsec, maxsec, minpag, maxpag) {
+        $http.get($scope.url + countrySearch + "?limit=" + $scope.limit + "&offset=" + $scope.offset +
+            from + to + mincom + maxcom + minsec + maxsec + minpag + maxpag).then(function(response) {
             $scope.companies = response.data;
             $scope.status = response.status;
 
@@ -38,17 +39,6 @@ app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
         });
     }
 
-
-    function refreshFromTo(from, to) {
-        $http.get($scope.url + "?from=" + from + "&to=" + to).then(function(response) {
-            $scope.companies = response.data;
-            $scope.status = response.status;
-
-        }, function(response) {
-            $scope.companies = response.companies || 'Request failed';
-            $scope.status = response.status;
-        });
-    }
     $scope.alerts = [];
 
     function anadirAlerta() {
@@ -121,10 +111,35 @@ app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
             anadirAlerta()
         });
     }
-    $scope.getCountry = function(country) {
-        if (country == undefined) { country = "" }
-        $http.get($scope.url + "/" + country).then(function(response) {
-            console.log("Get done");
+    $scope.getFilters = function(countrySearch, from, to, mincom, maxcom, minsec, maxsec, minpag, maxpag) {
+        //country
+        if (countrySearch == "" || countrySearch == undefined) { countrySearch = "" }
+        else { countrySearch = "/" + countrySearch }
+        //year
+        if (from == "" || from == undefined) { from = "&from=0" }
+        else { from = "&from=" + from }
+        if (to == "" || to == undefined) { to = "&to=2000000000" }
+        else { to = "&to=" + to }
+        //numberOfCompanies
+        if (mincom == "" || mincom == undefined) { mincom = "&mincom=0" }
+        else { mincom = "&mincom=" + mincom }
+        if (maxcom == "" || maxcom == undefined) { maxcom = "&maxcom=2000000000" }
+        else { maxcom = "&maxcom=" + maxcom }
+        //sector    
+        if (minsec == "" || minsec == undefined) { minsec = "&minsec=0" }
+        else { minsec = "&minsec=" + minsec }
+        if (maxsec == "" || maxsec == undefined) { maxsec = "&maxsec=2000000000" }
+        else { maxsec = "&maxsec=" + maxsec }
+        //page
+        if (minpag == "" || minpag == undefined) { minpag = "&minpag=0" }
+        else { minpag = "&minpag=" + minpag }
+        if (maxpag == "" || maxpag == undefined) { maxpag = "&maxpag=2000000000" }
+        else { maxpag = "&maxpag=" + maxpag }
+        console.log($scope.url + countrySearch + "?limit=" + $scope.limit + "&offset=" + $scope.offset +
+            from + to + mincom + maxcom + minsec + maxsec + minpag + maxpag);
+        $http.get($scope.url + countrySearch + "?limit=" + $scope.limit + "&offset=" + $scope.offset +
+            from + to + mincom + maxcom + minsec + maxsec + minpag + maxpag).then(function(response) {
+            console.log("Get filters done");
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.country = response.data.country;
             $scope.year = response.data.year;
@@ -132,26 +147,8 @@ app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.sector = response.data.sector;
             $scope.page = response.data.page;
             $scope.status = JSON.stringify(response.status, null, 2);
-            resfreshCountry(country);
+            refreshFilters(countrySearch, from, to, mincom, maxcom, minsec, maxsec, minpag, maxpag);
             anadirAlerta();
-        }, function(response) {
-            $scope.data = response.data || 'Request failed';
-            $scope.status = response.status;
-            anadirAlertaCountry(country);
-        });
-    }
-    $scope.getFromTo = function(from, to) {
-        $http.get($scope.url + "?from=" + from + "&to=" + to).then(function(response) {
-            console.log("Get done");
-            $scope.data = JSON.stringify(response.data, null, 2);
-            $scope.country = response.data.country;
-            $scope.year = response.data.year;
-            $scope.numberOfCompanies = response.data.numberOfCompanies;
-            $scope.sector = response.data.sector;
-            $scope.page = response.data.page;
-            $scope.status = JSON.stringify(response.status, null, 2);
-            refreshFromTo(from, to);
-            anadirAlerta()
         }, function(response) {
             $scope.data = response.data || 'Request failed';
             $scope.status = response.status;
