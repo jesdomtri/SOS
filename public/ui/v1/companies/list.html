@@ -39,52 +39,49 @@
         <div style="padding-bottom:2%;">
             <h4 style="color:white; display:inline;">Filtros: </h4><input type="checkbox" ng-model="checked" aria-label="Toggle ngShow"><br />
             <div class="check-element animate-show-hide" style="padding-top:1%;" ng-show="checked">
-                <div class="row">
+                <h6 style="color:white;margin-left:2%;margin-top:1%;">País:</h6>
+                <div class="row" style="margin-left:2%;">
                     <div class="column">
                         <input class="form-control text-center" style="display:inline; width:100px; margin-left: 3%;" ng-model="countrySearch" placeholder="País" />
                     </div>
                 </div>
-                <div class="row">
+                <h6 style="color:white;margin-left:2%;margin-top:1%;">Año:</h6>
+                <div class="row" style="margin-left:2%;margin-top:1%;">
                     <div class="column">
                         <input class="form-control text-center" style="display:inline; width:100px;" ng-model="from" placeholder="Desde" />
                     </div>
-                    <div class="column">
+                    <div class="column" style="margin-left:1%">
                         <input class="form-control text-center" style="display:inline; width:100px;" ng-model="to" placeholder="Hasta" />
                     </div>
                 </div>
-                <div class="row">
+                <h6 style="color:white;margin-left:2%;margin-top:1%;">Número de compañías:</h6>
+                <div class="row" style="margin-left:2%;margin-top:1%;">
                     <div class="column">
-                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="from" placeholder="Desde" />
-
+                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="mincom" placeholder="Desde" />
                     </div>
-                    <div class="column">
-                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="to" placeholder="Hasta" />
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="column">
-                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="from" placeholder="Desde" />
-
-                    </div>
-                    <div class="column">
-                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="to" placeholder="Hasta" />
-
+                    <div class="column" style="margin-left:1%">
+                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="maxcom" placeholder="Hasta" />
                     </div>
                 </div>
-                <div class="row">
+                <h6 style="color:white;margin-left:2%;margin-top:1%;">Sector:</h6>
+                <div class="row" style="margin-left:2%;margin-top:1%;">
                     <div class="column">
-                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="from" placeholder="Desde" />
-
+                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="minsec" placeholder="Desde" />
                     </div>
-                    <div class="column">
-                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="to" placeholder="Hasta" />
-
+                    <div class="column" style="margin-left:1%">
+                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="maxsec" placeholder="Hasta" />
                     </div>
                 </div>
-
-                <button class="btn btn-info" style="display:inline; width:100px;" ng-click="getFromTo(from,to)">Buscar</button>
-                <button class="btn btn-info" style="display:inline; width:100px;" ng-click="getCountry(countrySearch)">Buscar</button>
+                <h6 style="color:white;margin-left:2%;margin-top:1%;">Página:</h6>
+                <div class="row" style="margin-left:2%;margin-top:1%;">
+                    <div class="column">
+                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="minpag" placeholder="Desde" />
+                    </div>
+                    <div class="column" style="margin-left:1%">
+                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="maxpag" placeholder="Hasta" />
+                    </div>
+                </div>
+                <button class="btn btn-info" style="display:inline; width:100px;margin-top:1%;margin-left:2%;" ng-click="getCountry(countrySearch)">Buscar</button>
             </div>
         </div>
         <!-- FIN FILTROS -->
