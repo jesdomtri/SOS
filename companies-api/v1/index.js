@@ -223,7 +223,7 @@ module.exports = function(app, companies, BASE_PATH) {
             delete query.maxpag;
             query["page"] = { "$lte": parseInt(req.query["maxpag"]) };
         }
-        companies.find({ "country": country } + query).skip(offset).limit(limit).toArray((error, filteredcompanies) => {
+        companies.find({ $and: [{ "country": country }, query] }).skip(offset).limit(limit).toArray((error, filteredcompanies) => {
             if (error) {
                 console.log("Error: " + error);
             }
