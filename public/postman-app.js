@@ -4,9 +4,13 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
         .when("/", {
             templateUrl: "index.html"
         })
-        .when("/ui/v1/companies/", {
+        .when("/companies", {
             controller: "ListCtrl",
-            templateUrl: "/ui/v1/companies/list.html"
+            templateUrl: "list.html"
+        })
+        .when("/country-stats", {
+            controller: "ListCtrl",
+            templateUrl: "list.html"
         })
 });
 console.log("Modular App Initialized");
