@@ -1,5 +1,5 @@
-describe("Check if a new contact can be created", function() {
-    it("List grow after the contact creation", function() {
+describe("Check if a new stat can be created", function() {
+    it("List grow after the stat creation", function() {
         browser.get("http://localhost:8080");
         var initialStats = element.all(by.repeater("stat in stats"))
             .then(function(initialStats) {
