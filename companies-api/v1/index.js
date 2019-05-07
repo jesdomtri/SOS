@@ -16,15 +16,15 @@ module.exports = function(app, companies, BASE_PATH) {
             { country: "Germany", year: 2018, numberOfCompanies: 6497, sector: 31, page: 6102 },
             { country: "Germany", year: 2016, numberOfCompanies: 6173, sector: 31, page: 6021 },
             { country: "EEUU", year: 2017, numberOfCompanies: 31148, sector: 34, page: 28745 },
-            { country: "Argentina", year: 2017, numberOfCompanies: 4595, sector: 25, page: 4297 },
-            { country: "Georgia", year: 2017, numberOfCompanies: 4, sector: 3, page: 3 },
-            { country: "India", year: 2017, numberOfCompanies: 187, sector: 2, page: 2 },
-            { country: "Norway", year: 2017, numberOfCompanies: 91, sector: 8, page: 65 },
-            { country: "Mexico", year: 2017, numberOfCompanies: 2540, sector: 27, page: 1712 },
-            { country: "Sweden", year: 2017, numberOfCompanies: 386, sector: 13, page: 276 },
-            { country: "Spain", year: 2016, numberOfCompanies: 1409124, sector: 46, page: 1409097 },
-            { country: "Spain", year: 2018, numberOfCompanies: 1409386, sector: 46, page: 1409312 },
-            { country: "Spain", year: 2017, numberOfCompanies: 1409159, sector: 46, page: 1409159 }
+            //{ country: "Argentina", year: 2017, numberOfCompanies: 4595, sector: 25, page: 4297 },
+            //{ country: "Georgia", year: 2017, numberOfCompanies: 4, sector: 3, page: 3 },
+            //{ country: "India", year: 2017, numberOfCompanies: 187, sector: 2, page: 2 },
+            //{ country: "Norway", year: 2017, numberOfCompanies: 91, sector: 8, page: 65 },
+            //{ country: "Mexico", year: 2017, numberOfCompanies: 2540, sector: 27, page: 1712 },
+            //{ country: "Sweden", year: 2017, numberOfCompanies: 386, sector: 13, page: 276 },
+            //{ country: "Spain", year: 2016, numberOfCompanies: 1409124, sector: 46, page: 1409097 },
+            //{ country: "Spain", year: 2018, numberOfCompanies: 1409386, sector: 46, page: 1409312 },
+            //{ country: "Spain", year: 2017, numberOfCompanies: 1409159, sector: 46, page: 1409159 }
         ];
 
         companies.find({}).toArray((error, companiesArray) => {
