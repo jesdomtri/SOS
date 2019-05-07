@@ -99,7 +99,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="company in companies | orderBy:'+year' | orderBy:'+country'">
+                    <tr ng-repeat="company in companies">
                         <td><a href="#!/update/{{company.country}}/{{company.year}}">{{ company.country }}</a></td>
                         <td>{{company.year}}</td>
                         <td>{{company.numberOfCompanies}}</td>
@@ -115,7 +115,7 @@
                         <td><input class="form-control text-center" ng-model="numberOfCompanies" /></td>
                         <td><input class="form-control text-center" ng-model="sector" /></td>
                         <td><input class="form-control text-center" ng-model="page" /></td>
-                        <td><button class="btn btn-primary" ng-click="postTable(country,year,numberOfCompanies,sector,page)">Crear</button></td>
+                        <td><button name="crearCompany" class="btn btn-primary" ng-click="postTable(country,year,numberOfCompanies,sector,page)">Crear</button></td>
                     </tr>
                 </tbody>
             </table>
