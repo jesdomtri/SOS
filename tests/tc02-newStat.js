@@ -1,5 +1,3 @@
-/* global element, by, browser, expect*/
-
 describe("Check if a new stat can be created", function() {
     it("List grow after the stat creation", function() {
          browser.get("http://localhost:8080/ui/v1/country-stats/#!/");

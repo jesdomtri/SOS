@@ -1,12 +1,10 @@
-/* global element, by, browser, expect*/
-
 describe("Check if a contact can be deleted", function() {
     it("List grow after the contact deletion", function() {
         browser.get("http://localhost:8080/ui/v1/country-stats/#!/");
        var initialStats = element.all(by.repeater("stat in stats"))
             .then(function(initialStats) {
-                element(by.name('BorrarStat')).get(0).click();
-                
+                //element(by.name('BorrarStat')).click();
+                element.all(by.css('.btn-danger')).last().click();
                 
                 element.all(by.repeater("stat in stats"))
                     .then(function(finalStats) {
