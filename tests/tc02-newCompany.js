@@ -8,7 +8,7 @@ describe("Check if a new company can be created. ", function() {
                 element(by.model("numberOfCompanies")).sendKeys("1");
                 element(by.model("sector")).sendKeys("1");
                 element(by.model("page")).sendKeys("1");
-                element(by.css('[value=="Crear"]')).click();
+                element(by.name("crearCompany")).click();
 
                 element.all(by.repeater("company in companies"))
                     .then(function(finalCompanies) {
