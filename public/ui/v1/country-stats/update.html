@@ -26,11 +26,11 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{stats.country}}</td>
-                    <td>{{stats.year}}</td>
-                    <td><input class="form-control text-center" ng-model="stat.numberOfCompanies" /></td>
-                    <td><input class="form-control text-center" ng-model="stat.sector" /></td>
-                    <td><input class="form-control text-center" ng-model="stat.page" /></td>
+                    <td>{{stat.country}}</td>
+                    <td>{{stat.year}}</td>
+                    <td><input class="form-control text-center" ng-model="stat.extensionOfBorders"/></td>
+                    <td><input class="form-control text-center" ng-model="stat.population"/></td>
+                    <td><input class="form-control text-center" ng-model="stat.territorialExtension"/></td>
                     <td>
                         <button class="btn btn-warning" ng-click="updateStat(stat.country,stat.year)">Actualizar</button>
                     </td>

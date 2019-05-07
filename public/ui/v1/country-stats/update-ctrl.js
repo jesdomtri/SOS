@@ -6,11 +6,11 @@ angular.module("PostmanApp").controller("UpdateCtrl", ["$scope", "$http", "$rout
     var year = $routeParams.year;
 
     $http.get(API + "/" + country + "/" + year).then(function(response) {
-        $scope.stats = response.data;
+        $scope.stat = response.data;
     });
 
     $scope.updateStat = function(country, year) {
-        $http.put(API + "/" + country + "/" + year, $scope.stats).then(function(response) {});
+        $http.put(API + "/" + country + "/" + year, $scope.stat).then(function(response) {});
         $location.path("/");
     }
 }]);
