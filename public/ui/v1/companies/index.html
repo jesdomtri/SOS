@@ -8,10 +8,21 @@
     <link rel="shortcut icon" type="image/png" href="/img/favicon.png" />
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+
     <script src="/bower_components/angular/angular.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
-    <script src="../../../postman-app.js" type="text/javascript"></script>
+
+
+    <script src="../postman-app.js" type="text/javascript"></script>
     <script src="list-ctrl.js" type="text/javascript"></script>
+
+
+    <script type="text/javascript">
+        console.log("Hemos entrado en index.html")
+    </script>
+
+
     <style>
         html,
         body,
@@ -29,7 +40,9 @@
 </head>
 
 <body ng-view style="padding-top: 2%;padding-bottom:3%; background: linear-gradient(to top right,#41295a, #2F0743); background-size:100% 1300px;">
-
+    <script type="text/javascript">
+        console.log("Hemos entrado en el body de index.html")
+    </script>
 </body>
 
 </html>
