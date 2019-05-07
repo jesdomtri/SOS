@@ -1,5 +1,4 @@
 /* global angular location*/
-console.log("Hemos entrado a list-ctrl");
 angular.module("PostmanApp").controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
     console.log("Modular ListCtrl initialized");
     $scope.url = "/api/v1/companies";

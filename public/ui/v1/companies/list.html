@@ -95,19 +95,18 @@
                         <th scope="col">Número de compañías</th>
                         <th scope="col">Sectores</th>
                         <th scope="col">Paginas</th>
-                        <th scope="col" style="width:20%;">Opciones</th>
+                        <th scope="col">Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="company in companies | orderBy:'+year' | orderBy:'+country'">
-                        <td><input class="form-control text-center" ng-model="company.country" readonly/></td>
-                        <td><input class="form-control text-center" ng-model="company.year" readonly/></td>
-                        <td><input class="form-control text-center" ng-model="company.numberOfCompanies" /></td>
-                        <td><input class="form-control text-center" ng-model="company.sector" /></td>
-                        <td><input class="form-control text-center" ng-model="company.page" /></td>
+                        <td><a href="#!/update/{{company.country}}/{{company.year}}">{{ company.country }}</a></td>
+                        <td>{{company.year}}</td>
+                        <td>{{company.numberOfCompanies}}</td>
+                        <td>{{company.sector}}</td>
+                        <td>{{company.page}}</td>
                         <td>
                             <button class="btn btn-danger" ng-click="delTable(company.country,company.year)">Eliminar</button>
-                            <button class="btn btn-warning" ng-click="putTable(company.country,company.year,company.numberOfCompanies,company.sector,company.page)">Actualizar</button>
                         </td>
                     </tr>
                     <tr>

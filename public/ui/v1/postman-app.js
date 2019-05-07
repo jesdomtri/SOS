@@ -5,5 +5,9 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
             controller: "ListCtrl",
             templateUrl: "list.html"
         })
+        .when("/update/:country/:year", {
+            controller: "UpdateCtrl",
+            templateUrl: "update.html"
+        })
 });
 console.log("Modular App Initialized");
