@@ -96,7 +96,7 @@
                             <td>{{stat.population}}</td>
                             <td>{{stat.territorialExtension}}</td>
                             <td>
-                                <button name= "BorrarStat" class="btn btn-danger" ng-click="delTable(stat.country,stat.year)">Eliminar</button>
+                                <button name="BorrarStat" class="btn btn-danger" ng-click="delTable(stat.country,stat.year)">Eliminar</button>
                             </td>
                         </tr>
                         <tr>
@@ -105,7 +105,7 @@
                             <td><input class="form-control text-center" ng-model="extensionOfBorders"/></td>
                             <td><input class="form-control text-center" ng-model="population"/></td>
                             <td><input class="form-control text-center" ng-model="territorialExtension"/></td>
-                            <td><button name= "CrearStat" class="btn btn-primary" ng-click="postTable(country,year,extensionOfBorders,population,territorialExtension)">Crear</button></td>
+                            <td><button name="CrearStat" class="btn btn-primary" ng-click="postTable(country,year,extensionOfBorders,population,territorialExtension)">Crear</button></td>
                         </tr>
                     </tbody>
                 </table>
