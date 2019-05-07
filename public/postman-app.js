@@ -12,5 +12,9 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
             controller: "ListCtrl",
             templateUrl: "list.html"
         })
+         .when("/v1/computer-attacks-stats", {
+            controller: "ListCtrl",
+            templateUrl: "list.html"
+        })
 });
 console.log("Modular App Initialized");

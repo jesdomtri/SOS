@@ -3,7 +3,7 @@
     
     var app = angular.module("PostmanApp");
   
-    app.controller("MainCtrl",["$scope","$http", function ($scope,$http) {
+    app.controller("ListCtrl",["$scope","$http", function ($scope,$http) {
         console.log("MainCtrl initialized");
         $scope.url = "/api/v1/computers-attacks-stats";
         $scope.offset = 0;
