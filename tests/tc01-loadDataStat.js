@@ -1,3 +1,5 @@
+/* global element, by, browser, expect*/
+
 describe("Data is loaded", function() {
     it("Should show a bunch of data", function() {
         browser.get("http://localhost:8080/ui/v1/country-stats/#!/");
