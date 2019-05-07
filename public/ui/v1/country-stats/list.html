@@ -90,14 +90,13 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="stat in stats | orderBy:'-year' | orderBy:'+country'">
-                            <td><input class="form-control text-center" ng-model="stat.country" readonly/></td>
-                            <td><input class="form-control text-center" ng-model="stat.year" readonly/></td>
-                            <td><input class="form-control text-center" ng-model="stat.extensionOfBorders" /></td>
-                            <td><input class="form-control text-center" ng-model="stat.population" /></td>
-                            <td><input class="form-control text-center" ng-model="stat.territorialExtension" /></td>
+                            <td><a href="#!/update/{{stat.country}}/{{stat.year}}">{{ stat.country }}</a></td>
+                            <td>{{stat.year}}</td>
+                            <td>{{stat.extensionOfBorders}}</td>
+                            <td>{{stat.population}}</td>
+                            <td>{{stat.territorialExtension}}</td>
                             <td>
                                 <button class="btn btn-danger" ng-click="delTable(stat.country,stat.year)">Eliminar</button>
-                                <button class="btn btn-warning" ng-click="putTable(stat.country,stat.year,stat.extensionOfBorders,stat.population,stat.territorialExtension)">Actualizar</button>
                             </td>
                         </tr>
                         <tr>
