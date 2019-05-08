@@ -150,23 +150,22 @@
                         </tr>
                         <tr>
                             <td>
-                                <input class="form-control text-center" ng-model="country"/>
+                                <input id="country" class="form-control text-center" ng-model="country"/>
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="year"/>
+                                <input id="year" class="form-control text-center" ng-model="year"/>
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="numberOfCompanies"/>
+                                <input id="numberOfCompanies" class="form-control text-center" ng-model="numberOfCompanies"/>
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="sector"/>
+                                <input id="sector" class="form-control text-center" ng-model="sector"/>
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="page"/>
+                                <input id="page" class="form-control text-center" ng-model="page"/>
                             </td>
                             <td>
-                                <button class="btn btn-primary" name="crearCompany" 
-                                ng-click="postTable(country,year,numberOfCompanies,sector,page)">
+                                <button class="btn btn-primary" name="crearCompany" ng-click="postTable(country,year,numberOfCompanies,sector,page); clearInput()" >
                                     Crear
                                 </button>
                             </td>

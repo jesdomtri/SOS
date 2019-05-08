@@ -5,7 +5,6 @@ angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http",
     $scope.offset = 0;
     $scope.limit = 10;
     $scope.datos = 0;
-
     refresh();
     numDatos();
 
@@ -19,7 +18,7 @@ angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http",
         $http.get($scope.url + "?limit=" + $scope.limit + "&offset=" + $scope.offset).then(function(response) {
             $scope.companies = response.data;
             $scope.status = response.status;
-
+            numDatos();
         }, function(response) {
             $scope.companies = response.companies || 'Request failed';
             $scope.status = response.status;
@@ -27,117 +26,131 @@ angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http",
     }
 
     function refreshFilters(countrySearch, from, to, mincom, maxcom, minsec, maxsec, minpag, maxpag) {
-        $http.get($scope.url + countrySearch + "?limit=" + $scope.limit + "&offset=" + $scope.offset +
-            from + to + mincom + maxcom + minsec + maxsec + minpag + maxpag).then(function(response) {
+        $http.get($scope.url + countrySearch + "?limit=" + $scope.limit + "&offset=" + $scope.offset + from + to + mincom + maxcom + minsec + maxsec + minpag + maxpag).then(function(response) {
             $scope.companies = response.data;
             $scope.status = response.status;
-
+            numDatos();
         }, function(response) {
             $scope.companies = response.companies || 'Request failed';
             $scope.status = response.status;
         });
     }
-
     $scope.alerts = [];
 
     function anadirAlerta() {
         if ($scope.status == 200) {
             $scope.alerts = [];
             console.log("Alerta correcta añadida");
-            $scope.alerts.push({ msg: '¡Acción realizada correctamente!' });
+            $scope.alerts.push({
+                msg: '¡Acción realizada correctamente!'
+            });
         }
         if ($scope.status == 201) {
             $scope.alerts = [];
             console.log("Alerta correcta añadida");
-            $scope.alerts.push({ msg: '¡Se ha creado un nuevo dato correctamente!' });
+            $scope.alerts.push({
+                msg: '¡Se ha creado un nuevo dato correctamente!'
+            });
         }
         if ($scope.status == 404) {
             $scope.alerts = [];
             console.log("Alerta mala añadida");
-            $scope.alerts.push({ msg: 'Error 404: No se ha podido encontrar el recurso' });
+            $scope.alerts.push({
+                msg: 'Error 404: No se ha podido encontrar el recurso'
+            });
         }
         if ($scope.status == 409) {
             $scope.alerts = [];
             console.log("Alerta mala añadida");
-            $scope.alerts.push({ msg: 'Error 409: Ha habido conflicto en su operación' });
+            $scope.alerts.push({
+                msg: 'Error 409: Ha habido conflicto en su operación'
+            });
         }
         if ($scope.status == 405) {
             $scope.alerts = [];
             console.log("Alerta mala añadida");
-            $scope.alerts.push({ msg: 'Error 405: Ha realizado una creación errónea' });
+            $scope.alerts.push({
+                msg: 'Error 405: Ha realizado una creación errónea'
+            });
         }
         if ($scope.status == 400) {
             $scope.alerts = [];
             console.log("Alerta mala añadida");
-            $scope.alerts.push({ msg: 'Error 400: Ha realizado una solicitud errónea' });
+            $scope.alerts.push({
+                msg: 'Error 400: Ha realizado una solicitud errónea'
+            });
         }
     }
+    $scope.clearInput = function(){
+        console.log("Reseteamos");
+        document.getElementById('country').value = '';
+        document.getElementById('year').value = '';
+        document.getElementById('numberOfCompanies').value = '';
+        document.getElementById('sector').value = '';
+        document.getElementById('page').value = '';
 
-    function anadirAlertaCountry(country) {
-        if ($scope.status == 404) {
-            $scope.alerts = [];
-            console.log("Alerta mala añadida de country");
-            $scope.alerts.push({ msg: 'Error 404: No se ha podido encontrar el recurso ' + country });
-        }
     }
-
     $scope.avanzar = function() {
         $scope.offset = $scope.offset + $scope.limit;
         refresh();
     }
-
     $scope.retroceder = function() {
         $scope.offset = $scope.offset - $scope.limit;
         refresh();
     }
-
-
-    $scope.get = function() {
-        $http.get($scope.url + "?limit=" + $scope.limit + "&offset=" + $scope.offset).then(function(response) {
-            console.log("Get done");
-            $scope.data = JSON.stringify(response.data, null, 2);
-            $scope.country = response.data.country;
-            $scope.year = response.data.year;
-            $scope.numberOfCompanies = response.data.numberOfCompanies;
-            $scope.sector = response.data.sector;
-            $scope.page = response.data.page;
-            $scope.status = JSON.stringify(response.status, null, 2);
-            refresh();
-            anadirAlerta();
-        }, function(response) {
-            $scope.data = response.data || 'Request failed';
-            $scope.status = response.status;
-            anadirAlerta()
-        });
-    }
     $scope.getFilters = function(countrySearch, from, to, mincom, maxcom, minsec, maxsec, minpag, maxpag) {
         //country
-        if (countrySearch == "" || countrySearch == undefined) { countrySearch = "" }
-        else { countrySearch = "/" + countrySearch }
+        if (countrySearch == "" || countrySearch == undefined) {
+            countrySearch = ""
+        } else {
+            countrySearch = "/" + countrySearch
+        }
         //year
-        if (from == "" || from == undefined) { from = "&from=0" }
-        else { from = "&from=" + from }
-        if (to == "" || to == undefined) { to = "&to=2000000000" }
-        else { to = "&to=" + to }
+        if (from == "" || from == undefined) {
+            from = "&from=0"
+        } else {
+            from = "&from=" + from
+        }
+        if (to == "" || to == undefined) {
+            to = "&to=2000000000"
+        } else {
+            to = "&to=" + to
+        }
         //numberOfCompanies
-        if (mincom == "" || mincom == undefined) { mincom = "&mincom=0" }
-        else { mincom = "&mincom=" + mincom }
-        if (maxcom == "" || maxcom == undefined) { maxcom = "&maxcom=2000000000" }
-        else { maxcom = "&maxcom=" + maxcom }
+        if (mincom == "" || mincom == undefined) {
+            mincom = "&mincom=0"
+        } else {
+            mincom = "&mincom=" + mincom
+        }
+        if (maxcom == "" || maxcom == undefined) {
+            maxcom = "&maxcom=2000000000"
+        } else {
+            maxcom = "&maxcom=" + maxcom
+        }
         //sector    
-        if (minsec == "" || minsec == undefined) { minsec = "&minsec=0" }
-        else { minsec = "&minsec=" + minsec }
-        if (maxsec == "" || maxsec == undefined) { maxsec = "&maxsec=2000000000" }
-        else { maxsec = "&maxsec=" + maxsec }
+        if (minsec == "" || minsec == undefined) {
+            minsec = "&minsec=0"
+        } else {
+            minsec = "&minsec=" + minsec
+        }
+        if (maxsec == "" || maxsec == undefined) {
+            maxsec = "&maxsec=2000000000"
+        } else {
+            maxsec = "&maxsec=" + maxsec
+        }
         //page
-        if (minpag == "" || minpag == undefined) { minpag = "&minpag=0" }
-        else { minpag = "&minpag=" + minpag }
-        if (maxpag == "" || maxpag == undefined) { maxpag = "&maxpag=2000000000" }
-        else { maxpag = "&maxpag=" + maxpag }
-        console.log($scope.url + countrySearch + "?limit=" + $scope.limit + "&offset=" + $scope.offset +
-            from + to + mincom + maxcom + minsec + maxsec + minpag + maxpag);
-        $http.get($scope.url + countrySearch + "?limit=" + $scope.limit + "&offset=" + $scope.offset +
-            from + to + mincom + maxcom + minsec + maxsec + minpag + maxpag).then(function(response) {
+        if (minpag == "" || minpag == undefined) {
+            minpag = "&minpag=0"
+        } else {
+            minpag = "&minpag=" + minpag
+        }
+        if (maxpag == "" || maxpag == undefined) {
+            maxpag = "&maxpag=2000000000"
+        } else {
+            maxpag = "&maxpag=" + maxpag
+        }
+        console.log($scope.url + countrySearch + "?limit=" + $scope.limit + "&offset=" + $scope.offset + from + to + mincom + maxcom + minsec + maxsec + minpag + maxpag);
+        $http.get($scope.url + countrySearch + "?limit=" + $scope.limit + "&offset=" + $scope.offset + from + to + mincom + maxcom + minsec + maxsec + minpag + maxpag).then(function(response) {
             console.log("Get filters done");
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.country = response.data.country;
@@ -166,9 +179,10 @@ angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http",
             $scope.status = response.status;
             if ($scope.status == 409) {
                 $scope.alerts = [];
-                $scope.alerts.push({ msg: "Error 409: No puede haber datos si quiere cargar los datos iniciales" })
-            }
-            else {
+                $scope.alerts.push({
+                    msg: "Error 409: No puede haber datos si quiere cargar los datos iniciales"
+                })
+            } else {
                 anadirAlerta()
             }
         });
@@ -199,24 +213,6 @@ angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http",
             anadirAlerta()
         });
     }
-    $scope.post = function() {
-        $http.post($scope.url, {
-            country: $scope.country,
-            year: parseInt($scope.year),
-            numberOfCompanies: parseInt($scope.numberOfCompanies),
-            sector: parseInt($scope.sector),
-            page: parseInt($scope.page)
-        }).then(function(response) {
-            $scope.data = JSON.stringify(response.data, null, 2);
-            $scope.status = JSON.stringify(response.status, null, 2);
-            refresh();
-            anadirAlerta()
-        }, function(response) {
-            $scope.data = response.data || 'Request failed';
-            $scope.status = response.status;
-            anadirAlerta()
-        });
-    }
     $scope.postTable = function(country, year, numberOfCompanies, sector, page) {
         $http.post($scope.url, {
             country: country,
@@ -235,45 +231,17 @@ angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http",
             $scope.status = response.status;
             if ($scope.status == 409) {
                 $scope.alerts = [];
-                $scope.alerts.push({ msg: "Error 409: Ya existe este recurso" })
-            }
-            else if ($scope.status == 400) {
+                $scope.alerts.push({
+                    msg: "Error 409: Ya existe este recurso"
+                })
+            } else if ($scope.status == 400) {
                 $scope.alerts = [];
-                $scope.alerts.push({ msg: "Error 400: Datos insuficientes" })
-            }
-            else {
+                $scope.alerts.push({
+                    msg: "Error 400: Datos insuficientes"
+                })
+            } else {
                 anadirAlerta()
             }
-        });
-    }
-    $scope.postJSON = function() {
-        $http.post($scope.url, $scope.data).then(function(response) {
-            $scope.data = "";
-            $scope.status = JSON.stringify(response.status, null, 2);
-            refresh();
-            anadirAlerta()
-        }, function(response) {
-            $scope.data = response.data || 'Request failed';
-            $scope.status = response.status;
-            anadirAlerta()
-        });
-    }
-    $scope.put = function() {
-        $http.put($scope.url, {
-            country: $scope.country,
-            year: parseInt($scope.year),
-            numberOfCompanies: parseInt($scope.numberOfCompanies),
-            sector: parseInt($scope.sector),
-            page: parseInt($scope.page)
-        }).then(function(response) {
-            $scope.data = JSON.stringify(response.data, null, 2);
-            $scope.status = JSON.stringify(response.status, null, 2);
-            refresh();
-            anadirAlerta()
-        }, function(response) {
-            $scope.data = response.data || 'Request failed';
-            $scope.status = response.status;
-            anadirAlerta()
         });
     }
     $scope.putTable = function(country, year, numberOfCompanies, sector, page) {
@@ -294,24 +262,12 @@ angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http",
             $scope.status = response.status;
             if ($scope.status == 400) {
                 $scope.alerts = [];
-                $scope.alerts.push({ msg: "Error 400: Datos insuficientes" })
-            }
-            else {
+                $scope.alerts.push({
+                    msg: "Error 400: Datos insuficientes"
+                })
+            } else {
                 anadirAlerta()
             }
-        });
-
-    }
-    $scope.putJSON = function() {
-        $http.put($scope.url, $scope.data).then(function(response) {
-            $scope.data = "";
-            $scope.status = JSON.stringify(response.status, null, 2);
-            refresh();
-            anadirAlerta()
-        }, function(response) {
-            $scope.data = response.data || 'Request failed';
-            $scope.status = response.status;
-            anadirAlerta()
         });
     }
 }]);
