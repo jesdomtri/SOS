@@ -4,7 +4,6 @@ module.exports = function(app, companies, BASE_PATH) {
         res.redirect("https://documenter.getpostman.com/view/7046928/S17utmxK");
     });
 
-
     //GET /companies/loadInitialData
     app.get(BASE_PATH + "/companies/loadInitialData", (req, res) => {
         var initialCompanies = [
@@ -124,8 +123,7 @@ module.exports = function(app, companies, BASE_PATH) {
             query["page"] = { "$lte": parseInt(req.query["maxpag"]) };
         }
 
-
-        companies.find(query).skip(offset).limit(limit).toArray((error, companiesArray) => {
+        companies.find(query).sort({ country: 1, year: -1 }).skip(offset).limit(limit).toArray((error, companiesArray) => {
             if (error) {
                 console.log("Error: " + error);
             }
@@ -224,7 +222,7 @@ module.exports = function(app, companies, BASE_PATH) {
             query["page"] = { "$lte": parseInt(req.query["maxpag"]) };
         }
 
-        companies.find({ $and: [{ "country": country }, query] }).skip(offset).limit(limit).toArray((error, filteredcompanies) => {
+        companies.find({ $and: [{ "country": country }, query] }).sort({ country: 1, year: -1 }).skip(offset).limit(limit).toArray((error, filteredcompanies) => {
             if (error) {
                 console.log("Error: " + error);
             }
