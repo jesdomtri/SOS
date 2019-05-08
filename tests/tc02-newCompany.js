@@ -1,6 +1,6 @@
 describe("Check if a new company can be created. ", function() {
     it("List grow after the company creation", function() {
-        browser.get("http://localhost:8080/ui/v1/companies/#!/");
+        browser.get("http://localhost:8080/#!/ui/v1/companies");
         var initialCompanies = element.all(by.repeater("company in companies"))
             .then(function(initialCompanies) {
                 element(by.model("country")).sendKeys("a");
