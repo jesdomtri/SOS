@@ -81,14 +81,13 @@ angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http",
             });
         }
     }
-    $scope.clearInput = function(){
+    $scope.clearInput = function() {
         console.log("Reseteamos");
         document.getElementById('country').value = '';
         document.getElementById('year').value = '';
         document.getElementById('numberOfCompanies').value = '';
         document.getElementById('sector').value = '';
         document.getElementById('page').value = '';
-
     }
     $scope.avanzar = function() {
         $scope.offset = $scope.offset + $scope.limit;
@@ -102,51 +101,60 @@ angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http",
         //country
         if (countrySearch == "" || countrySearch == undefined) {
             countrySearch = ""
-        } else {
+        }
+        else {
             countrySearch = "/" + countrySearch
         }
         //year
         if (from == "" || from == undefined) {
             from = "&from=0"
-        } else {
+        }
+        else {
             from = "&from=" + from
         }
         if (to == "" || to == undefined) {
             to = "&to=2000000000"
-        } else {
+        }
+        else {
             to = "&to=" + to
         }
         //numberOfCompanies
         if (mincom == "" || mincom == undefined) {
             mincom = "&mincom=0"
-        } else {
+        }
+        else {
             mincom = "&mincom=" + mincom
         }
         if (maxcom == "" || maxcom == undefined) {
             maxcom = "&maxcom=2000000000"
-        } else {
+        }
+        else {
             maxcom = "&maxcom=" + maxcom
         }
         //sector    
         if (minsec == "" || minsec == undefined) {
             minsec = "&minsec=0"
-        } else {
+        }
+        else {
             minsec = "&minsec=" + minsec
         }
         if (maxsec == "" || maxsec == undefined) {
             maxsec = "&maxsec=2000000000"
-        } else {
+        }
+        else {
             maxsec = "&maxsec=" + maxsec
         }
         //page
         if (minpag == "" || minpag == undefined) {
             minpag = "&minpag=0"
-        } else {
+        }
+        else {
             minpag = "&minpag=" + minpag
         }
         if (maxpag == "" || maxpag == undefined) {
             maxpag = "&maxpag=2000000000"
-        } else {
+        }
+        else {
             maxpag = "&maxpag=" + maxpag
         }
         console.log($scope.url + countrySearch + "?limit=" + $scope.limit + "&offset=" + $scope.offset + from + to + mincom + maxcom + minsec + maxsec + minpag + maxpag);
@@ -182,7 +190,8 @@ angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http",
                 $scope.alerts.push({
                     msg: "Error 409: No puede haber datos si quiere cargar los datos iniciales"
                 })
-            } else {
+            }
+            else {
                 anadirAlerta()
             }
         });
@@ -224,8 +233,8 @@ angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http",
             console.log("Post table done");
             $scope.data = JSON.stringify(response.data, null, 2);
             $scope.status = JSON.stringify(response.status, null, 2);
-            refresh()
-            anadirAlerta()
+            refresh();
+            anadirAlerta();
         }, function(response) {
             $scope.data = response.data || 'Request failed';
             $scope.status = response.status;
@@ -234,12 +243,14 @@ angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http",
                 $scope.alerts.push({
                     msg: "Error 409: Ya existe este recurso"
                 })
-            } else if ($scope.status == 400) {
+            }
+            else if ($scope.status == 400) {
                 $scope.alerts = [];
                 $scope.alerts.push({
                     msg: "Error 400: Datos insuficientes"
                 })
-            } else {
+            }
+            else {
                 anadirAlerta()
             }
         });
@@ -265,7 +276,8 @@ angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http",
                 $scope.alerts.push({
                     msg: "Error 400: Datos insuficientes"
                 })
-            } else {
+            }
+            else {
                 anadirAlerta()
             }
         });
