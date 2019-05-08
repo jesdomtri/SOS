@@ -1,129 +1,186 @@
-<!-- POSTMAN COMPANIES -->
-<script type="text/javascript">console.log("Hemos entrado en list.html")</script>
-<div class="container" style="padding-bottom: 1%;">
-    <h1 style="color: white">
-        <img class="navbar-toggler-icon" src="/img/logo-postman.png" /> Postman Companies
-    </h1>
-</div>
-<div style="padding-bottom:1%;" class="container">
-    <alert class="alert alert-primary" ng-repeat="alert in alerts">{{alert.msg}}</alert>
-</div>
-
-<!-- CONTAINER -->
-<div class="container" style="background-color: rgb(46, 49, 49); padding-bottom: 3%; border-radius: 20px;box-shadow: 0px 0px 16px -2px rgba(0,0,0,0.52);">
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-md navbar-dark info-color" style="background-color: #2e3131;">
-        <a class="navbar-brand" href="../../../">
-                    Inicio
-                </a>
-        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
-                    <span class="navbar-toggler-icon">
-                    </span>
+<div style="padding-top: 2%;padding-bottom:3%;">
+    <!-- POSTMAN COMPANIES -->
+    <div class="container" style="padding-bottom: 1%;">
+        <h1 style="color: white">
+            <img class="navbar-toggler-icon" src="/img/logo-postman.png"/>
+            Postman Companies
+        </h1>
+    </div>
+    <div class="container" style="padding-bottom:1%;">
+        <alert class="alert alert-primary" ng-repeat="alert in alerts">
+            {{alert.msg}}
+        </alert>
+    </div>
+    <!-- CONTAINER -->
+    <div class="container" style="background-color: rgb(46, 49, 49); padding-bottom: 3%; border-radius: 20px;box-shadow: 0px 0px 16px -2px rgba(0,0,0,0.52);">
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-md navbar-dark info-color" style="background-color: #2e3131;">
+            <a class="navbar-brand" href="../../../">
+                Inicio
+            </a>
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon">
+                </span>
+            </button>
+        </nav>
+        <div class="container">
+            <div style="padding-bottom:2%;">
+                <button class="btn btn-primary" ng-click="loadinitial()">
+                    Cargar datos iniciales
                 </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto" style="background-color: #2e3131;">
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="./developer-mode/get.html">
-                                Modo desarrollador
-                            </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div class="container">
-        <div style="padding-bottom:2%;">
-            <button class="btn btn-primary" ng-click="loadinitial()">Cargar datos iniciales</button>
-            <button class="btn btn-danger" ng-click="del()">Eliminar todo</button>
-        </div>
-
-        <!-- FILTROS -->
-        <div style="padding-bottom:2%;">
-            <h4 style="color:white; display:inline;">Filtros: </h4><input type="checkbox" ng-model="checked" aria-label="Toggle ngShow"><br />
-            <div class="check-element animate-show-hide" style="padding-top:1%;" ng-show="checked">
-                <h6 style="color:white;margin-left:2%;margin-top:1%;">País:</h6>
-                <div class="row" style="margin-left:2%;">
-                    <div class="column">
-                        <input class="form-control text-center" style="display:inline; width:100px; margin-left: 3%;" ng-model="countrySearch" placeholder="País" />
-                    </div>
-                </div>
-                <h6 style="color:white;margin-left:2%;margin-top:1%;">Año:</h6>
-                <div class="row" style="margin-left:2%;margin-top:1%;">
-                    <div class="column">
-                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="from" placeholder="Desde" />
-                    </div>
-                    <div class="column" style="margin-left:1%">
-                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="to" placeholder="Hasta" />
-                    </div>
-                </div>
-                <h6 style="color:white;margin-left:2%;margin-top:1%;">Número de compañías:</h6>
-                <div class="row" style="margin-left:2%;margin-top:1%;">
-                    <div class="column">
-                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="mincom" placeholder="Desde" />
-                    </div>
-                    <div class="column" style="margin-left:1%">
-                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="maxcom" placeholder="Hasta" />
-                    </div>
-                </div>
-                <h6 style="color:white;margin-left:2%;margin-top:1%;">Sector:</h6>
-                <div class="row" style="margin-left:2%;margin-top:1%;">
-                    <div class="column">
-                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="minsec" placeholder="Desde" />
-                    </div>
-                    <div class="column" style="margin-left:1%">
-                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="maxsec" placeholder="Hasta" />
-                    </div>
-                </div>
-                <h6 style="color:white;margin-left:2%;margin-top:1%;">Página:</h6>
-                <div class="row" style="margin-left:2%;margin-top:1%;">
-                    <div class="column">
-                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="minpag" placeholder="Desde" />
-                    </div>
-                    <div class="column" style="margin-left:1%">
-                        <input class="form-control text-center" style="display:inline; width:100px;" ng-model="maxpag" placeholder="Hasta" />
-                    </div>
-                </div>
-                <button class="btn btn-info" style="display:inline; width:100px;margin-top:1%;margin-left:2%;" ng-click="getFilters(countrySearch, from, to, mincom, maxcom, minsec, maxsec, minpag, maxpag)">Buscar</button>
+                <button class="btn btn-danger" ng-click="del()">
+                    Eliminar todo
+                </button>
             </div>
-        </div>
-        <!-- FIN FILTROS -->
-        <div class="table-responsive-xl" style="background-color:white;">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">País</th>
-                        <th scope="col">Año</th>
-                        <th scope="col">Número de compañías</th>
-                        <th scope="col">Sectores</th>
-                        <th scope="col">Paginas</th>
-                        <th scope="col">Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="company in companies">
-                        <td><a href="#!/update/{{company.country}}/{{company.year}}">{{ company.country }}</a></td>
-                        <td>{{company.year}}</td>
-                        <td>{{company.numberOfCompanies}}</td>
-                        <td>{{company.sector}}</td>
-                        <td>{{company.page}}</td>
-                        <td>
-                            <button class="btn btn-danger" ng-click="delTable(company.country,company.year)">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input class="form-control text-center" ng-model="country" /></td>
-                        <td><input class="form-control text-center" ng-model="year" /></td>
-                        <td><input class="form-control text-center" ng-model="numberOfCompanies" /></td>
-                        <td><input class="form-control text-center" ng-model="sector" /></td>
-                        <td><input class="form-control text-center" ng-model="page" /></td>
-                        <td><button name="crearCompany" class="btn btn-primary" ng-click="postTable(country,year,numberOfCompanies,sector,page)">Crear</button></td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
-        <div class="btn-group" style="background-color:white;border-radius:7px; margin-left:45%;">
-            <button type='button' class='btn btn-default' ng-disabled="offset == 0" ng-click="retroceder()">&laquo;</button>
-            <button type='button' class='btn btn-default' ng-disabled="offset + limit >= datos" ng-click="avanzar()">&raquo;</button>
+            <!-- FILTROS -->
+            <div style="padding-bottom:2%;">
+                <h4 style="color:white; display:inline;">
+                    Filtros:
+                </h4>
+                <input aria-label="Toggle ngShow" ng-model="checked" type="checkbox">
+                    <br/>
+                    <div class="check-element animate-show-hide" ng-show="checked" style="padding-top:1%;">
+                        <h6 style="color:white;margin-left:2%;margin-top:1%;">
+                            País:
+                        </h6>
+                        <div class="row" style="margin-left:2%;">
+                            <div class="column">
+                                <input class="form-control text-center" ng-model="countrySearch" placeholder="País" style="display:inline; width:100px; margin-left: 3%;"/>
+                            </div>
+                        </div>
+                        <h6 style="color:white;margin-left:2%;margin-top:1%;">
+                            Año:
+                        </h6>
+                        <div class="row" style="margin-left:2%;margin-top:1%;">
+                            <div class="column">
+                                <input class="form-control text-center" ng-model="from" placeholder="Desde" style="display:inline; width:100px;"/>
+                            </div>
+                            <div class="column" style="margin-left:1%">
+                                <input class="form-control text-center" ng-model="to" placeholder="Hasta" style="display:inline; width:100px;"/>
+                            </div>
+                        </div>
+                        <h6 style="color:white;margin-left:2%;margin-top:1%;">
+                            Número de compañías:
+                        </h6>
+                        <div class="row" style="margin-left:2%;margin-top:1%;">
+                            <div class="column">
+                                <input class="form-control text-center" ng-model="mincom" placeholder="Desde" style="display:inline; width:100px;"/>
+                            </div>
+                            <div class="column" style="margin-left:1%">
+                                <input class="form-control text-center" ng-model="maxcom" placeholder="Hasta" style="display:inline; width:100px;"/>
+                            </div>
+                        </div>
+                        <h6 style="color:white;margin-left:2%;margin-top:1%;">
+                            Sector:
+                        </h6>
+                        <div class="row" style="margin-left:2%;margin-top:1%;">
+                            <div class="column">
+                                <input class="form-control text-center" ng-model="minsec" placeholder="Desde" style="display:inline; width:100px;"/>
+                            </div>
+                            <div class="column" style="margin-left:1%">
+                                <input class="form-control text-center" ng-model="maxsec" placeholder="Hasta" style="display:inline; width:100px;"/>
+                            </div>
+                        </div>
+                        <h6 style="color:white;margin-left:2%;margin-top:1%;">
+                            Página:
+                        </h6>
+                        <div class="row" style="margin-left:2%;margin-top:1%;">
+                            <div class="column">
+                                <input class="form-control text-center" ng-model="minpag" placeholder="Desde" style="display:inline; width:100px;"/>
+                            </div>
+                            <div class="column" style="margin-left:1%">
+                                <input class="form-control text-center" ng-model="maxpag" placeholder="Hasta" style="display:inline; width:100px;"/>
+                            </div>
+                        </div>
+                        <button class="btn btn-info" ng-click="getFilters(countrySearch, from, to, mincom, maxcom, minsec, maxsec, minpag, maxpag)" style="display:inline; width:100px;margin-top:1%;margin-left:2%;">
+                            Buscar
+                        </button>
+                    </div>
+                </input>
+            </div>
+            <!-- FIN FILTROS -->
+            <div class="table-responsive-xl" style="background-color:white;">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                País
+                            </th>
+                            <th scope="col">
+                                Año
+                            </th>
+                            <th scope="col">
+                                Número de compañías
+                            </th>
+                            <th scope="col">
+                                Sectores
+                            </th>
+                            <th scope="col">
+                                Paginas
+                            </th>
+                            <th scope="col">
+                                Eliminar
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="company in companies">
+                            <td>
+                                <a href="#!/ui/v1/companies/update/{{company.country}}/{{company.year}}">
+                                    {{ company.country }}
+                                </a>
+                            </td>
+                            <td>
+                                {{company.year}}
+                            </td>
+                            <td>
+                                {{company.numberOfCompanies}}
+                            </td>
+                            <td>
+                                {{company.sector}}
+                            </td>
+                            <td>
+                                {{company.page}}
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" ng-click="delTable(company.country,company.year)">
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input class="form-control text-center" ng-model="country"/>
+                            </td>
+                            <td>
+                                <input class="form-control text-center" ng-model="year"/>
+                            </td>
+                            <td>
+                                <input class="form-control text-center" ng-model="numberOfCompanies"/>
+                            </td>
+                            <td>
+                                <input class="form-control text-center" ng-model="sector"/>
+                            </td>
+                            <td>
+                                <input class="form-control text-center" ng-model="page"/>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" name="crearCompany" ng-click="postTable(country,year,numberOfCompanies,sector,page)">
+                                    Crear
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="btn-group" style="background-color:white;border-radius:7px; margin-left:45%;">
+                <button class="btn btn-default" ng-click="retroceder()" ng-disabled="offset == 0" type="button">
+                    «
+                </button>
+                <button class="btn btn-default" ng-click="avanzar()" ng-disabled="offset + limit >= datos" type="button">
+                    »
+                </button>
+            </div>
         </div>
     </div>
 </div>

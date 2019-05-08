@@ -1,8 +1,8 @@
 /* global angular */
 console.log("Prueba 1");
 angular.module("PostmanApp")
-    .controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
-        console.log("List Controller initialized.");
+    .controller("ListCtrlStats", ["$scope", "$http", function($scope, $http) {
+        console.log("List Controller Stats initialized.");
 
         $scope.url = "/api/v1/country-stats";
         $scope.offset = 0;

@@ -1,6 +1,6 @@
 /* global angular location*/
-angular.module("PostmanApp").controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
-    console.log("Modular ListCtrl initialized");
+angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http", function($scope, $http) {
+    console.log("Modular ListCtrlCompanies initialized");
     $scope.url = "/api/v1/companies";
     $scope.offset = 0;
     $scope.limit = 10;
