@@ -17,11 +17,12 @@ angular.module("PostmanApp")
                 $scope.datos = response.data.length;
             });
         }
-
+        
         function refresh() {
             $http.get($scope.url + "?limit=" + $scope.limit + "&offset=" + $scope.offset).then(function(response) {
                 $scope.stats = response.data;
                 $scope.status = response.status;
+                numDatos();
                 console.log("Prueba 2");
 
             }, function(response) {
@@ -35,35 +36,13 @@ angular.module("PostmanApp")
             from + to + minext + maxext + minpop + maxpop + minter + maxter).then(function(response) {
             $scope.stats = response.data;
             $scope.status = response.status;
+            numDatos();
 
         }, function(response) {
             $scope.stats = response.stats || 'Request failed';
             $scope.status = response.status;
         });
     }
-
-        function refreshCountry(country) {
-            $http.get($scope.url + "/" + country).then(function(response) {
-                $scope.stats = response.data;
-                $scope.status = response.status;
-
-            }, function(response) {
-                $scope.stats = response.stats || 'Request failed';
-                $scope.status = response.status;
-            });
-        }
-
-
-        function refreshFromTo(from, to) {
-            $http.get($scope.url + "?from=" + from + "&to=" + to).then(function(response) {
-                $scope.stats = response.data;
-                $scope.status = response.status;
-
-            }, function(response) {
-                $scope.stats = response.stats || 'Request failed';
-                $scope.status = response.status;
-            });
-        }
 
         $scope.alerts = [];
 
@@ -112,15 +91,6 @@ angular.module("PostmanApp")
             }
         }
 
-        function anadirAlertaCountry(country) {
-            if ($scope.status == 404) {
-                $scope.alerts = [];
-                console.log("Alerta mala añadida de country");
-                $scope.alerts.push({
-                    msg: 'Error 404: No se ha podido encontrar el recurso ' + country
-                });
-            }
-        }
         $scope.avanzar = function() {
             $scope.offset = $scope.offset + $scope.limit;
             refresh();
@@ -129,26 +99,6 @@ angular.module("PostmanApp")
         $scope.retroceder = function() {
             $scope.offset = $scope.offset - $scope.limit;
             refresh();
-        }
-
-
-        $scope.get = function() {
-            $http.get($scope.url + "?limit=" + $scope.limit + "&offset=" + $scope.offset).then(function(response) {
-                console.log("Get done");
-                $scope.data = JSON.stringify(response.data, null, 2);
-                $scope.country = response.data.country;
-                $scope.year = response.data.year;
-                $scope.extensionOfBorders = response.data.extensionOfBorders;
-                $scope.population = response.data.population;
-                $scope.territorialExtension = response.data.territorialExtension;
-                $scope.status = JSON.stringify(response.status, null, 2);
-                refresh();
-                anadirAlerta();
-            }, function(response) {
-                $scope.data = response.data || 'Request failed';
-                $scope.status = response.status;
-                anadirAlerta()
-            });
         }
         
         $scope.getFilters = function(countrySearch, from, to, minext, maxext, minpop, maxpop, minter, maxter) {
@@ -195,45 +145,7 @@ angular.module("PostmanApp")
             anadirAlerta()
         });
     }
-        $scope.getCountry = function(country) {
-            if (country == undefined) {
-                country = ""
-            }
-            $http.get($scope.url + "/" + country).then(function(response) {
-                console.log("Get done");
-                $scope.data = JSON.stringify(response.data, null, 2);
-                $scope.country = response.data.country;
-                $scope.year = response.data.year;
-                $scope.extensionOfBorders = response.data.extensionOfBorders;
-                $scope.population = response.data.population;
-                $scope.territorialExtension = response.data.territorialExtension;
-                $scope.status = JSON.stringify(response.status, null, 2);
-                refreshCountry(country);
-                anadirAlerta()
-            }, function(response) {
-                $scope.data = response.data || 'Request failed';
-                $scope.status = response.status;
-                anadirAlertaCountry(country);
-            });
-        }
-        $scope.getFromTo = function(from, to) {
-            $http.get($scope.url + "?from=" + from + "&to=" + to).then(function(response) {
-                console.log("Get done");
-                $scope.data = JSON.stringify(response.data, null, 2);
-                $scope.country = response.data.country;
-                $scope.year = response.data.year;
-                $scope.extensionOfBorders = response.data.extensionOfBorders;
-                $scope.population = response.data.population;
-                $scope.territorialExtension = response.data.territorialExtension;
-                $scope.status = JSON.stringify(response.status, null, 2);
-                refreshFromTo(from, to);
-                anadirAlerta()
-            }, function(response) {
-                $scope.data = response.data || 'Request failed';
-                $scope.status = response.status;
-                anadirAlerta()
-            });
-        }
+
         $scope.loadinitial = function() {
             $http.get($scope.url + "/loadInitialData").then(function(response) {
                 console.log("Load initial data done");
@@ -281,26 +193,6 @@ angular.module("PostmanApp")
                 anadirAlerta()
             });
         }
-
-        $scope.post = function() {
-            $http.post($scope.url, {
-                country: $scope.country,
-                year: parseInt($scope.year),
-                extensionOfBorders: parseInt($scope.extensionOfBorders),
-                population: parseInt($scope.population),
-                territorialExtension: parseInt($scope.territorialExtension)
-            }).then(function(response) {
-                $scope.data = JSON.stringify(response.data, null, 2);
-                $scope.status = JSON.stringify(response.status, null, 2);
-                refresh();
-                anadirAlerta()
-            }, function(response) {
-                $scope.data = response.data || 'Request failed';
-                $scope.status = response.status;
-                anadirAlerta()
-            });
-        }
-
         $scope.postTable = function(country, year, extensionOfBorders, population, territorialExtension) {
             $http.post($scope.url, {
                 country: country,
@@ -332,26 +224,6 @@ angular.module("PostmanApp")
                 }
             });
         }
-
-        $scope.put = function() {
-            $http.put($scope.url, {
-                country: $scope.country,
-                year: parseInt($scope.year),
-                extensionOfBorders: parseInt($scope.extensionOfBorders),
-                population: parseInt($scope.population),
-                territorialExtension: parseInt($scope.territorialExtension)
-            }).then(function(response) {
-                $scope.data = JSON.stringify(response.data, null, 2);
-                $scope.status = JSON.stringify(response.status, null, 2);
-                refresh();
-                anadirAlerta()
-            }, function(response) {
-                $scope.data = response.data || 'Request failed';
-                $scope.status = response.status;
-                anadirAlerta()
-            });
-        }
-
         $scope.putTable = function(country, year, extensionOfBorders, population, territorialExtension) {
             $http.put($scope.url + "/" + country + "/" + year, {
                 country: country,
