@@ -150,22 +150,24 @@
                         </tr>
                         <tr>
                             <td>
-                                <input class="form-control text-center" ng-model="country"/>
+                                <input id="country" class="form-control text-center" ng-model="country"/>
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="year"/>
+                                <input id="year" class="form-control text-center" ng-model="year"/>
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="extensionOfBorders"/>
+                                <input id="extensionOfBorders" class="form-control text-center" ng-model="extensionOfBorders"/>
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="population"/>
+                                <input id="population" class="form-control text-center" ng-model="population"/>
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="territorialExtension"/>
+                                <input id="territorialExtension" class="form-control text-center" ng-model="territorialExtension"/>
                             </td>
                             <td>
-                                <button class="btn btn-primary" name="CrearStat" ng-click="postTable(country,year,extensionOfBorders,population,territorialExtension)">
+                                <button class="btn btn-primary" name="CrearStat" 
+                                ng-click="postTable(country,year,extensionOfBorders,population,territorialExtension);
+                                clearInput()">
                                     Crear
                                 </button>
                             </td>
