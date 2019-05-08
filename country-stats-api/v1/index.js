@@ -70,7 +70,7 @@ module.exports = function(app, stats) {
             delete query.to;
             query["year"] = { "$lte": parseInt(req.query["to"]) };
         }
-        
+
         if (Object.keys(req.query).includes("minext") && Object.keys(req.query).includes("maxext")) {
             delete query.minext;
             delete query.maxext;
@@ -84,7 +84,7 @@ module.exports = function(app, stats) {
             delete query.maxext;
             query["extensionOfBorders"] = { "$lte": parseInt(req.query["maxext"]) };
         }
-        
+
         if (Object.keys(req.query).includes("minpop") && Object.keys(req.query).includes("maxpop")) {
             delete query.minpop;
             delete query.maxpop;
@@ -98,7 +98,7 @@ module.exports = function(app, stats) {
             delete query.maxpop;
             query["population"] = { "$lte": parseInt(req.query["maxpop"]) };
         }
-        
+
         if (Object.keys(req.query).includes("minter") && Object.keys(req.query).includes("maxter")) {
             delete query.minter;
             delete query.maxter;
@@ -113,7 +113,7 @@ module.exports = function(app, stats) {
             query["territorialExtension"] = { "$lte": parseInt(req.query["maxter"]) };
         }
 
-        stats.find(query).skip(offset).limit(limit).toArray((error, statsArray) => {
+        stats.find(query).sort({ country: 1 , year: -1}).skip(offset).limit(limit).toArray((error, statsArray) => {
             if (error) {
                 console.log("Error: " + error);
             }
@@ -151,7 +151,7 @@ module.exports = function(app, stats) {
                 query[i] = req.query[i];
             }
         });
-        
+
         if (Object.keys(req.query).includes("from") && Object.keys(req.query).includes("to")) {
             delete query.from;
             delete query.to;
@@ -165,7 +165,7 @@ module.exports = function(app, stats) {
             delete query.to;
             query["year"] = { "$lte": parseInt(req.query["to"]) };
         }
-        
+
         if (Object.keys(req.query).includes("minext") && Object.keys(req.query).includes("maxext")) {
             delete query.minext;
             delete query.maxext;
@@ -179,7 +179,7 @@ module.exports = function(app, stats) {
             delete query.maxext;
             query["extensionOfBorders"] = { "$lte": parseInt(req.query["maxext"]) };
         }
-        
+
         if (Object.keys(req.query).includes("minpop") && Object.keys(req.query).includes("maxpop")) {
             delete query.minpop;
             delete query.maxpop;
@@ -193,7 +193,7 @@ module.exports = function(app, stats) {
             delete query.maxpop;
             query["population"] = { "$lte": parseInt(req.query["maxpop"]) };
         }
-        
+
         if (Object.keys(req.query).includes("minter") && Object.keys(req.query).includes("maxter")) {
             delete query.minter;
             delete query.maxter;
@@ -207,8 +207,8 @@ module.exports = function(app, stats) {
             delete query.maxter;
             query["territorialExtension"] = { "$lte": parseInt(req.query["maxter"]) };
         }
-        
-        stats.find({ $and: [{ "country": country }, query] }).skip(offset).limit(limit).toArray((error,filteredstats) => {
+
+        stats.find({ $and: [{ "country": country }, query] }).sort({ country: 1 , year: -1}).skip(offset).limit(limit).toArray((error, filteredstats) => {
             if (error) {
                 console.log("Error: " + error);
             }
@@ -228,7 +228,7 @@ module.exports = function(app, stats) {
     app.get("/api/v1/country-stats/:country/:year", (req, res) => {
         var country = req.params.country;
         var year = req.params.year;
-        stats.find({ "country": country, "year": parseInt(year) }).toArray((error, filteredstats) => {
+        stats.find({ "country": country, "year": parseInt(year) }).sort({ country: 1 , year: -1}).toArray((error, filteredstats) => {
             if (error) {
                 console.log("Error: " + error);
             }
@@ -243,7 +243,7 @@ module.exports = function(app, stats) {
             }
         });
     });
-    
+
     //POST /country-stats/
     app.post("/api/v1/country-stats", (req, res) => {
         var newStat = req.body;
@@ -278,10 +278,10 @@ module.exports = function(app, stats) {
         stats.remove({});
         res.sendStatus(200); //OK
     });
-    
+
     //PUT /country-stats/País/Año
-    
-     app.put("/api/v1/country-stats/:country/:year", (req, res) => {
+
+    app.put("/api/v1/country-stats/:country/:year", (req, res) => {
         var country = req.params.country;
         var year = req.params.year;
         var updatedStats = req.body;
@@ -314,12 +314,12 @@ module.exports = function(app, stats) {
             }
         });
     });
-    
+
     //DELETE /country-stats/France
     app.delete("/api/v1/country-stats/:country/:year", (req, res) => {
         var country = req.params.country;
         var year = req.params.year;
-        
+
         stats.find({ "country": country, "year": parseInt(year) }).toArray((error, filteredstats) => {
             if (error) {
                 console.log("Error: " + error);
