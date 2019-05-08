@@ -18,7 +18,13 @@ angular.module("PostmanApp")
             });
         }
         
-        
+        $scope.clearInput = function(){
+        document.getElementById('country').value = '';
+        document.getElementById('year').value = '';
+        document.getElementById('extensionOfBorders').value = '';
+        document.getElementById('population').value = '';
+        document.getElementById('territorialExtension').value = '';
+        }
         
         function refresh() {
             $http.get($scope.url + "?limit=" + $scope.limit + "&offset=" + $scope.offset).then(function(response) {
