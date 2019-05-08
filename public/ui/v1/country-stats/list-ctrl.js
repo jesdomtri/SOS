@@ -18,6 +18,8 @@ angular.module("PostmanApp")
             });
         }
         
+        
+        
         function refresh() {
             $http.get($scope.url + "?limit=" + $scope.limit + "&offset=" + $scope.offset).then(function(response) {
                 $scope.stats = response.data;
