@@ -289,7 +289,9 @@ module.exports = function(app, stats) {
         var keys = ["country", "year", "extensionOfBorders", "population", "territorialExtension"];
 
         for (var i = keys.length - 1; i--;) {
-            if (!updatedStats.hasOwnProperty(keys[i])) {
+            if (!updatedStats.hasOwnProperty(keys[i]) || updatedStats.country == "" || updatedStats.year == "" || updatedStats.extensionOfBorders == "" 
+                || updatedStats.population == "" || updatedStats.territorialExtension == "" || updatedStats.country == undefined || updatedStats.year == undefined ||
+                updatedStats.extensionOfBorders == undefined || updatedStats.population == undefined || updatedStats.territorialExtension == undefined) {
                 return res.sendStatus(400);
             }
         }
