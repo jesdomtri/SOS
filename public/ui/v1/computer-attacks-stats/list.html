@@ -22,36 +22,82 @@
                 <span class="navbar-toggler-icon">
                 </span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto" style="background-color: #2e3131;">
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light" href="./advanced-options/get.html">
-                            Opciones avanzadas
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </nav>
-        <div class="container">
+        <!-- FILTROS -->
             <div style="padding-bottom:2%;">
-                <button class="btn btn-primary" ng-click="loadinitial()">
-                    Cargar datos iniciales
-                </button>
-                <button class="btn btn-danger" ng-click="del()">
-                    Eliminar todo
-                </button>
+                <h4 style="color:white; display:inline;">
+                    Filtros:
+                </h4>
+                <input aria-label="Toggle ngShow" ng-model="checked" type="checkbox">
+                    <br/>
+                    <div class="check-element animate-show-hide" ng-show="checked" style="padding-top:1%;">
+                        <h6 style="color:white;margin-left:2%;margin-top:1%;">
+                            País:
+                        </h6>
+                        <div class="row" style="margin-left:2%;">
+                            <div class="column">
+                                <input class="form-control text-center" ng-model="countrySearch" placeholder="País" style="display:inline; width:100px; margin-left: 3%;"/>
+                            </div>
+                        </div>
+                        <h6 style="color:white;margin-left:2%;margin-top:1%;">
+                            Año:
+                        </h6>
+                        <div class="row" style="margin-left:2%;margin-top:1%;">
+                            <div class="column">
+                                <input class="form-control text-center" ng-model="from" placeholder="Desde" style="display:inline; width:100px;"/>
+                            </div>
+                            <div class="column" style="margin-left:1%">
+                                <input class="form-control text-center" ng-model="to" placeholder="Hasta" style="display:inline; width:100px;"/>
+                            </div>
+                        </div>
+                        <h6 style="color:white;margin-left:2%;margin-top:1%;">
+                            Tipo de ataque:
+                        </h6>
+                        <div class="row" style="margin-left:2%;">
+                            <div class="column">
+                                <input class="form-control text-center" ng-model="attacktypeSearch" placeholder="Tipo" style="display:inline; width:100px; margin-left: 3%;"/>
+                            </div>
+                        </div>
+                        <h6 style="color:white;margin-left:2%;margin-top:1%;">
+                            Impacto económico:
+                        </h6>
+                        <div class="row" style="margin-left:2%;margin-top:1%;">
+                            <div class="column">
+                                <input class="form-control text-center" ng-model="mineco" placeholder="Desde" style="display:inline; width:100px;"/>
+                            </div>
+                            <div class="column" style="margin-left:1%">
+                                <input class="form-control text-center" ng-model="maxeco" placeholder="Hasta" style="display:inline; width:100px;"/>
+                            </div>
+                        </div>
+                        <h6 style="color:white;margin-left:2%;margin-top:1%;">
+                            Equipos afectados:
+                        </h6>
+                        <div class="row" style="margin-left:2%;margin-top:1%;">
+                            <div class="column">
+                                <input class="form-control text-center" ng-model="minaff" placeholder="Desde" style="display:inline; width:100px;"/>
+                            </div>
+                            <div class="column" style="margin-left:1%">
+                                <input class="form-control text-center" ng-model="maxaff" placeholder="Hasta" style="display:inline; width:100px;"/>
+                            </div>
+                        </div>
+                        <h6 style="color:white;margin-left:2%;margin-top:1%;">
+                            Media :
+                        </h6>
+                        <div class="row" style="margin-left:2%;margin-top:1%;">
+                            <div class="column">
+                                <input class="form-control text-center" ng-model="minove" placeholder="Desde" style="display:inline; width:100px;"/>
+                            </div>
+                            <div class="column" style="margin-left:1%">
+                                <input class="form-control text-center" ng-model="maxove" placeholder="Hasta" style="display:inline; width:100px;"/>
+                            </div>
+                        </div>
+                        <button class="btn btn-info" ng-click="getFilters(countrySearch ,from, to,attacktypeSearch, mineco, maxeco, minaff, maxaff, minove, maxove)" style="display:inline; width:100px;margin-top:1%;margin-left:2%;">
+                            Buscar
+                        </button>
+                    </div>
+                </input>
             </div>
-            <div style="padding-bottom:2%;">
-                <input class="form-control text-center" ng-model="from" placeholder="Desde" style="display:inline; width:100px;"/>
-                <input class="form-control text-center" ng-model="to" placeholder="Hasta" style="display:inline; width:100px;"/>
-                <button class="btn btn-info" ng-click="getFromTo(from,to)" style="display:inline; width:100px;">
-                    Buscar
-                </button>
-                <input class="form-control text-center" ng-model="countrySearch" placeholder="País" style="display:inline; width:100px; margin-left: 3%;"/>
-                <button class="btn btn-info" ng-click="getCountry(countrySearch)" style="display:inline; width:100px;">
-                    Buscar
-                </button>
-            </div>
+            <!-- FIN FILTROS -->
             <div class="table-responsive-xl" style="background-color:white;">
                 <table class="table table-striped">
                     <thead>
@@ -74,61 +120,60 @@
                             <th scope="col">
                                 Porcentaje general
                             </th>
-                            <th scope="col" style="width:20%;">
-                                Opciones
+                             <th scope="col">
+                                Eliminar
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="attack in attacks | orderBy:'+year' | orderBy:'+country' ">
+                       <tr ng-repeat="attack in attacks">
                             <td>
-                                <input class="form-control text-center" ng-model="attack.country" readonly=""/>
+                                <a href="#!/ui/v1/computers-attacks-stats/update/{{attack.country}}/{{attack.year}}/{{attack.attacktype}}">
+                                    {{ attack.country }}
+                                </a>
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="attack.year" readonly=""/>
+                                {{attack.year}}
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="attack.attacktype"/>
+                                {{attack.attacktype}}
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="attack.economicimpactmillions"/>
+                                {{attack.economicimpactmillions}}
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="attack.affectedequipments"/>
+                                {{attack.affectedequipments}}
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="attack.overallpercentage"/>
+                                {{attack.overallpercentage}}
                             </td>
                             <td>
                                 <button class="btn btn-danger" ng-click="delTable(attack.country,attack.year,attack.attacktype)">
                                     Eliminar
                                 </button>
-                                <button class="btn btn-warning" ng-click="putTable(attack.country,attack.year,attack.attacktype,attack.economicimpactmillions,attack.affectedequipments,attack.overallpercentage)">
-                                    Actualizar
-                                </button>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input class="form-control text-center" ng-model="country"/>
+                                <input id="country" class="form-control text-center" ng-model="country"/>
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="year"/>
+                                <input id="year" class="form-control text-center" ng-model="year"/>
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="attacktype"/>
+                                <input id="attacktype" class="form-control text-center" ng-model="attacktype"/>
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="economicimpactmillions"/>
+                                <input id="economicimpactmillions" class="form-control text-center" ng-model="economicimpactmillions"/>
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="affectedequipments"/>
+                                <input id="affectedequipments" class="form-control text-center" ng-model="affectedequipments"/>
                             </td>
                             <td>
-                                <input class="form-control text-center" ng-model="overallpercentage"/>
+                                <input id="overallpercentage" class="form-control text-center" ng-model="overallpercentage"/>
                             </td>
                             <td>
-                                <button class="btn btn-primary" ng-click="postTable(country,year,attacktype,economicimpactmillions,affectedequipments,overallpercentage)">
+                                <button class="btn btn-primary" name="crearAttack" ng-click="postTable(country,year,attacktype,economicimpactmillions,affectedequipments,overallpercentage)">
                                     Crear
                                 </button>
                             </td>

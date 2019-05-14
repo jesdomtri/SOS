@@ -1,0 +1,75 @@
+<div style="padding-top: 2%;padding-bottom:3%;">
+    <!-- POSTMAN COUNTRY STATS -->
+    <script type="text/javascript">
+    </script>
+    <div class="container" style="padding-bottom: 1%;">
+        <h1 style="color: white">
+            <img class="navbar-toggler-icon" src="/img/logo-postman.png"/>
+            Postman Country Stats
+        </h1>
+    </div>
+    <div class="container" style="padding-bottom:1%;">
+        <alert class="alert alert-primary" ng-repeat="alert in alerts">
+            {{alert.msg}}
+        </alert>
+    </div>
+    <!-- CONTAINER -->
+    <div class="container" style="background-color: rgb(46, 49, 49);padding:1% 1% 1% 1%; border-radius: 20px;box-shadow: 0px 0px 16px -2px rgba(0,0,0,0.52);">
+        <div class="table-responsive-xl" style="background-color:white;margin-top:2%;">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            País
+                        </th>
+                        <th scope="col">
+                            Año
+                        </th>
+                        <th scope="col">
+                           Tipo ataque
+                        </th>
+                        <th scope="col">
+                            Impacto Economico
+                        </th>
+                        <th scope="col">
+                            Equipos afectados
+                        </th>
+                        <th scope="col">
+                            Media
+                        </th>
+                        <th scope="col">
+                            Actualizar
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            {{attack.country}}
+                        </td>
+                        <td>
+                            {{attack.year}}
+                        </td>
+                         <td>
+                            {{attack.attacktype}}
+                        </td>
+                        <td>
+                            <input class="form-control text-center" ng-model="attack.economicimpactmillions"/>
+                        </td>
+                        <td>
+                            <input class="form-control text-center" ng-model="attack.affectedequipments"/>
+                        </td>
+                        <td>
+                            <input class="form-control text-center" ng-model="attack.overallpercentage"/>
+                        </td>
+                        <td>
+                            <button class="btn btn-warning" ng-click="updateAttack(attack.country,attack.year,attack.attacktype)">
+                                Actualizar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
