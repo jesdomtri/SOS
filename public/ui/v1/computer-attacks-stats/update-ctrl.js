@@ -1,11 +1,14 @@
 /* global angular */
 
 angular.module("PostmanApp").controller("UpdateCtrlAttacks", ["$scope", "$http", "$routeParams", "$location", function($scope, $http, $routeParams, $location) {
+    
     var API = "/api/v1/computers-attacks-stats";
+   
     var country = $routeParams.country;
     var year = $routeParams.year;
+    var attacktype =~$routeParams.attacktype;
 
-    $http.get(API + "/" + country + "/" + year).then(function(response) {
+    $http.get(API + "/" + country + "/" + year+"/"+attacktype).then(function(response) {
         $scope.attack = response.data;
     });
 
