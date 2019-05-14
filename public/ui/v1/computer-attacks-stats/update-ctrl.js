@@ -6,14 +6,15 @@ angular.module("PostmanApp").controller("UpdateCtrlAttacks", ["$scope", "$http",
    
     var country = $routeParams.country;
     var year = $routeParams.year;
+    var attacktype = $routeParams.attacktype;
    
 
-    $http.get(API + "/" + country + "/" + year).then(function(response) {
+    $http.get(API + "/" + country + "/" + year+"/"+attacktype).then(function(response) {
         $scope.attack = response.data;
     });
 
-    $scope.updateAttack = function(country, year) {
-        $http.put(API + "/" + country + "/" + year, $scope.attack).then(function(response) {});
+    $scope.updateAttack = function(country, year,attacktype) {
+        $http.put(API + "/" + country + "/" + year+"/"+attacktype, $scope.attack).then(function(response) {});
         $location.path("/ui/v1/computer-attacks-stats");
     };
 }]);
