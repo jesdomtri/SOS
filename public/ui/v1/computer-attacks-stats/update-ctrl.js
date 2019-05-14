@@ -2,7 +2,7 @@
 
 angular.module("PostmanApp").controller("UpdateCtrlAttacks", ["$scope", "$http", "$routeParams", "$location", function($scope, $http, $routeParams, $location) {
     
-    var API = "/api/v1/computers-attacks-stats";
+    var API = "/api/v1/computer-attacks-stats";
    
     var country = $routeParams.country;
     var year = $routeParams.year;
@@ -14,6 +14,6 @@ angular.module("PostmanApp").controller("UpdateCtrlAttacks", ["$scope", "$http",
 
     $scope.updateAttack = function(country, year) {
         $http.put(API + "/" + country + "/" + year, $scope.attack).then(function(response) {});
-        $location.path("/api/v1/computers-attacks-stats");
+        $location.path("/api/v1/computer-attacks-stats");
     };
 }]);
