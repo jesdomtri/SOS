@@ -17,7 +17,7 @@
     "test-companies": "newman run https://www.getpostman.com/collections/4bffe2dc5fc3d3e1a9f5",
     "test-countrystats": "newman run https://www.getpostman.com/collections/80567e8812840c1d1ca5",
     "test-attack": "newman run https://www.getpostman.com/collections/97352ab15aad99b4c7a4",
-    "postest": "kilall phantomjs"
+    "postest": "killall phantomjs"
   },
   "author": "",
   "license": "ISC"
