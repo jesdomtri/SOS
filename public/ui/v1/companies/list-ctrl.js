@@ -247,7 +247,7 @@ angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http",
             else if ($scope.status == 400) {
                 $scope.alerts = [];
                 $scope.alerts.push({
-                    msg: "Error 400: Datos insuficientes"
+                    msg: "Error 400: Datos insuficientes o erróneos"
                 })
             }
             else {
