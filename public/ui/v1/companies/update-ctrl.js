@@ -11,7 +11,6 @@ angular.module("PostmanApp").controller("UpdateCtrlCompanies", ["$scope", "$http
 
     $scope.updateCompany = function(country, year) {
         $http.put(API + "/" + country + "/" + year, $scope.company).then(function(response) {});
-        window.alert('Se ha actualizado correctamente');
         $location.path("/ui/v1/companies");
     }
 }]);
