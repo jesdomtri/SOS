@@ -5,7 +5,7 @@ describe("Check if a new attackcan be created. ", function() {
             .then(function(initialAttacks) {
                 element(by.model("country")).sendKeys("a");
                 element(by.model("year")).sendKeys("1");
-                element(by.model("attacktype")).sendKeys("b");
+                element(by.model("attacktype")).sendKeys("a");
                 element(by.model("economicimpactmillions")).sendKeys("1");
                 element(by.model("affectedequipments")).sendKeys("1");
                 element(by.model("overallpercentage")).sendKeys("1");
