@@ -12,7 +12,6 @@ angular.module("PostmanApp").controller("UpdateCtrlStats", ["$scope", "$http", "
     $scope.updateStat = function(country, year) {
         $http.put(API + "/" + country + "/" + year, $scope.stat)
         .then(function(response) {
-            console.log($scope.status);
             window.alert('Se ha actualizado correctamente');
             $location.path("/ui/v1/country-stats");
         }, function(reason){

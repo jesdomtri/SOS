@@ -1,6 +1,6 @@
 describe("Check if a new stat can be created", function() {
     it("List grow after the stat creation", function() {
-         browser.get("http://localhost:8080/#!/ui/v1/country-stats");
+         browser.get("https://sos1819-03.herokuapp.com/#!/ui/v1/country-stats");
         var initialStats = element.all(by.repeater("stat in stats"))
             .then(function(initialStats) {
                 element(by.model('country')).sendKeys("Irán");
