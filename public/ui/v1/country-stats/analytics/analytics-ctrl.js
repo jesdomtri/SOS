@@ -89,9 +89,6 @@ controller("AnalyticsCtrlStats", ["$scope", "$http", "$httpParamSerializer", fun
                 }
             }
 
-            console.log(tabla);
-
-
             var data = google.visualization.arrayToDataTable(tabla);
             var options = {};
             var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
