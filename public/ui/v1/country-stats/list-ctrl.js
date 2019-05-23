@@ -1,7 +1,7 @@
 /* global angular */
 console.log("Prueba 1");
 angular.module("PostmanApp")
-    .controller("ListCtrlStats", ["$scope", "$http", function($scope, $http) {
+    .controller("ListCtrlStats", ["$scope", "$http", "$location", function($scope, $http, $location) {
         console.log("List Controller Stats initialized.");
 
         $scope.url = "/api/v1/country-stats";
@@ -257,5 +257,9 @@ angular.module("PostmanApp")
                     anadirAlerta()
                 }
             });
+        }
+        
+        $scope.integration = function() {
+            $location.path("/ui/v1/country-stats/integrations");
         }
     }]);
