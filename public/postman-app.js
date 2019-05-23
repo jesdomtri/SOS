@@ -1,7 +1,7 @@
 /* global angular */
 var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvider) {
     $routeProvider
-    	.when("/", {
+        .when("/", {
             templateUrl: "home.html"
         })
         .when("/about", {
