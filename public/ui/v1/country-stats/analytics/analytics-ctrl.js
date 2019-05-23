@@ -14,18 +14,33 @@ controller("AnalyticsCtrlStats", ["$scope", "$http", "$httpParamSerializer", fun
         var paisesApi = response.data.map(function(d) { return d.country });
         var añosApi = response.data.map(function(d) { return d.year });
         var popApi = response.data.map(function(d) { return d.population });
-        
-        var paisesFiltrados;
-        
-        for(var i = 0; i < paisesApi.length; i++){
-            if(!(paisesFiltrados.contains(paisesApi[i]))){
+
+        var paisesFiltrados = [];
+        var añosFiltrados = [];
+
+        for (var i = 0; i < paisesApi.length; i++) {
+            if (!paisesFiltrados.includes(paisesApi[i])) {
                 paisesFiltrados.push(paisesApi[i]);
             }
         }
+        for (var i = 0; i < añosApi.length; i++) {
+            añosFiltrados.push(añosApi[i]);
+        }
+        for (var i = 0; i < paisesFiltrados.length; i++) {
+            for (var j = 0; j < 5; j++) {
+                tabla.push();
+            }
+        }
+
+
+
+        console.log(paisesApi);
+        console.log(añosApi);
+        console.log(popApi);
         console.log(paisesFiltrados);
 
         for (var i = 0; i < paisesFiltrados.length; i++) {
-                tabla.push({ name: paisesFiltrados[i], data: popApi[i] });
+            tabla.push({ name: paisesFiltrados[i], data: popApi[i] });
         }
         Highcharts.chart('container', {
             chart: {
