@@ -1,5 +1,5 @@
 /* global angular location*/
-angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http", function($scope, $http) {
+angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http", "$location", function($scope, $http, $location) {
     console.log("Modular ListCtrlCompanies initialized");
     $scope.url = "/api/v1/companies";
     $scope.offset = 0;
@@ -81,6 +81,10 @@ angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http",
             });
         }
     }
+    $scope.integration = function() {
+        $location.path("/ui/v1/companies/integration");
+    }
+
     $scope.clearInput = function() {
         console.log("Reseteamos");
         document.getElementById('country').value = '';
