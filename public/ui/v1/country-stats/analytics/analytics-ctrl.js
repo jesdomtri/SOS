@@ -12,32 +12,34 @@ controller("AnalyticsCtrlStats", ["$scope", "$http", "$httpParamSerializer", fun
         var tabla = [];
 
         var paisesApi = response.data.map(function(d) { return d.country });
-        var añosApi = response.data.map(function(d) { return d.year });
+        var anyosApi = response.data.map(function(d) { return d.year });
         var popApi = response.data.map(function(d) { return d.population });
 
         var paisesFiltrados = [];
-        var añosFiltrados = [];
+        var anyosFiltrados = [];
 
         for (var i = 0; i < paisesApi.length; i++) {
             if (!paisesFiltrados.includes(paisesApi[i])) {
                 paisesFiltrados.push(paisesApi[i]);
             }
         }
-        for (var i = 0; i < añosApi.length; i++) {
-            añosFiltrados.push(añosApi[i]);
-        }
-        for (var i = 0; i < paisesFiltrados.length; i++) {
-            for (var j = 0; j < 5; j++) {
-                tabla.push();
+        for (var i = 0; i < anyosApi.length; i++) {
+            if (!anyosFiltrados.includes(anyosApi[i])) {
+                anyosFiltrados.push(anyosApi[i]);
             }
         }
-
-
+        for(var i = 0; i < paisesFiltrados.length; i++) {
+                tabla.push({ name: paisesFiltrados[i], 
+                data: response.data.filter(r => r.country == paisesFiltrados[i])
+                .map(function(d) { return d.population })
+                });
+        }
 
         console.log(paisesApi);
-        console.log(añosApi);
+        console.log(anyosApi);
         console.log(popApi);
         console.log(paisesFiltrados);
+        console.log(anyosFiltrados);
 
         for (var i = 0; i < paisesFiltrados.length; i++) {
             tabla.push({ name: paisesFiltrados[i], data: popApi[i] });
@@ -51,7 +53,7 @@ controller("AnalyticsCtrlStats", ["$scope", "$http", "$httpParamSerializer", fun
             },
 
             xAxis: {
-                categories: añosApi,
+                categories: anyosFiltrados,
                 tickmarkPlacement: 'on',
                 title: {
                     enabled: false
