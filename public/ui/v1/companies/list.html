@@ -1,11 +1,36 @@
-<div style="padding-top: 2%;padding-bottom:3%;">
-    <!-- POSTMAN COMPANIES -->
-    <div class="container" style="padding-bottom: 1%;">
-        <h1 style="color: white">
-            <img class="navbar-toggler-icon" src="/img/logo-postman.png"/>
-            Postman Companies
-        </h1>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top info-color" style="background-color: #2e3131;">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto" style="background-color: #2e3131;">
+            <li class="nav-item">
+                <a class="nav-link waves-effect waves-light" href="#!/">
+                    Home
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-effect waves-light" href="#!/ui/v1/companies">
+                    Companies
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-effect waves-light" href="#!/ui/v1/country-stats">
+                    Country Stats
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-effect waves-light" href="#!/ui/v1/computer-attacks-stats">
+                    Computer Attacks Stats
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-effect waves-light" href="#!/about">
+                    About
+                </a>
+            </li>
+        </ul>
     </div>
+</nav>
+<div style="padding-top:4%;padding-bottom:3%;">
     <div class="container" style="padding-bottom:1%;">
         <alert class="alert alert-primary" ng-repeat="alert in alerts">
             {{alert.msg}}
@@ -13,17 +38,7 @@
     </div>
     <!-- CONTAINER -->
     <div class="container" style="background-color: rgb(46, 49, 49); padding-bottom: 3%; border-radius: 20px;box-shadow: 0px 0px 16px -2px rgba(0,0,0,0.52);">
-        <!-- NAVBAR -->
-        <nav class="navbar navbar-expand-md navbar-dark info-color" style="background-color: #2e3131;">
-            <a class="navbar-brand" href="../../../">
-                Inicio
-            </a>
-            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
-                <span class="navbar-toggler-icon">
-                </span>
-            </button>
-        </nav>
-        <div class="container">
+        <div class="container" style="padding-top:2%">
             <div style="padding-bottom:2%;">
                 <button class="btn btn-primary" ng-click="loadinitial()">
                     Cargar datos iniciales
