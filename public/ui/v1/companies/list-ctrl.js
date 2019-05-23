@@ -81,9 +81,6 @@ angular.module("PostmanApp").controller("ListCtrlCompanies", ["$scope", "$http",
             });
         }
     }
-    $scope.integration = function() {
-        $location.path("/ui/v1/companies/integration");
-    }
 
     $scope.clearInput = function() {
         console.log("Reseteamos");
