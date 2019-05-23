@@ -1,5 +1,4 @@
 /* global angular */
-console.log("Prueba 1");
 angular.module("PostmanApp")
     .controller("ListCtrlStats", ["$scope", "$http", "$location", function($scope, $http, $location) {
         console.log("List Controller Stats initialized.");

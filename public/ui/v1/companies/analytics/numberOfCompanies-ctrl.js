@@ -19,8 +19,6 @@ controller("numberOfCompaniesCtrl", ["$scope", "$http", "$httpParamSerializer", 
             }
         }
 
-        console.log(tabla);
-
         Highcharts.chart('container', {
             chart: {
                 type: 'column'
@@ -80,9 +78,6 @@ controller("numberOfCompaniesCtrl", ["$scope", "$http", "$httpParamSerializer", 
                     tabla.push([paisesApi[i], numCompApi[i]]);
                 }
             }
-
-            console.log(tabla);
-
 
             var data = google.visualization.arrayToDataTable(tabla);
             var options = {};
