@@ -41,9 +41,6 @@ controller("AnalyticsCtrlStats", ["$scope", "$http", "$httpParamSerializer", fun
         console.log(paisesFiltrados);
         console.log(anyosFiltrados);
 
-        for (var i = 0; i < paisesFiltrados.length; i++) {
-            tabla.push({ name: paisesFiltrados[i], data: popApi[i] });
-        }
         Highcharts.chart('container', {
             chart: {
                 type: 'area'
