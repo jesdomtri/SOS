@@ -1,7 +1,7 @@
 /*global angular,Highcharts,google*/
 
 angular.module("PostmanApp").
-controller("IntegrationCtrlStats", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
+controller("AnalyticsCtrlStats", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
 
     var BASE_API_PATH = "api/v1/country-stats";
     console.log("Controlador de Integración activado");
