@@ -72,7 +72,7 @@ controller("AnalyticsCtrlStats", ["$scope", "$http", "$httpParamSerializer", fun
 
     $http.get(BASE_API_PATH).then(function(response) {
         console.log("Creando gráfica GeoChart");
-        google.charts.load('current', { 'packages': ['gochart'] });
+        google.charts.load('current', { 'packages': ['geochart'] });
         google.charts.setOnLoadCallback(drawRegionsMap);
 
         function drawRegionsMap() {
@@ -88,6 +88,8 @@ controller("AnalyticsCtrlStats", ["$scope", "$http", "$httpParamSerializer", fun
                     tabla.push([paisesApi[i], PopApi[i]]);
                 }
             }
+
+
 
             var data = google.visualization.arrayToDataTable(tabla);
             var options = {};
