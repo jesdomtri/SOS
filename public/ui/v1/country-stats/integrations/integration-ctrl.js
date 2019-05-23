@@ -1,11 +1,32 @@
 /*global angular,Highcharts,google*/
 
 angular.module("PostmanApp").
-controller("IntegrationCtrlStats", ["$scope", "$http", "$httpParamSerializer", "$location", function($scope, $http, $httpParamSerializer, $location) {
+controller("IntegrationCtrlStats", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
 
-var BASE_API_PATH = "api/v1/country-stats";
+    var BASE_API_PATH = "api/v1/country-stats";
+    console.log("Controlador de Integración activado");
 
     $http.get(BASE_API_PATH).then(function(response) {
+        console.log("Creando la gráfica Highchart");
+
+        var tabla = [];
+
+        var paisesApi = response.data.map(function(d) { return d.country });
+        var añosApi = response.data.map(function(d) { return d.year });
+        var popApi = response.data.map(function(d) { return d.population });
+        
+        var paisesFiltrados;
+        
+        for(var i = 0; i < paisesApi.length; i++){
+            if(!(paisesFiltrados.contains(paisesApi[i]))){
+                paisesFiltrados.push(paisesApi[i]);
+            }
+        }
+        console.log(paisesFiltrados);
+
+        for (var i = 0; i < paisesFiltrados.length; i++) {
+                tabla.push({ name: paisesFiltrados[i], data: popApi[i] });
+        }
         Highcharts.chart('container', {
             chart: {
                 type: 'area'
@@ -15,7 +36,7 @@ var BASE_API_PATH = "api/v1/country-stats";
             },
 
             xAxis: {
-                categories: ['2013', '2014', '2015', '2016', '2017'],
+                categories: añosApi,
                 tickmarkPlacement: 'on',
                 title: {
                     enabled: false
@@ -36,56 +57,35 @@ var BASE_API_PATH = "api/v1/country-stats";
                 }
             },
 
-            series: [{
-                    name: 'Germany',
-                    data: response.data.filter(r => r.country == 'Germany').map(function(r) { return r.population })
-                },
-                {
-                    name: 'France',
-                    data: response.data.filter(r => r.country == 'France').map(function(r) { return r.population })
-                },
-                {
-                    name: 'EEUU',
-                    data: response.data.filter(r => r.country == 'EEUU').map(function(r) { return r.population })
-                },
-                {
-                    name: 'Spain',
-                    data: response.data.filter(r => r.country == 'Spain').map(function(r) { return r.population })
-                },
-                {
-                    name: 'Italy',
-                    data: response.data.filter(r => r.country == 'Italy').map(function(r) { return r.population })
-                }
-            ]
-        });
+            series: tabla
+        })
     })
-    
+
     $http.get(BASE_API_PATH).then(function(response) {
-
-        google.charts.load('current', {
-            'packages': ['geochart'],
-
-        });
+        console.log("Creando gráfica GeoChart");
+        google.charts.load('current', { 'packages': ['geochart'] });
         google.charts.setOnLoadCallback(drawRegionsMap);
 
         function drawRegionsMap() {
-            var data = google.visualization.arrayToDataTable([
-                
-               
-                ['Country', 'Population (2013)'],
-                ['France', parseInt(response.data.filter(r=>r.country=="France"&&r.year==2013).map(function(d){return (parseInt(d.population))}))],
-                ['EEUU', parseInt(response.data.filter(r=>r.country=="EEUU"&&r.year==2013).map(function(d){return (parseInt(d.population))}))],
-                ['Spain', parseInt(response.data.filter(r=>r.country=="Spain"&&r.year==2013).map(function(d){return (parseInt(d.population))}))],
-                ['Germany', parseInt(response.data.filter(r=>r.country=="Germany"&&r.year==2013).map(function(d){return (parseInt(d.population))}))],
-                ['Italy', parseInt(response.data.filter(r=>r.country=="Italy"&&r.year==2013).map(function(d){return (parseInt(d.population))}))]
-         
-                  
-            ]);
+            var tabla = [];
+            tabla.push(['Country', 'Población (2017)']);
 
+            var paisesApi = response.data.map(function(d) { return d.country });
+            var añosApi = response.data.map(function(d) { return d.year });
+            var PopApi = response.data.map(function(d) { return d.population });
+
+            for (var i = 0; i < paisesApi.length; i++) {
+                if (añosApi[i] == 2017) {
+                    tabla.push([paisesApi[i], PopApi[i]]);
+                }
+            }
+
+            console.log(tabla);
+
+
+            var data = google.visualization.arrayToDataTable(tabla);
             var options = {};
-
             var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-
             chart.draw(data, options);
         }
     })
