@@ -260,6 +260,6 @@ angular.module("PostmanApp")
         }
         
         $scope.integration = function() {
-            $location.path("/ui/v1/country-stats/integrations");
+            $location.path("/ui/v1/country-stats/integration");
         }
     }]);
