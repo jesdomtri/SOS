@@ -30,9 +30,9 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
             controller: "UpdateCtrlStats",
             templateUrl: "/ui/v1/country-stats/update.html"
         })
-        .when("/ui/v1/country-stats/integration", {
+        .when("/integrations/populationGrowth20132017", {
             controller: "IntegrationCtrlStats",
-            templateUrl: "/ui/v1/country-stats/integration.html"
+            templateUrl: "/ui/v1/country-stats/integrations/integration.html"
         })
         .when("/ui/v1/computer-attacks-stats", {
             controller: "ListCtrlAttacks",

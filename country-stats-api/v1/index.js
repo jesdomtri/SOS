@@ -7,6 +7,7 @@ module.exports = function(app, stats) {
     //GET /country-stats/loadInitialData
     app.get("/api/v1/country-stats/loadInitialData", (req, res) => {
         var newStats = [
+            /*
             { "country": "France", "year": 2017, "extensionOfBorders": 2889, "population": 67120000, "territorialExtension": 643801 },
             { "country": "UK", "year": 2017, "extensionOfBorders": 443, "population": 66020000, "territorialExtension": 243610 },
             { "country": "Japan", "year": 2017, "extensionOfBorders": 0, "population": 126800000, "territorialExtension": 377915 },
@@ -15,11 +16,36 @@ module.exports = function(app, stats) {
             { "country": "Albania", "year": 2017, "extensionOfBorders": 691, "population": 2870324, "territorialExtension": 28748 },
             { "country": "Albania", "year": 2016, "extensionOfBorders": 691, "population": 2876591, "territorialExtension": 28748 },
             { "country": "Australia", "year": 2017, "extensionOfBorders": 0, "population": 25043027, "territorialExtension": 7741220 },
-            /*{ "country": "Austria", "year": 2018, "extensionOfBorders": 2524, "population": 8823054, "territorialExtension": 83871 },
-            { "country": "Brasil", "year": 2017, "extensionOfBorders": 16145, "population": 208385000, "territorialExtension": 	8515770 }
+            { "country": "Austria", "year": 2018, "extensionOfBorders": 2524, "population": 8823054, "territorialExtension": 83871 },
+            { "country": "Brasil", "year": 2017, "extensionOfBorders": 16145, "population": 208385000, "territorialExtension": 	8515770 },
             { "country": "Canada", "year": 2018, "extensionOfBorders": 8893, "population": 37067011, "territorialExtension": 9984670 },
             { "country": "Finlandia", "year": 2017, "extensionOfBorders": 2563, "population": 55130004, "territorialExtension": 338145 },
             { "country": "Grecia", "year": 2013, "extensionOfBorders": 1935, "population": 11329600, "territorialExtension": 131957 }*/
+            { "country": "Germany", "year": 2013, "extensionOfBorders": 3714, "population": 80767000, "territorialExtension": 357022 },
+            { "country": "Germany", "year": 2014, "extensionOfBorders": 3714, "population": 81198000, "territorialExtension": 357022 },
+            { "country": "Germany", "year": 2015, "extensionOfBorders": 3714, "population": 82175700, "territorialExtension": 357022 },
+            { "country": "Germany", "year": 2016, "extensionOfBorders": 3714, "population": 82521700, "territorialExtension": 357022 },
+            { "country": "Germany", "year": 2017, "extensionOfBorders": 3714, "population": 82740900, "territorialExtension": 357022 },
+            { "country": "France", "year": 2013, "extensionOfBorders": 2889, "population": 63697000, "territorialExtension": 643801 },
+            { "country": "France", "year": 2014, "extensionOfBorders": 2889, "population": 63697000, "territorialExtension": 643801 },
+            { "country": "France", "year": 2015, "extensionOfBorders": 2889, "population": 64300000, "territorialExtension": 643801 },
+            { "country": "France", "year": 2016, "extensionOfBorders": 2889, "population": 64558000, "territorialExtension": 643801 },
+            { "country": "France", "year": 2017, "extensionOfBorders": 2889, "population": 64801000, "territorialExtension": 643801 },
+            { "country": "EEUU", "year": 2013, "extensionOfBorders": 12048, "population": 316129000, "territorialExtension": 9371174 },
+            { "country": "EEUU", "year": 2014, "extensionOfBorders": 12048, "population": 319113000, "territorialExtension": 9371174 },
+            { "country": "EEUU", "year": 2015, "extensionOfBorders": 12048, "population": 321442000, "territorialExtension": 9371174 },
+            { "country": "EEUU", "year": 2016, "extensionOfBorders": 12048, "population": 323100000, "territorialExtension": 9371174 },
+            { "country": "EEUU", "year": 2017, "extensionOfBorders": 12048, "population": 325719000, "territorialExtension": 9371174 },
+            { "country": "Italy", "year": 2013, "extensionOfBorders": 443, "population": 59685000, "territorialExtension": 243610 },
+            { "country": "Italy", "year": 2014, "extensionOfBorders": 443, "population": 60782000, "territorialExtension": 243610 },
+            { "country": "Italy", "year": 2015, "extensionOfBorders": 443, "population": 60795000, "territorialExtension": 243610 },
+            { "country": "Italy", "year": 2016, "extensionOfBorders": 443, "population": 60665000, "territorialExtension": 243610 },
+            { "country": "Italy", "year": 2017, "extensionOfBorders": 443, "population": 60484000, "territorialExtension": 243610 },
+            { "country": "Spain", "year": 2013, "extensionOfBorders": 16145, "population": 46728000, "territorialExtension": 	8515770 },
+            { "country": "Spain", "year": 2014, "extensionOfBorders": 16145, "population": 46508000, "territorialExtension": 	8515770 },
+            { "country": "Spain", "year": 2015, "extensionOfBorders": 16145, "population": 46449000, "territorialExtension": 	8515770 },
+            { "country": "Spain", "year": 2016, "extensionOfBorders": 16145, "population": 46440000, "territorialExtension": 	8515770 },
+            { "country": "Spain", "year": 2017, "extensionOfBorders": 16145, "population": 46549000, "territorialExtension": 	8515770 },
         ];
 
         stats.find({}).toArray((error, statsArray) => {
@@ -113,7 +139,7 @@ module.exports = function(app, stats) {
             query["territorialExtension"] = { "$lte": parseInt(req.query["maxter"]) };
         }
 
-        stats.find(query).sort({ country: 1 , year: -1}).skip(offset).limit(limit).toArray((error, statsArray) => {
+        stats.find(query).sort({ country: 1 , year: 1}).skip(offset).limit(limit).toArray((error, statsArray) => {
             if (error) {
                 console.log("Error: " + error);
             }
