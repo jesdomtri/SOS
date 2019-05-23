@@ -19,8 +19,8 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
             templateUrl: "/ui/v1/companies/update.html"
         })
         .when("/integrations/numberOfCompanies", {
-            controller: "prueba",
-            templateUrl: "/ui/v1/companies/integrations/integration.html"
+            controller: "numberOfCompaniesCtrl",
+            templateUrl: "/ui/v1/companies/integrations/numberOfCompanies.html"
         })
         .when("/ui/v1/country-stats", {
             controller: "ListCtrlStats",
