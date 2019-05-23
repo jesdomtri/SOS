@@ -7,8 +7,8 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
         .when("/about", {
             templateUrl: "about.html"
         })
-        .when("/integrations", {
-            templateUrl: "integrations.html"
+        .when("/analytics", {
+            templateUrl: "analytics.html"
         })
         .when("/ui/v1/companies", {
             controller: "ListCtrlCompanies",
@@ -18,9 +18,9 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
             controller: "UpdateCtrlCompanies",
             templateUrl: "/ui/v1/companies/update.html"
         })
-        .when("/integrations/numberOfCompanies", {
+        .when("/analytics/numberOfCompanies", {
             controller: "numberOfCompaniesCtrl",
-            templateUrl: "/ui/v1/companies/integrations/numberOfCompanies.html"
+            templateUrl: "/ui/v1/companies/analytics/numberOfCompanies.html"
         })
         .when("/ui/v1/country-stats", {
             controller: "ListCtrlStats",
@@ -30,9 +30,9 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
             controller: "UpdateCtrlStats",
             templateUrl: "/ui/v1/country-stats/update.html"
         })
-        .when("/integrations/populationGrowth20132017", {
-            controller: "IntegrationCtrlStats",
-            templateUrl: "/ui/v1/country-stats/integrations/integration.html"
+        .when("/analytics/populationGrowth20132017", {
+            controller: "AnalyticsCtrlStats",
+            templateUrl: "/ui/v1/country-stats/analytics/analytics.html"
         })
         .when("/ui/v1/computer-attacks-stats", {
             controller: "ListCtrlAttacks",
