@@ -1,7 +1,7 @@
 /*global angular,Highcharts,google*/
 
 angular.module("PostmanApp").
-controller("IntegrationCtrlStats", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
+controller("AnalyticsCtrlStats", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
 
     $http.get("api/v1/country-stats").then(function(response) {
         Highcharts.chart('container', {
