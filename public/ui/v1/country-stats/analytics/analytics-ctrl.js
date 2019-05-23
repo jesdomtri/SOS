@@ -28,18 +28,13 @@ controller("AnalyticsCtrlStats", ["$scope", "$http", "$httpParamSerializer", fun
                 anyosFiltrados.push(anyosApi[i]);
             }
         }
-        for(var i = 0; i < paisesFiltrados.length; i++) {
-                tabla.push({ name: paisesFiltrados[i], 
+        for (var i = 0; i < paisesFiltrados.length; i++) {
+            tabla.push({
+                name: paisesFiltrados[i],
                 data: response.data.filter(r => r.country == paisesFiltrados[i])
-                .map(function(d) { return d.population })
-                });
+                    .map(function(d) { return d.population })
+            });
         }
-
-        console.log(paisesApi);
-        console.log(anyosApi);
-        console.log(popApi);
-        console.log(paisesFiltrados);
-        console.log(anyosFiltrados);
 
         Highcharts.chart('container', {
             chart: {
@@ -77,7 +72,7 @@ controller("AnalyticsCtrlStats", ["$scope", "$http", "$httpParamSerializer", fun
 
     $http.get(BASE_API_PATH).then(function(response) {
         console.log("Creando gráfica GeoChart");
-        google.charts.load('current', { 'packages': ['geochart'] });
+        google.charts.load('current', { 'packages': ['gochart'] });
         google.charts.setOnLoadCallback(drawRegionsMap);
 
         function drawRegionsMap() {
