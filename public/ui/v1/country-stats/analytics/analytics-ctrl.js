@@ -1,4 +1,4 @@
-/*global angular,Highcharts,google*/
+/*global angular,Highcharts,google,Chartist*/
 
 angular.module("PostmanApp").
 controller("AnalyticsCtrlStats", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
@@ -71,7 +71,7 @@ controller("AnalyticsCtrlStats", ["$scope", "$http", "$httpParamSerializer", fun
     })
 
     $http.get(BASE_API_PATH).then(function(response) {
-        console.log("Creando gráfica GeoChart");
+        console.log("Creando la gráfica GeoChart");
         google.charts.load('current', { 'packages': ['geochart'] });
         google.charts.setOnLoadCallback(drawRegionsMap);
 
@@ -96,5 +96,21 @@ controller("AnalyticsCtrlStats", ["$scope", "$http", "$httpParamSerializer", fun
             var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
             chart.draw(data, options);
         }
+    })
+
+    $http.get(BASE_API_PATH).then(function(response) {
+        var data = {
+            // A labels array that can contain any sort of values
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+            // Our series array that contains series objects or in this case series data arrays
+            series: [
+                [5, 2, 4, 2, 0]
+            ]
+        };
+
+        // Create a new line chart object where as first parameter we pass in a selector
+        // that is resolving to our chart container element. The Second parameter
+        // is the actual data object.
+        new Chartist.Line('.ct-chart', data);
     })
 }]);
