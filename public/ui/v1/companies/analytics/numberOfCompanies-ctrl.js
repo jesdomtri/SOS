@@ -1,4 +1,4 @@
-/*global angular,Highcharts,google*/
+/*global angular,Highcharts,google,RGraph*/
 
 angular.module("PostmanApp").
 controller("numberOfCompaniesCtrl", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
@@ -86,5 +86,52 @@ controller("numberOfCompaniesCtrl", ["$scope", "$http", "$httpParamSerializer", 
         }
     })
 
+
+    $http.get(api).then(function(response) {
+
+        var tabla = [];
+        var paisesTabla = [];
+
+        var paisesApi = response.data.map(function(d) { return d.country });
+        var añosApi = response.data.map(function(d) { return d.year });
+        var numCompApi = response.data.map(function(d) { return d.numberOfCompanies });
+
+        for (var i = 0; i < paisesApi.length; i++) {
+            if (añosApi[i] == 2017) {
+                paisesTabla.push(paisesApi[i]);
+                tabla.push(numCompApi[i]);
+            }
+        }
+
+        new RGraph.HBar({
+            id: 'cvs',
+            data: tabla,
+            options: {
+                backgroundGrid: false,
+                axes: true,
+                xaxisLabels: true,
+                labelsAbove: false,
+                labelsAboveUnitsPost: '',
+                colors: ['green'],
+                shadow: true,
+                shadowColor: '#ddd',
+                shadowOffsetx: 2,
+                shadowOffsety: 2
+            }
+        }).on('draw', function(obj) {
+            var coords = obj.coords;
+
+            for (var i = 0; i < coords.length; ++i) {
+                RGraph.text2(obj, {
+                    text: paisesTabla[i],
+                    x: coords[i][0] + 10,
+                    y: coords[i][1] + (coords[i][3] / 2),
+                    valign: 'center',
+                    bold: true,
+                    color: 'black'
+                });
+            }
+        }).grow();
+    })
 
 }]);
