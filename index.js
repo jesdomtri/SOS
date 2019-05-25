@@ -3,11 +3,22 @@ var app = express();
 var port = process.env.PORT || 8080;
 var bodyParser = require("body-parser");
 var path = require("path");
+var request = require("request");
 
 app.use(bodyParser.json());
 
 const BASE_PATH = "/api";
 
+var app = express();
+
+//PROXY A LA API UEFA COUNTRY RANKINGS
+var pathsUCR = '/proxyUefaCountryRankings';
+var remoteAPIUCR = 'https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings';
+app.use(pathsUCR, function(req, res) {
+    console.log('piped: ' + remoteAPIUCR);
+    req.pipe(request(remoteAPIUCR)).pipe(res);
+});
+//FIN PROXY A LA API UEFA COUNTRY RANKINGS
 
 var companiesAPI = require("./companies-api");
 var countrystatsAPI = require("./country-stats-api");
