@@ -9,7 +9,8 @@
     "highcharts": "^7.1.1",
     "highcharts-angular": "^2.4.0",
     "mongodb": "^3.2.2",
-    "newman": "^4.4.1"
+    "newman": "^4.4.1",
+    "request": "^2.88.0"
   },
   "devDependencies": {},
   "scripts": {

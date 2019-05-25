@@ -20,6 +20,7 @@
 <script src="https://code.highcharts.com/modules/funnel.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <!-- GEOCHARTS -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -28,6 +29,8 @@
 <!-- RGRAPH -->
 <script src="RGraph/libraries/RGraph.common.core.js"></script>
 <script src="RGraph/libraries/RGraph.hbar.js"></script>
+<script src="RGraph/libraries/RGraph.svg.common.core.js"></script>
+<script src="RGraph/libraries/RGraph.svg.line.js" ></script>
 
 <!-- CHARTIST -->
 <link rel="stylesheet" href="/bower_components/chartist/dist/chartist.min.css" />
@@ -37,6 +40,7 @@
 <script src="/ui/v1/companies/list-ctrl.js" type="text/javascript"></script>
 <script src="/ui/v1/companies/update-ctrl.js" type="text/javascript"></script>
 <script src="/ui/v1/companies/analytics/numberOfCompanies-ctrl.js" type="text/javascript"></script>
+<script type="text/javascript" src="/ui/v1/companies/integrations/uefaCountryRankings-ctrl.js"></script>
 
 <!-- COUNTRY-STATS -->
 <script src="/ui/v1/country-stats/list-ctrl.js" type="text/javascript"></script>
@@ -87,43 +91,6 @@
 </style>
 
 <body ng-view style="background: linear-gradient(to top right,#41295a, #2F0743); background-size:100% 1920px;">
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg fixed-top info-color" style="background-color: #2e3131;">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto" style="background-color: #2e3131;">
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="#!/">
-                    Home
-                </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="#!/ui/v1/companies">
-                    Companies
-                </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="#!/ui/v1/country-stats">
-                    Country Stats
-                </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="#!/ui/v1/computer-attacks-stats">
-                    Computer Attacks Stats
-                </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="#!/about">
-                    About
-                </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="#!/analytics">
-                    Analytics
-                </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
 </body>
 
 </html>
