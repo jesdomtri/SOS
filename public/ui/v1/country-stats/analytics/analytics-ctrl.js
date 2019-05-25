@@ -13,7 +13,6 @@ controller("AnalyticsCtrlStats", ["$scope", "$http", "$httpParamSerializer", fun
 
         var paisesApi = response.data.map(function(d) { return d.country });
         var anyosApi = response.data.map(function(d) { return d.year });
-        var popApi = response.data.map(function(d) { return d.population });
 
         var paisesFiltrados = [];
         var anyosFiltrados = [];
@@ -80,11 +79,11 @@ controller("AnalyticsCtrlStats", ["$scope", "$http", "$httpParamSerializer", fun
             tabla.push(['Country', 'Población (2017)']);
 
             var paisesApi = response.data.map(function(d) { return d.country });
-            var añosApi = response.data.map(function(d) { return d.year });
+            var anyosApi = response.data.map(function(d) { return d.year });
             var PopApi = response.data.map(function(d) { return d.population });
 
             for (var i = 0; i < paisesApi.length; i++) {
-                if (añosApi[i] == 2017) {
+                if (anyosApi[i] == 2017) {
                     tabla.push([paisesApi[i], PopApi[i]]);
                 }
             }
@@ -99,18 +98,43 @@ controller("AnalyticsCtrlStats", ["$scope", "$http", "$httpParamSerializer", fun
     })
 
     $http.get(BASE_API_PATH).then(function(response) {
-        var data = {
-            // A labels array that can contain any sort of values
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-            // Our series array that contains series objects or in this case series data arrays
-            series: [
-                [5, 2, 4, 2, 0]
-            ]
-        };
+        console.log("Creando la gráfica Chartist");
 
-        // Create a new line chart object where as first parameter we pass in a selector
-        // that is resolving to our chart container element. The Second parameter
-        // is the actual data object.
-        new Chartist.Line('.ct-chart', data);
+        var labels = [];
+        var series = [];
+
+        var paisesApi = response.data.map(function(d) { return d.country });
+        var anyosApi = response.data.map(function(d) { return d.year });
+
+        var paisesFiltrados = [];
+
+        for (var i = 0; i < paisesApi.length; i++) {
+            if (!paisesFiltrados.includes(paisesApi[i])) {
+                paisesFiltrados.push(paisesApi[i]);
+            }
+        }
+
+        labels = paisesFiltrados;
+
+        for (var i = 0; i < paisesFiltrados.length; i++) {
+            var aux = (response.data.filter(r => r.country == paisesFiltrados[i])
+                .filter(r => r.year == 2017)
+                .map(function(d) { return d.population }))
+            series.push(aux[0]);
+        }
+
+        new Chartist.Line('.ct-chart', {
+            labels: labels,
+            series: [series]
+        }, {
+            low: 0,
+            showArea: true,
+            axisX: {
+                offset: 70
+            },
+            axisY: {
+                offset: 70
+            }
+        });
     })
 }]);
