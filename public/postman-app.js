@@ -29,6 +29,14 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
             controller: "uefaCountryRankingsCtrl",
             templateUrl: "/ui/v1/companies/integrations/uefaCountryRankings.html"
         })
+        .when("/integrations/BeerConsumedStats", {
+            controller: "beerConsumedStatsCtrl",
+            templateUrl: "/ui/v1/companies/integrations/beerConsumedStats.html"
+        })
+        .when("/integrations/IMDB", {
+            controller: "imdbCtrl",
+            templateUrl: "/ui/v1/companies/integrations/imdb.html"
+        })
         .when("/ui/v1/country-stats", {
             controller: "ListCtrlStats",
             templateUrl: "/ui/v1/country-stats/list.html"

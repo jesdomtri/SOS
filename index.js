@@ -4,8 +4,7 @@ var port = process.env.PORT || 8080;
 var bodyParser = require("body-parser");
 var path = require("path");
 var request = require("request");
-
-app.use(bodyParser.json());
+var cors = require("cors");
 
 const BASE_PATH = "/api";
 
@@ -20,6 +19,15 @@ app.use(pathsUCR, function(req, res) {
 });
 //FIN PROXY A LA API UEFA COUNTRY RANKINGS
 
+//PROXY A LA API BEER CONSUMED STATS
+var pathsBCS = '/proxyBeerConsumedStats';
+var remoteAPIBCS = 'https://sos1819-04.herokuapp.com/api/v1/beer-consumed-stats';
+app.use(pathsBCS, function(req, res) {
+    console.log('piped: ' + remoteAPIBCS);
+    req.pipe(request(remoteAPIBCS)).pipe(res);
+});
+//FIN PROXY A LA API BEER CONSUMED STATS
+
 //PROXY A LA API UEFA CLUB RANKINGS
 var pathsUCRS = '/proxyUefaClubRankings';
 var remoteAPIUCRS = 'https://sos1819-06.herokuapp.com/api/v1/uefa-club-rankings';
@@ -32,6 +40,9 @@ app.use(pathsUCRS, function(req, res) {
 var companiesAPI = require("./companies-api");
 var countrystatsAPI = require("./country-stats-api");
 var attacksAPI = require("./computers-attacks-stats-api");
+
+app.use(bodyParser.json());
+app.use(cors());
 
 app.use("/", express.static(path.join(__dirname, "public"))); // __dircountry equivale a la ruta raiz donde se esta ejecutando el jnode
 
