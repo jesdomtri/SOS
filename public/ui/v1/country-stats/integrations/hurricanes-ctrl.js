@@ -2,9 +2,11 @@
 
 angular.module("PostmanApp").
 controller("hurricanesCtrl", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
+    var apiH = "/proxyHurricanes";
+
     //API JSON
 
-    $http.get("https://sos1819-01.herokuapp.com/api/v1/hurricanes").then(function(response) {
+    $http.get(apiH).then(function(response) {
         $scope.data = JSON.stringify(response.data, null, 2);
         $scope.status = response.status;
     }, function(response) {
@@ -13,140 +15,103 @@ controller("hurricanesCtrl", ["$scope", "$http", "$httpParamSerializer", functio
     })
 
 
-    /*//HIGHCHARTS
+    //HIGHCHARTS
     $http.get(apiH).then(function(response) {
         var tabla = [];
+        var speedApiFinal = [];
+        var nameFiltrados = [];
 
-        var paisesApi = response.data.map(function(d) { return d.country });
-        var añosApi = response.data.map(function(d) { return d.season });
-        var pointsApi = response.data.map(function(d) { return d.points });
+        var nameApi = response.data.map(function(d) { return d.name });
+        var anyosApi = response.data.map(function(d) { return d.year });
+        var speedApi = response.data.map(function(d) { return d.speed });
 
-        for (var i = 0; i < paisesApi.length; i++) {
-            if (añosApi[i] == 2017) {
-                tabla.push({ name: paisesApi[i], y: pointsApi[i] });
+        for (var i = 0; i < nameApi.length; i++) {
+            if (!nameFiltrados.includes(nameApi[i])) {
+                if (anyosApi[i] == 2008) {
+                    nameFiltrados.push(nameApi[i]);
+                    speedApiFinal.push(speedApi[i]);
+                }
             }
         }
+
+        for (var i = 0; i < nameFiltrados.length; i++) {
+            tabla.push(
+                [nameFiltrados[i], parseInt(speedApi[i])]
+            );
+        }
+
         Highcharts.chart('container', {
             chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
+                type: 'pyramid3d',
+                options3d: {
+                    enabled: true,
+                    alpha: 10,
+                    depth: 50,
+                    viewDistance: 50
+                }
             },
             title: {
-                text: 'Puntos de UEFA, 2017'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.y}</b>'
+                text: 'Highcharts Pyramid3D Chart'
             },
             plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
+                series: {
                     dataLabels: {
-                        enabled: false
+                        enabled: true,
+                        format: '<b>{point.name}</b> ({point.y:,.0f})',
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+                        allowOverlap: true,
+                        x: 10,
+                        y: -5
                     },
-                    showInLegend: true
+                    width: '60%',
+                    height: '80%',
+                    center: ['50%', '45%']
                 }
             },
             series: [{
-                name: 'Puntos',
-                colorByPoint: true,
+                name: 'Hurricanes speed in 2008',
                 data: tabla
             }]
         });
     })
 
-    //RGRAPH
     $http.get(apiH).then(function(response) {
 
-        var tablaUCRPaises = [];
-        var tablaUCRPuntos = [];
+        var times = function(n) {
+            return Array.apply(null, new Array(n));
+        };
 
-        var paisesUCR = response.data.map(function(d) { return d.country });
-        var añosUCR = response.data.map(function(d) { return d.season });
-        var pointsUCR = response.data.map(function(d) { return d.points });
+        var data = times(52).map(Math.random).reduce(function(data, rnd, index) {
+            data.labels.push(index + 1);
+            data.series.forEach(function(series) {
+                series.push(Math.random() * 100)
+            });
 
-        for (var i = 0; i < paisesUCR.length; i++) {
-            if (añosUCR[i] == 2017) {
-                tablaUCRPaises.push(paisesUCR[i]);
-                tablaUCRPuntos.push(pointsUCR[i]);
-            }
-        }
+            return data;
+        }, {
+            labels: [],
+            series: times(4).map(function() { return new Array() })
+        });
 
-        $http.get("/api/v1/companies").then(function(response) {
-
-            var tablaCompPaises = [];
-            var tablaCompNum = [];
-
-            var paisesComp = response.data.map(function(d) { return d.country });
-            var añosComp = response.data.map(function(d) { return d.year });
-            var numberOfCompanies = response.data.map(function(d) { return d.numberOfCompanies });
-
-            for (var i = 0; i < paisesComp.length; i++) {
-                if (añosComp[i] == 2017) {
-                    tablaCompPaises.push(paisesComp[i]);
-                    tablaCompNum.push(numberOfCompanies[i]);
+        var options = {
+            showLine: false,
+            axisX: {
+                labelInterpolationFnc: function(value, index) {
+                    return index % 13 === 0 ? 'W' + value : null;
                 }
             }
+        };
 
-            var paisesFinales = [];
-            var puntosFinales = [];
-            var numCompFinales = [];
-
-            for (var i = 0; i < tablaCompPaises.length; i++) {
-                if (!tablaUCRPaises.includes(tablaCompPaises[i])) {
-                    paisesFinales.push(tablaCompPaises[i]);
+        var responsiveOptions = [
+            ['screen and (min-width: 640px)', {
+                axisX: {
+                    labelInterpolationFnc: function(value, index) {
+                        return index % 4 === 0 ? 'W' + value : null;
+                    }
                 }
-            }
+            }]
+        ];
 
-            for (var i = 0; i < tablaUCRPaises.length; i++) {
-                paisesFinales.push(tablaUCRPaises[i]);
-            }
-
-            for (var i = 0; i < paisesFinales.length; i++) {
-                if (tablaUCRPaises.includes(paisesFinales[i]) && tablaCompPaises.includes(paisesFinales[i])) {
-                    puntosFinales.push(tablaUCRPuntos[tablaUCRPaises.indexOf(paisesFinales[i])]);
-                    numCompFinales.push(tablaCompNum[tablaCompPaises.indexOf(paisesFinales[i])]);
-                }
-                if (tablaUCRPaises.includes(paisesFinales[i]) && !tablaCompPaises.includes(paisesFinales[i])) {
-                    puntosFinales.push(tablaUCRPuntos[tablaUCRPaises.indexOf(paisesFinales[i])]);
-                    numCompFinales.push(0);
-                }
-                if (!tablaUCRPaises.includes(paisesFinales[i]) && tablaCompPaises.includes(paisesFinales[i])) {
-                    puntosFinales.push(0);
-                    numCompFinales.push(tablaCompNum[tablaCompPaises.indexOf(paisesFinales[i])]);
-                }
-            }
-
-            console.log(paisesFinales);
-            console.log(puntosFinales);
-            console.log(numCompFinales);
-
-            var line = new RGraph.SVG.Line({
-                id: 'chart-container',
-                data: [
-                    puntosFinales,
-                    numCompFinales
-                ],
-                options: {
-                    xaxisLabels: paisesFinales,
-                    yaxisScaleUnitsPost: '',
-                    xaxisTextColor: '#333',
-                    yaxisTextColor: '#333',
-                    marginLeft: 40,
-                    marginTop: 35,
-                    marginRight: 15,
-                    marginBottom: 50,
-                    colors: ['red', 'green'],
-                    linewidth: 7,
-                    shadow: true,
-                    shadowBlur: 3,
-                    shadowOpacity: 0.25,
-                    spline: true
-
-                }
-            }).trace();
-        })
-    })*/
+        new Chartist.Line('.ct-chart', data, options, responsiveOptions);
+    })
 }]);
