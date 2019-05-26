@@ -78,6 +78,8 @@ controller("numberOfCompaniesCtrl", ["$scope", "$http", "$httpParamSerializer", 
                     tabla.push([paisesApi[i], numCompApi[i]]);
                 }
             }
+            
+            console.log(tabla);
 
             var data = google.visualization.arrayToDataTable(tabla);
             var options = {};
