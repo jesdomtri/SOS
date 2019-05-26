@@ -1,12 +1,10 @@
-/*global angular, Highcharts, RGraph*/
+/*global angular, Highcharts, Chartist*/
 
 angular.module("PostmanApp").
 controller("hurricanesCtrl", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
-    var apiH = "/proxyHurricanes";
-
     //API JSON
 
-    $http.get(apiH).then(function(response) {
+    $http.get("https://sos1819-01.herokuapp.com/api/v1/hurricanes").then(function(response) {
         $scope.data = JSON.stringify(response.data, null, 2);
         $scope.status = response.status;
     }, function(response) {
