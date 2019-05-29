@@ -1,4 +1,4 @@
-/*global angular, Highcharts, RGraph*/
+/*global angular, Chartist, RGraph*/
 
 angular.module("PostmanApp").
 controller("beerConsumedStatsCtrl", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
@@ -7,73 +7,37 @@ controller("beerConsumedStatsCtrl", ["$scope", "$http", "$httpParamSerializer", 
     //API JSON
 
     $http.get(apiBCS).then(function(response) {
-        $scope.data = JSON.stringify(response.data, null, 2);
+        $scope.datos = response.data;
         $scope.status = response.status;
     }, function(response) {
-        $scope.data = response.data || 'Request failed';
+        $scope.datos = response.data || 'Request failed';
         $scope.status = response.status;
     })
 
 
     //HIGHCHARTS
     $http.get(apiBCS).then(function(response) {
-        var tabla = [];
 
         var paisesApi = response.data.map(function(d) { return d.country });
         var añosApi = response.data.map(function(d) { return d.year });
         var consumitionApi = response.data.map(function(d) { return d.countryConsumition });
 
+        var paisesFinales = [];
+        var consFinales = [];
+
         for (var i = 0; i < paisesApi.length; i++) {
             if (añosApi[i] == 2017) {
-                tabla.push({ name: paisesApi[i], consumition: consumitionApi[i] });
+                paisesFinales.push(paisesApi[i]);
+                consFinales.push(consumitionApi[i]);
             }
         }
 
-        tabla.sort(function(a, b) {
-            if (a.consumition < b.consumition) {
-                return 1;
-            }
-            if (a.consumition > b.consumition) {
-                return -1;
-            }
-            return 0;
-        });
-
-        var tablaFinal = [];
-
-        for (var i = 0; i < tabla.length; i++) {
-            tablaFinal.push([tabla[i].name, tabla[i].consumition]);
-        }
-
-        console.log(tablaFinal);
-
-        Highcharts.chart('container', {
-            chart: {
-                type: 'pyramid'
-            },
-            title: {
-                text: '',
-                x: -50
-            },
-            plotOptions: {
-                series: {
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b> ',
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
-                        softConnector: true
-                    },
-                    center: ['40%', '50%'],
-                    width: '80%'
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            series: [{
-                name: 'Consumición',
-                data: tablaFinal
-            }]
+        new Chartist.Line('.ct-chart', {
+            labels: paisesFinales,
+            series: [consFinales]
+        }, {
+            low: 0,
+            showArea: true
         });
     })
 
