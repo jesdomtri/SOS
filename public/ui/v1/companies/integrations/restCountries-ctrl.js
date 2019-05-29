@@ -4,7 +4,12 @@ angular.module("PostmanApp").
 controller("restCountriesCtrl", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
 
     $http.get("https://restcountries.eu/rest/v2/all").then(function(response) {
-        $scope.data = JSON.stringify(response.data, null, 2);
+        //$scope.data = JSON.stringify(response.data, null, 2);
+        var datos = [];
+        for (var i = 0; i < response.data.length; i++) {
+            datos.push({ name: response.data[i].name, population: response.data[i].population });
+        }
+        $scope.data = JSON.stringify(datos, null, 2);
         $scope.status = response.status;
     }, function(response) {
         $scope.data = response.data || 'Request failed';

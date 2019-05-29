@@ -4,7 +4,12 @@ angular.module("PostmanApp").
 controller("universitiesCtrl", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
 
     $http.get("https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json").then(function(response) {
-        $scope.data = JSON.stringify(response.data, null, 2);
+        var datos = [];
+        for (var i = 0; i < response.data.length; i++) {
+            datos.push({ name: response.data[i].name, country: response.data[i].country });
+        }
+        //$scope.data = JSON.stringify(response.data, null, 2);
+        $scope.data = JSON.stringify(datos, null, 2);
         $scope.status = response.status;
     }, function(response) {
         $scope.data = response.data || 'Request failed';
