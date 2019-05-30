@@ -1,10 +1,9 @@
-/*global angular, Chartist, RGraph*/
+/*global angular, Chartist*/
 
 angular.module("PostmanApp").
 controller("beerConsumedStatsCtrl", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
     var apiBCS = "/proxyBeerConsumedStats";
 
-    //HIGHCHARTS
     $http.get(apiBCS).then(function(response) {
 
         var paisesApi = response.data.map(function(d) { return d.country });
