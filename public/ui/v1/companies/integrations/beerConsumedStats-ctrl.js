@@ -4,17 +4,6 @@ angular.module("PostmanApp").
 controller("beerConsumedStatsCtrl", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
     var apiBCS = "/proxyBeerConsumedStats";
 
-    //API JSON
-
-    $http.get(apiBCS).then(function(response) {
-        $scope.datos = response.data;
-        $scope.status = response.status;
-    }, function(response) {
-        $scope.datos = response.data || 'Request failed';
-        $scope.status = response.status;
-    })
-
-
     //HIGHCHARTS
     $http.get(apiBCS).then(function(response) {
 

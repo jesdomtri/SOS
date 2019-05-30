@@ -4,20 +4,6 @@ angular.module("PostmanApp").
 controller("restCountriesCtrl", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
 
     $http.get("https://restcountries.eu/rest/v2/all").then(function(response) {
-        //$scope.data = JSON.stringify(response.data, null, 2);
-        var datos = [];
-        for (var i = 0; i < response.data.length; i++) {
-            datos.push({ name: response.data[i].name, population: response.data[i].population });
-        }
-        $scope.datos = response.data;
-        $scope.status = response.status;
-        console.log($scope.datos);
-    }, function(response) {
-        $scope.datos = response.data || 'Request failed';
-        $scope.status = response.status;
-    })
-
-    $http.get("https://restcountries.eu/rest/v2/all").then(function(response) {
         google.charts.load('current', { 'packages': ['geochart'] });
         google.charts.setOnLoadCallback(drawRegionsMap);
 

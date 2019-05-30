@@ -1,69 +1,8 @@
-/*global angular, Chartist, RGraph*/
+/*global angular, RGraph*/
 
 angular.module("PostmanApp").
 controller("uefaCountryRankingsCtrl", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
     var apiUCR = "/proxyUefaCountryRankings";
-
-    //API JSON
-
-    $http.get(apiUCR).then(function(response) {
-        $scope.datos = response.data;
-        $scope.status = response.status;
-    }, function(response) {
-        $scope.datos = response.data || 'Request failed';
-        $scope.status = response.status;
-    })
-
-
-    //CHARTIST
-    $http.get(apiUCR).then(function(response) {
-        var tabla = [];
-
-        var paisesApi = response.data.map(function(d) { return d.country });
-        var añosApi = response.data.map(function(d) { return d.season });
-        var pointsApi = response.data.map(function(d) { return d.points });
-
-        for (var i = 0; i < paisesApi.length; i++) {
-            if (añosApi[i] == 2017) {
-                tabla.push([paisesApi[i], pointsApi[i]]);
-            }
-        }
-
-        var paisesFinales = [];
-        var pointsFinales = [];
-        for (var i = 0; i < tabla.length; i++) {
-            paisesFinales.push(tabla[i][0]);
-            pointsFinales.push(tabla[i][1]);
-        }
-
-        var data = {
-            labels: paisesFinales,
-            series: pointsFinales
-        };
-
-        var options = {
-            labelInterpolationFnc: function(value) {
-                return value[0]
-            }
-        };
-
-        var responsiveOptions = [
-            ['screen and (min-width: 640px)', {
-                chartPadding: 30,
-                labelOffset: 0,
-                labelDirection: 'explode',
-                labelInterpolationFnc: function(value) {
-                    return value;
-                }
-            }],
-            ['screen and (min-width: 1024px)', {
-                labelOffset: 0,
-                chartPadding: 20
-            }]
-        ];
-
-        new Chartist.Pie('.ct-chart', data, options, responsiveOptions);
-    })
 
     //RGRAPH
     $http.get(apiUCR).then(function(response) {

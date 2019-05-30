@@ -53,10 +53,6 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
             controller: "breakingNewsCtrl",
             templateUrl: "/ui/v1/companies/integrations/breakingNews.html"
         })
-        .when("/integrations/dogApi", {
-            controller: "dogApiCtrl",
-            templateUrl: "/ui/v1/companies/integrations/dogApi.html"
-        })
         .when("/ui/v1/country-stats", {
             controller: "ListCtrlStats",
             templateUrl: "/ui/v1/country-stats/list.html"
@@ -94,4 +90,3 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
             templateUrl: "/ui/v1/computer-attacks-stats/update.html"
         });
 });
-console.log("Modular App Initialized");
