@@ -1,4 +1,4 @@
-/*global angular, Highcharts, RGraph*/
+/*global angular, Chartist, RGraph*/
 
 angular.module("PostmanApp").
 controller("uefaCountryRankingsCtrl", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
@@ -7,15 +7,15 @@ controller("uefaCountryRankingsCtrl", ["$scope", "$http", "$httpParamSerializer"
     //API JSON
 
     $http.get(apiUCR).then(function(response) {
-        $scope.data = JSON.stringify(response.data, null, 2);
+        $scope.datos = response.data;
         $scope.status = response.status;
     }, function(response) {
-        $scope.data = response.data || 'Request failed';
+        $scope.datos = response.data || 'Request failed';
         $scope.status = response.status;
     })
 
 
-    //HIGHCHARTS
+    //CHARTIST
     $http.get(apiUCR).then(function(response) {
         var tabla = [];
 
@@ -25,38 +25,44 @@ controller("uefaCountryRankingsCtrl", ["$scope", "$http", "$httpParamSerializer"
 
         for (var i = 0; i < paisesApi.length; i++) {
             if (añosApi[i] == 2017) {
-                tabla.push({ name: paisesApi[i], y: pointsApi[i] });
+                tabla.push([paisesApi[i], pointsApi[i]]);
             }
         }
-        Highcharts.chart('container', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: 'Puntos de UEFA, 2017'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.y}</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
+
+        var paisesFinales = [];
+        var pointsFinales = [];
+        for (var i = 0; i < tabla.length; i++) {
+            paisesFinales.push(tabla[i][0]);
+            pointsFinales.push(tabla[i][1]);
+        }
+
+        var data = {
+            labels: paisesFinales,
+            series: pointsFinales
+        };
+
+        var options = {
+            labelInterpolationFnc: function(value) {
+                return value[0]
+            }
+        };
+
+        var responsiveOptions = [
+            ['screen and (min-width: 640px)', {
+                chartPadding: 30,
+                labelOffset: 0,
+                labelDirection: 'explode',
+                labelInterpolationFnc: function(value) {
+                    return value;
                 }
-            },
-            series: [{
-                name: 'Puntos',
-                colorByPoint: true,
-                data: tabla
+            }],
+            ['screen and (min-width: 1024px)', {
+                labelOffset: 0,
+                chartPadding: 20
             }]
-        });
+        ];
+
+        new Chartist.Pie('.ct-chart', data, options, responsiveOptions);
     })
 
     //RGRAPH
