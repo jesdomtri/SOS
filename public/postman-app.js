@@ -13,6 +13,10 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
         .when("/integrations", {
             templateUrl: "integrations.html"
         })
+        .when("/analytics/grupal", {
+            controller: "grupalCtrl",
+            templateUrl: "grupal.html"
+        })
         .when("/ui/v1/companies", {
             controller: "ListCtrlCompanies",
             templateUrl: "/ui/v1/companies/list.html"
@@ -73,7 +77,7 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
             controller: "hurricanesCtrl",
             templateUrl: "/ui/v1/country-stats/integrations/hurricanes.html"
         })
-         .when("/integrations/Tvmaze", {
+        .when("/integrations/Tvmaze", {
             controller: "tvmazeCtrl",
             templateUrl: "/ui/v1/country-stats/integrations/tvmaze.html"
         })
