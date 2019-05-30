@@ -77,9 +77,9 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
             controller: "hurricanesCtrl",
             templateUrl: "/ui/v1/country-stats/integrations/hurricanes.html"
         })
-        .when("/integrations/Tvmaze", {
-            controller: "tvmazeCtrl",
-            templateUrl: "/ui/v1/country-stats/integrations/tvmaze.html"
+        .when("/integrations/MovieStats", {
+            controller: "movieStatsCtrl",
+            templateUrl: "/ui/v1/country-stats/integrations/movieStats.html"
         })
         .when("/integrations/Faroo", {
             controller: "farooCtrl",

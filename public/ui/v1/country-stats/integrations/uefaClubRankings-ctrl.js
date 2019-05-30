@@ -4,16 +4,6 @@ angular.module("PostmanApp").
 controller("uefaClubRankingsCtrl", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
     var apiUCRS = "/proxyUefaClubRankings";
 
-    //API JSON
-
-    $http.get(apiUCRS).then(function(response) {
-        $scope.data = JSON.stringify(response.data, null, 2);
-        $scope.status = response.status;
-    }, function(response) {
-        $scope.data = response.data || 'Request failed';
-        $scope.status = response.status;
-    })
-
     //Chartist
     $http.get(apiUCRS).then(function(response) {
 
