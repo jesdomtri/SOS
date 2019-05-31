@@ -5,7 +5,7 @@ controller("beerConsumedStatsCtrl", ["$scope", "$http", "$httpParamSerializer", 
     var apiBCS = "/proxyBeerConsumedStats";
 
     $http.get(apiBCS).then(function(response) {
-
+        
         var paisesApi = response.data.map(function(d) { return d.country });
         var añosApi = response.data.map(function(d) { return d.year });
         var consumitionApi = response.data.map(function(d) { return d.countryConsumition });

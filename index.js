@@ -28,6 +28,15 @@ app.use(pathsBCS, function(req, res) {
 });
 //FIN PROXY A LA API BEER CONSUMED STATS
 
+//PROXY A LA API UNEMPLOYMENT
+var pathsU = '/proxyUnemployment';
+var remoteAPIU = 'https://sos1819-12.herokuapp.com/api/v1/youth-unemployment-stats';
+app.use(pathsU, function(req, res) {
+    console.log('piped: ' + remoteAPIU);
+    req.pipe(request(remoteAPIU)).pipe(res);
+});
+//FIN PROXY A LA API UNEMPLOYMENT
+
 //PROXY A LA API UEFA CLUB RANKINGS
 var pathsUCRS = '/proxyUefaClubRankings';
 var remoteAPIUCRS = 'https://sos1819-06.herokuapp.com/api/v1/uefa-club-rankings';
