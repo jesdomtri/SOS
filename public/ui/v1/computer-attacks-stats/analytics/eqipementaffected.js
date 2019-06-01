@@ -3,7 +3,7 @@
 angular.module("PostmanApp").
 controller("AnalyticsCtrlAttack", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
   
-  console.log("Estoy dentro  del controlado analytic");
+ 
     var BASE_API_PATH ="api/v1/computer-attacks-stats";
     
       $http.get(BASE_API_PATH).then(function(response) {
