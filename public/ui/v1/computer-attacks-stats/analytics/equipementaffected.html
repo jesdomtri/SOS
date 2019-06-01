@@ -40,44 +40,24 @@
         </ul>
     </div>
 </nav>
-<!-- CONTAINER -->
-<div class="container" style="padding-top:5%; padding-bottom: 5%">
-    <div class="container" style="background-color: rgb(46, 49, 49); padding-bottom: 3%; border-radius: 20px;box-shadow: 0px 0px 16px -2px rgba(0,0,0,0.52);">
-        <div style="padding-top:2%;padding-left: 2%;">
-            <h1 class="card-title" style="color: white;">
-                Team
-            </h1>
-            <p class="card-subtitle" style="color: white;">
-                0. Grupal
-                </br>
-                <a href="#!/analytics/grupal">
-                    Grupal
-                </a>
-            </p>
+<div style="padding-top:5%; padding-bottom: 5%">
+    <!-- CONTAINER -->
+    <div class="container" style="background-color: rgb(46, 49, 49);padding:1% 1% 1% 1%; border-radius: 20px;box-shadow: 0px 0px 16px -2px rgba(0,0,0,0.52);">
+        <div style="padding-bottom:2%;">
             </br>
-            <p class="card-subtitle" style="color: white;">
-                1. José Antonio Mora Pérez:
-                </br>
-                <a href="#!/analytics/populationGrowth20132017">
-                    Population Growth (2013-2017) and Population (2017)
-                </a>
-            </p>
+            <h4 align="center">HighCharts</h4>
+            <div id="container" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
             </br>
-            <p class="card-subtitle" style="color: white;">
-                2. Jesus Dominguez Tristancho:
-                </br>
-                <a href="#!/analytics/numberOfCompanies">
-                    Number of companies (2017)
-                </a>
-            </p>
             </br>
-            <p class="card-subtitle" style="color: white;">
-                3. Joaquin Puerto Martinez:
-                </br>
-                <a href="#!/analytics/equipmentaffected">
-                    Computer equipment affected in 2017
-                </a>
-            </p>
+            <h4 align="center">GeoCharts</h4>
+            <div id="regions_div" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+            </br>
+            </br>
+            <h4 align="center"></h4>
+            <div id="container" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto;background-color:white;">
+                <canvas id="cvs" width="800" height="400">
+                </canvas>
+            </div>
         </div>
     </div>
 </div>
