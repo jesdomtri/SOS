@@ -5,7 +5,7 @@ controller("companiesCtrl", ["$scope", "$http", "$httpParamSerializer", function
 
     //HIGHCHARTS
     $http.get("https://sos1819-03.herokuapp.com/api/v1/companies").then(function(response) {
-        
+
         var filteredcountry = [];
         var filteredsector = [];
 
@@ -19,22 +19,58 @@ controller("companiesCtrl", ["$scope", "$http", "$httpParamSerializer", function
                 filteredsector.push(sectorApi[i]);
             }
         }
-        
+
         console.log(filteredcountry);
         console.log(filteredsector);
 
-        new RGraph.SVG.Rose({
-            id: 'chart-container',
+        new RGraph.SVG.Pie({
+            id: 'cc',
             data: filteredsector,
             options: {
-                colors: ['rgba(255,0,0,0.5)', 'rgba(0,255,0,0.5)', 'rgba(0,0,255,0.5)'],
-                backgroundGridRadialsCount: 0,
-                linewidth: 2,
-                amargin: '5deg',
                 labels: filteredcountry,
-                tooltips: filteredcountry,
-                linewidth: .5
+                labelsSticks: false,
+                exploded: 5,
+                donut: true
             }
-        }).draw();
+        }).on('draw', function(obj) {
+            var svg = obj.svg,
+                path = '';
+
+            var r = obj.radius;
+
+            while (r > 0) {
+                path =
+                    RGraph.SVG.TRIG.getArcPath3({
+                        cx: obj.centerx,
+                        cy: obj.centery,
+                        r: r,
+                        start: 0,
+                        end: 3.1415 * 2,
+                        anticlockwise: false,
+                        lineto: false
+                    }) + " " +
+                    RGraph.SVG.TRIG.getArcPath3({
+                        cx: obj.centerx,
+                        cy: obj.centery,
+                        r: r - 5,
+                        start: 3.1415 * 2,
+                        end: 0,
+                        anticlockwise: true,
+                        lineto: true
+                    }) + ' Z'
+
+                RGraph.SVG.create({
+                    svg: svg,
+                    type: 'path',
+                    parent: obj.svg.all,
+                    attr: {
+                        d: path,
+                        fill: 'white'
+                    }
+                });
+
+                r -= 10;
+            }
+        }).roundRobin({ frames: 90 });
     })
 }]);
