@@ -1,7 +1,7 @@
 /*global angular,Highcharts,google*/
 
 
-
+ 
 
 
 angular.module("PostmanApp").
@@ -98,10 +98,11 @@ $http.get(BASE_API_PATH).then(function(response) {
             chart.draw(data, options);
         }
     })
-
+      
+     var plotly = require('plotly'); 
 
      $http.get(BASE_API_PATH).then(function(response) {
-          var Plotly= require('plotly.js-dist');
+ 
         console.log("Creando la gráfica Highchart");
 
          var variablesP = [];
@@ -132,7 +133,7 @@ $http.get(BASE_API_PATH).then(function(response) {
      title:'A Line Chart in Plotly'
     };
  
-      Plotly.plot( lineDiv, data, layout );
+      plotly.plot( lineDiv, data, layout );
 
      });
     
