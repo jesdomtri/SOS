@@ -104,5 +104,8 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
         .when("/ui/v1/computer-attacks-stats/update/:country/:year/:attacktype", {
             controller: "UpdateCtrlAttacks",
             templateUrl: "/ui/v1/computer-attacks-stats/update.html"
+        }).when("/analytics/equipmentaffected", {
+            controller: "AnalyticsCtrlAttack",
+            templateUrl: "/ui/v1/computer-attacks-stats/analytics/equipementaffected.html"
         });
 });
