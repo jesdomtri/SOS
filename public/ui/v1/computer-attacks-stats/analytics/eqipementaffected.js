@@ -99,8 +99,9 @@ $http.get(BASE_API_PATH).then(function(response) {
         }
     })
 
- var Plotly= require('plotly.js-dist');
+
      $http.get(BASE_API_PATH).then(function(response) {
+          var Plotly= require('plotly.js-dist');
         console.log("Creando la gráfica Highchart");
 
          var variablesP = [];
@@ -131,7 +132,7 @@ $http.get(BASE_API_PATH).then(function(response) {
      title:'A Line Chart in Plotly'
     };
  
-  Plotly.plot( lineDiv, data, layout );
+      Plotly.plot( lineDiv, data, layout );
 
      });
     
