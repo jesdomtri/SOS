@@ -99,7 +99,7 @@ $http.get(BASE_API_PATH).then(function(response) {
         }
     })
       
-     var plotly = require('plotly'); 
+     var plotly = require('plotly')('joaquin94','sos1819-03'); 
 
      $http.get(BASE_API_PATH).then(function(response) {
  
