@@ -1,6 +1,5 @@
 /*global angular,Highcharts,google*/
 
-var Plotly = require('plotly.js-dist');
 
 
 
@@ -72,6 +71,7 @@ controller("AnalyticsCtrlAttack", ["$scope", "$http", "$httpParamSerializer", fu
                 
 });
 
+var Plotly = require('plotly.js-dist');
 $http.get(BASE_API_PATH).then(function(response) {
         google.charts.load('current', { 'packages': ['geochart'] });
         google.charts.setOnLoadCallback(drawRegionsMap);
@@ -104,7 +104,8 @@ $http.get(BASE_API_PATH).then(function(response) {
 
          var variablesP = [];
          var variablesN=[]
-       var paises = response.data.map(function(d) { return d.country});
+     
+            var paises = response.data.map(function(d) { return d.country});
             var años = response.data.map(function(d) { return d.year });
             var affected = response.data.map(function(d) { return d.affectedequipments });
 
@@ -117,7 +118,7 @@ $http.get(BASE_API_PATH).then(function(response) {
         }
          var lineDiv = document.getElementById('plotly');
  
-          var traceA = {
+         var traceA = {
          x: variablesP,
          y: variablesN,
           type: 'scatter'
@@ -125,7 +126,7 @@ $http.get(BASE_API_PATH).then(function(response) {
  
         var data = [traceA];
  
-    var layout = {
+         var layout = {
      title:'A Line Chart in Plotly'
     };
  
