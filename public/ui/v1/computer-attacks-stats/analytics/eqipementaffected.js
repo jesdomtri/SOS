@@ -1,5 +1,10 @@
 /*global angular,Highcharts,google*/
 
+var Plotly = require('plotly.js-dist');
+
+
+
+
 angular.module("PostmanApp").
 controller("AnalyticsCtrlAttack", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
   console.log("CTRATTACKS");
@@ -56,7 +61,7 @@ controller("AnalyticsCtrlAttack", ["$scope", "$http", "$httpParamSerializer", fu
     },
     series: [{
         type: 'pie',
-        name: 'Browser share',
+        name: 'Afectados',
         innerSize: '50%',
         data: variables
     }]
@@ -94,7 +99,39 @@ $http.get(BASE_API_PATH).then(function(response) {
         }
     })
 
+     $http.get(BASE_API_PATH).then(function(response) {
+        console.log("Creando la gráfica Highchart");
 
+         var variablesP = [];
+         var variablesN=[]
+       var paises = response.data.map(function(d) { return d.country});
+            var años = response.data.map(function(d) { return d.year });
+            var affected = response.data.map(function(d) { return d.affectedequipments });
 
+            for (var i = 0; i < paises.length; i++) {
+                if (años[i] == 2017) {
+                    variablesP.push([paises[i]]);
+                    variablesN.push(([affected[i]]));
+                }
+            
+        }
+         var lineDiv = document.getElementById('plotly');
+ 
+          var traceA = {
+         x: variablesP,
+         y: variablesN,
+          type: 'scatter'
+        };
+ 
+        var data = [traceA];
+ 
+    var layout = {
+     title:'A Line Chart in Plotly'
+    };
+ 
+  Plotly.plot( lineDiv, data, layout );
+
+     });
     
+
 }]);
