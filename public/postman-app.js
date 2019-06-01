@@ -93,9 +93,25 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
             controller: "movieStatsCtrl",
             templateUrl: "/ui/v1/country-stats/integrations/movieStats.html"
         })
-        .when("/integrations/Faroo", {
+        .when("/integrations/Elements", {
+            controller: "elementsCtrl",
+            templateUrl: "/ui/v1/country-stats/integrations/elements.html"
+        })
+        .when("/integrations/Companies", {
+            controller: "companiesCtrl",
+            templateUrl: "/ui/v1/country-stats/integrations/companies.html"
+        })
+         .when("/integrations/Faroo", {
             controller: "farooCtrl",
             templateUrl: "/ui/v1/country-stats/integrations/faroo.html"
+        })
+         .when("/integrations/TVMaze", {
+            controller: "tvmazeCtrl",
+            templateUrl: "/ui/v1/country-stats/integrations/tvmaze.html"
+        })
+        .when("/integrations/CheckThatBike", {
+            controller: "stolenbikeCtrl",
+            templateUrl: "/ui/v1/country-stats/integrations/stolenbike.html"
         })
         .when("/ui/v1/computer-attacks-stats", {
             controller: "ListCtrlAttacks",
