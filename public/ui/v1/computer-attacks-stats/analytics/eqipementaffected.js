@@ -9,18 +9,17 @@ controller("AnalyticsCtrlAttack", ["$scope", "$http", "$httpParamSerializer", fu
       $http.get(BASE_API_PATH).then(function(response) {
         console.log("Creando la gráfica Highchart");
 
-         var valores = [];
+         var variables = [];
 
-        var arrCountry = response.data.map(function(d) { return d.country });
-        var años =    response.data.map(function(d) { return d.year });
-        var affected =   response.data.map(function(d) { return d.affectedequipments });
-      
+       var paises = response.data.map(function(d) { return d.country});
+            var años = response.data.map(function(d) { return d.year });
+            var affected = response.data.map(function(d) { return d.affectedequipments });
 
-        for (var i = 0; i < arrCountry.length; i++) {
-            if (años[i] == 2017) {
-               
-                valores.push({ name: arrCountry[i], number: affected[i] });
-            }
+            for (var i = 0; i < paises.length; i++) {
+                if (años[i] == 2017) {
+                    variables.push([paises[i], affected[i]]);
+                }
+            
         }
               
           
@@ -31,7 +30,7 @@ controller("AnalyticsCtrlAttack", ["$scope", "$http", "$httpParamSerializer", fu
         plotShadow: false
     },
     title: {
-        text: 'Equipos r<br>afectados<br>2017',
+        text: 'Equipos <br>afectados<br>2017',
         align: 'center',
         verticalAlign: 'middle',
         y: 40
@@ -59,7 +58,7 @@ controller("AnalyticsCtrlAttack", ["$scope", "$http", "$httpParamSerializer", fu
         type: 'pie',
         name: 'Browser share',
         innerSize: '50%',
-        data: valores
+        data: variables
     }]
 });
       
