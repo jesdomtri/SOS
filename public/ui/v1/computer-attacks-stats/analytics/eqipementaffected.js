@@ -4,7 +4,7 @@ angular.module("PostmanApp").
 controller("AnalyticsCtrlAttack", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
   console.log("CTRATTACKS");
  
-    var BASE_API_PATH ="/api/v1/computer-attacks-stats";
+    var BASE_API_PATH ="/api/v1/computers-attacks-stats";
     
       $http.get(BASE_API_PATH).then(function(response) {
         console.log("Creando la gráfica Highchart");
