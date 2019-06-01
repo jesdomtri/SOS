@@ -99,7 +99,7 @@ $http.get(BASE_API_PATH).then(function(response) {
         }
     })
 
-var Plotly = require('plotly.js-dist');
+ var Plotly= require('plotly.js-dist');
      $http.get(BASE_API_PATH).then(function(response) {
         console.log("Creando la gráfica Highchart");
 
