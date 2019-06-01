@@ -71,7 +71,7 @@ controller("AnalyticsCtrlAttack", ["$scope", "$http", "$httpParamSerializer", fu
                 
 });
 
-var Plotly = require('plotly.js-dist');
+
 $http.get(BASE_API_PATH).then(function(response) {
         google.charts.load('current', { 'packages': ['geochart'] });
         google.charts.setOnLoadCallback(drawRegionsMap);
@@ -99,6 +99,7 @@ $http.get(BASE_API_PATH).then(function(response) {
         }
     })
 
+var Plotly = require('plotly.js-dist');
      $http.get(BASE_API_PATH).then(function(response) {
         console.log("Creando la gráfica Highchart");
 
