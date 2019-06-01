@@ -2,7 +2,7 @@
 
 angular.module("PostmanApp").
 controller("AnalyticsCtrlAttack", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
-  
+  console.log("CTRATTACKS");
  
     var BASE_API_PATH ="api/v1/computer-attacks-stats";
     
@@ -19,7 +19,7 @@ controller("AnalyticsCtrlAttack", ["$scope", "$http", "$httpParamSerializer", fu
         for (var i = 0; i < arrCountry.length; i++) {
             if (años[i] == 2017) {
                
-                valores.push({ name: arrCountry[i], number: affected[i], drilldown: arrCountry[i] });
+                valores.push({ name: arrCountry[i], number: affected[i] });
             }
         }
               
