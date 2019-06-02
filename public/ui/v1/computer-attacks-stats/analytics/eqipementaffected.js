@@ -114,24 +114,24 @@ $http.get(BASE_API_PATH).then(function(response) {
 
             for (var i = 0; i < paises.length; i++) {
                 if (años[i] == 2017) {
-                    variablesP.push([paises[i]]);
-                    variablesN.push([affected[i]]);
+                    variablesP.push(paises[i]);
+                    variablesN.push(affected[i]);
                 }
                 console.log(variablesP);
                 console.log(variablesN);
             
         }
        var trace1 = {
-  x: variablesP,
-  y: variablesN,
-  type: 'scatter'
-};
+              x: variablesP,
+              y: variablesN,
+              type: 'scatter'
+            };
 
 
 
-var data = [trace1];
-
-Plotly.newPlot('plotly', data);
+            var data = [trace1];
+            
+            Plotly.newPlot('plotly', data);
         });
     
 
