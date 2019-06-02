@@ -21,9 +21,9 @@ angular.module("PostmanApp").controller("C3", ["$scope", "$http", "$httpParamSer
    new RGraph.SVG.Gauge({
         id: 'container3',
         innerMin:0,
-        innerMax:100000000,
+        innerMax:100,
         outerMin:0,
-        outerMax:200000,
+        outerMax:50,
         value: suma,
         options: {
             adjustable: true,
