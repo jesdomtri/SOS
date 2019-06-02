@@ -47,11 +47,11 @@ app.use(pathsUCRS, function(req, res) {
 //FIN PROXY A LA API UEFA CLUB RANKINGS
 
 //PROXY A LA API HURRICANES
-var pathsH = '/proxyHurricanes';
-var remoteH = 'https://sos1819-01.herokuapp.com/api/v1/hurricanes/';
-app.use(pathsH, function(req, res) {
-    console.log('piped: ' + remoteH);
-    req.pipe(request(remoteH)).pipe(res);
+var pathsHR = '/proxyHurricanes';
+var remoteHR = 'https://sos1819-01.herokuapp.com/api/v1/hurricanes/';
+app.use(pathsHR, function(req, res) {
+    console.log('piped: ' + remoteHR);
+    req.pipe(request(remoteHR)).pipe(res);
 });
 //FIN PROXY A LA API HURRICANES
 
