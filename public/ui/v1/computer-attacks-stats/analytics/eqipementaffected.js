@@ -117,6 +117,8 @@ $http.get(BASE_API_PATH).then(function(response) {
                     variablesP.push([paises[i]]);
                     variablesN.push(([affected[i]]));
                 }
+                console.log(variablesP);
+                console.log(variablesN);
             
         }
          var lineDiv = document.getElementById('plotly');
