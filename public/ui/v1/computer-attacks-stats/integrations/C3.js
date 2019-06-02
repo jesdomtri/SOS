@@ -13,7 +13,7 @@ angular.module("PostmanApp").controller("C3", ["$scope", "$http", "$httpParamSer
         var employeeAPI = response.data.map(function(d) { return d.employee });
         
         for (var i = 0; i < employeeAPI.length; i++) {
-            suma = suma + employeePI[i];
+            suma = suma + employeeAPI[i];
                
         }
      
