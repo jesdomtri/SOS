@@ -19,7 +19,7 @@ controller("C1", ["$scope", "$http", "$httpParamSerializer", function($scope, $h
                
             
         }
-       
+       console.log(variables); 
             Highcharts.chart('container', {
     chart: {
         plotBackgroundColor: null,
