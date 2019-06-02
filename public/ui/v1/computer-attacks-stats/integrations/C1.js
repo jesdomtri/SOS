@@ -15,7 +15,7 @@ controller("C1", ["$scope", "$http", "$httpParamSerializer", function($scope, $h
             
             for (var i = 0; i < paises.length; i++) {
             
-                variables.push(paises[i],happinessScoreApi[i]);
+                variables.push({name: paises[i], weight: happinessScoreApi[i]});
                
         }
        console.log(variables);
@@ -26,7 +26,7 @@ controller("C1", ["$scope", "$http", "$httpParamSerializer", function($scope, $h
         plotShadow: false
     },
     title: {
-        text: 'Happiness Stats<br>',
+        text: 'Happiness Stats',
         align: 'center',
         verticalAlign: 'middle',
         y: 40
