@@ -1,4 +1,4 @@
-/*global angular,Highcharts,google*/
+/*global angular,Highcharts*/
 
 angular.module("PostmanApp").
 controller("C1", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
