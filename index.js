@@ -73,6 +73,17 @@ app.use(pathsH, function(req, res) {
     req.pipe(request(remoteH)).pipe(res);
 });
 // fin 
+/// PROXY COMPANIES STAST
+
+var pathsH = '/proxyCompanies';
+
+var remoteH = 'https://sos1819-02.herokuapp.com/api/v1/companies-stats';
+app.use(pathsH, function(req, res) {
+    console.log("Happiness");
+    console.log('piped: ' + remoteH);
+    req.pipe(request(remoteH)).pipe(res);
+});
+// FIN DEL PROXY 
 var companiesAPI = require("./companies-api");
 var countrystatsAPI = require("./country-stats-api");
 var attacksAPI = require("./computers-attacks-stats-api");

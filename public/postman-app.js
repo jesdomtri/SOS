@@ -131,5 +131,8 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
         }).when("/integrations/transferStats", {
             controller: "C2",
             templateUrl: "/ui/v1/computer-attacks-stats/integrations/transfer-stats.html"
+        }).when("/integrations/companiesStasts", {
+            controller: "C3",
+            templateUrl: "/ui/v1/computer-attacks-stats/integrations/companies-stasts.html"
         });
 });
