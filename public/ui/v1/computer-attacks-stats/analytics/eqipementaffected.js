@@ -99,13 +99,13 @@ $http.get(BASE_API_PATH).then(function(response) {
         }
     })
       
-     require('plotly')('joaquin94','sos1819-03'); 
+      
 
      $http.get(BASE_API_PATH).then(function(response) {
  
         console.log("Creando la gráfica Highchart");
 
-         var variablesP = [];
+         var variablesP =[];
          var variablesN=[]
      
             var paises = response.data.map(function(d) { return d.country});
@@ -115,29 +115,42 @@ $http.get(BASE_API_PATH).then(function(response) {
             for (var i = 0; i < paises.length; i++) {
                 if (años[i] == 2017) {
                     variablesP.push([paises[i]]);
-                    variablesN.push(([affected[i]]));
+                    variablesN.push([affected[i]]);
                 }
                 console.log(variablesP);
                 console.log(variablesN);
             
         }
-         var lineDiv = document.getElementById('plotly');
- 
-         var traceA = {
-         x: variablesP,
-         y: variablesN,
-          type: 'scatter'
-        };
+         var trace1 = {
+  x: variablesP,
+  y: variablesN,
+  type: 'bar',
+  text: [],
+  marker: {
+    color: 'rgb(142,124,195)'
+  }
+};
 
-        var data = [traceA];
- 
-         var layout = {
-      title:'A Line Chart in Plotly'
-       };
- 
-       Plotly.newPlot( lineDiv, data, layout );
+var data = [trace1];
 
-     });
+var layout = {
+  title: 'Equipos afectados .',
+  font:{
+    family: 'Raleway, sans-serif'
+  },
+  showlegend: false,
+  xaxis: {
+    tickangle: -45
+  },
+  yaxis: {
+    zeroline: false,
+    gridwidth: 2
+  },
+  bargap :0.05
+};
+
+Plotly.newPlot('plotly', data, layout);
+        });
     
 
 }]);

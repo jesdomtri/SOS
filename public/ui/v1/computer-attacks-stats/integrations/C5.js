@@ -31,10 +31,9 @@ angular.module("PostmanApp").controller("C5", ["$scope", "$http", "$httpParamSer
       var data = google.visualization.arrayToDataTable(valores);
 
       var options = {
-        title: 'Correlation between life expectancy, fertility rate ' +
-               'and population of some world countries (2010)',
-        hAxis: {title: 'Life Expectancy'},
-        vAxis: {title: 'Fertility Rate'},
+        title: 'Datos de compañias .' ,
+        hAxis: {title: 'Años'},
+        vAxis: {title: 'Población'},
         bubble: {textStyle: {fontSize: 11}}
       };
        var chart = new google.visualization.BubbleChart(document.getElementById('container5'));
