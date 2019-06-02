@@ -18,6 +18,9 @@ controller("C2", ["$scope", "$http", "$httpParamSerializer",
                 moneyspentAPI.push(moneyPI[i]);
             
         }
+       
+        console.log(equipos);
+        console.log(moneyspentAPI);
 
         Highcharts.chart('container', {
     chart: {
