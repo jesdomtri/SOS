@@ -11,9 +11,9 @@ angular.module("PostmanApp").controller("C4", ["$scope", "$http", "$httpParamSer
         var valores = [];
         
         
-        var paisAPI = response.data.map(function(d) { return d.country });
+        var paisAPI = response.data.map(function(d) { return d.budgetPercentage });
         
-        var moneyPI = response.data.map(function(d) { return d.countryExpense });
+        var moneyPI = response.data.map(function(d) { return d.expensePerCapita });
         
         for (var i = 0; i < paisAPI.length; i++) {
             
@@ -30,8 +30,8 @@ angular.module("PostmanApp").controller("C4", ["$scope", "$http", "$httpParamSer
         options: {
             xaxisScale: true,
             xaxisScaleUnitsPost: '€',
-            xaxisScaleMin:100,
-            xaxisScaleMax: 200,
+            xaxisScaleMin:0,
+            xaxisScaleMax: 1000,
             yaxis: false,
             backgroundGridVlines: false,
             backgroundGridBorder: false
