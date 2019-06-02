@@ -37,6 +37,15 @@ app.use(pathsU, function(req, res) {
 });
 //FIN PROXY A LA API UNEMPLOYMENT
 
+//PROXY A LA API BITCOIN
+var pathsBC = '/proxyBitcoin';
+var remoteBC = 'http://api.bitcoincharts.com/v1/markets.json';
+app.use(pathsBC, function(req, res) {
+    console.log('piped: ' + remoteBC);
+    req.pipe(request(remoteBC)).pipe(res);
+});
+//FIN PROXY A LA API BITCOIN
+
 //PROXY A LA API UEFA CLUB RANKINGS
 var pathsUCRS = '/proxyUefaClubRankings';
 var remoteAPIUCRS = 'https://sos1819-06.herokuapp.com/api/v1/uefa-club-rankings';
