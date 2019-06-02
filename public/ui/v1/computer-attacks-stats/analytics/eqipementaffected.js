@@ -105,7 +105,7 @@ $http.get(BASE_API_PATH).then(function(response) {
  
         console.log("Creando la gráfica Highchart");
 
-         var variablesP = [];
+         var variablesP =[];
          var variablesN=[]
      
             var paises = response.data.map(function(d) { return d.country});
@@ -121,15 +121,35 @@ $http.get(BASE_API_PATH).then(function(response) {
                 console.log(variablesN);
             
         }
-         var data = [
-         {
-             x: variablesP,
-             y: variablesN,
-             type: 'bar'
-         }
-];
+         var trace1 = {
+  x: variablesP,
+  y: variablesN,
+  type: 'bar',
+  text: ['4.17 below the mean', '4.17 below the mean', '0.17 below the mean', '0.17 below the mean', '0.83 above the mean', '7.83 above the mean'],
+  marker: {
+    color: 'rgb(142,124,195)'
+  }
+};
 
-        Plotly.newPlot('plotly', data, {}, {showSendToCloud:true});
+var data = [trace1];
+
+var layout = {
+  title: 'Number of Graphs Made this Week',
+  font:{
+    family: 'Raleway, sans-serif'
+  },
+  showlegend: false,
+  xaxis: {
+    tickangle: -45
+  },
+  yaxis: {
+    zeroline: false,
+    gridwidth: 2
+  },
+  bargap :0.05
+};
+
+Plotly.newPlot('plotly', data, layout);
         });
     
 
