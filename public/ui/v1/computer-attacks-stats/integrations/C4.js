@@ -11,13 +11,13 @@ angular.module("PostmanApp").controller("C3", ["$scope", "$http", "$httpParamSer
         var valores = [];
         
         
-        var teamAPI = response.data.map(function(d) { return d.team });
+        var paisAPI = response.data.map(function(d) { return d.country });
         
-        var moneyPI = response.data.map(function(d) { return d.moneyspent });
+        var moneyPI = response.data.map(function(d) { return d.countryExpense });
         
-        for (var i = 0; i < teamAPI.length; i++) {
+        for (var i = 0; i < paisAPI.length; i++) {
             
-               valores.push([{x:teamAPI[i], y:moneyPI[i]}]);
+               valores.push([{x: paisAPI[i], y: moneyPI[i]}]);
                 
             
         }
@@ -29,7 +29,7 @@ angular.module("PostmanApp").controller("C3", ["$scope", "$http", "$httpParamSer
         data: data,
         options: {
             xaxisScale: true,
-            xaxisScaleUnitsPost: 'Kg',
+            xaxisScaleUnitsPost: '€',
             xaxisScaleMin:100,
             xaxisScaleMax: 200,
             yaxis: false,
