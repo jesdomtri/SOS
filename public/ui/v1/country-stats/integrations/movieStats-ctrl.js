@@ -12,9 +12,6 @@ controller("movieStatsCtrl", ["$scope", "$http", "$httpParamSerializer", functio
             movieName.push(response.data[i].name);
             movieAwards.push(response.data[i].movieaward);
         }
-        
-        console.log(movieName);
-        console.log(movieAwards);
 
         new Chartist.Line('.ct-chart', {
             labels: movieName,

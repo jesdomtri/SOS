@@ -11,9 +11,10 @@ controller("elementsCtrl", ["$scope", "$http", "$httpParamSerializer", function(
         
         var nameApi = response.data.map(function(d) { return d.province });
         var valuesApi = response.data.map(function(d) { return d.victims });
+        var yearApi = response.data.map(function(d) { return d.year });
         
         for (var i=0; i<nameApi.length;i++){
-             if (!nameFiltered.includes(nameApi[i])) {
+             if (yearApi[i] == 2016) {
                  nameFiltered.push(nameApi[i]);
                  valuesFiltered.push(valuesApi[i]);
              }

@@ -28,8 +28,6 @@ controller("hurricanesCtrl", ["$scope", "$http", "$httpParamSerializer", functio
                 [nameFiltrados[i], parseInt(speedApi[i])]
             );
         }
-        
-        console.log(tabla);
 
         Highcharts.chart('container', {
             chart: {

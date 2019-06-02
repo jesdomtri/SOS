@@ -30,8 +30,6 @@ controller("stolenbikeCtrl", ["$scope", "$http", "$httpParamSerializer", functio
         tabla.push(["Founded", numberctYES]);
         tabla.push(["Not Founded", numberctNO]);
         
-        console.log(tabla);
-        
         google.charts.load("current", { packages: ['corechart'] });
         google.charts.setOnLoadCallback(drawChart);
 

@@ -20,9 +20,6 @@ controller("companiesCtrl", ["$scope", "$http", "$httpParamSerializer", function
             }
         }
 
-        console.log(filteredcountry);
-        console.log(filteredsector);
-
         new RGraph.SVG.Pie({
             id: 'cc',
             data: filteredsector,

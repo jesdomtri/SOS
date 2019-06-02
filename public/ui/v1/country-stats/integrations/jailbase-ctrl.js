@@ -22,9 +22,6 @@ controller("jailBaseCtrl", ["$scope", "$http", "$httpParamSerializer", function(
             nameapi.push(response.data.records[i].name);
         }
 
-        console.log(charges);
-        console.log(nameapi);
-
         am4core.ready(function() {
 
             // Themes begin

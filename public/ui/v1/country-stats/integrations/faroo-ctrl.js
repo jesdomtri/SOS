@@ -29,11 +29,6 @@ controller("farooCtrl", ["$scope", "$http", "$httpParamSerializer", function($sc
                 AuthorRecognized = AuthorRecognized + 1;
             };
         }
-
-        console.log(domain);
-        console.log(AuthorRecognized);
-        console.log(NoAuthorRecognized);
-
         // Create the chart
         Highcharts.chart('container', {
             chart: {

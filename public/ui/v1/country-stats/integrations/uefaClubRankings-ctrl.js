@@ -66,10 +66,6 @@ controller("uefaClubRankingsCtrl", ["$scope", "$http", "$httpParamSerializer", f
                 }
             }
 
-            console.log(paisesFinales);
-            console.log(puntosFinales);
-            console.log(numPopFinales);
-
             new Chartist.Bar('.ct-chart', {
                 labels: paisesFinales,
                 series: [
