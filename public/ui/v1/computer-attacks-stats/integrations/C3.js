@@ -11,14 +11,12 @@ angular.module("PostmanApp").controller("C3", ["$scope", "$http", "$httpParamSer
         var valor  = 5000000; 
         
         var employeeAPI = response.data.map(function(d) { return d.employee });
-        
+        console.log(employeeAPI);
         for (var i = 0; i < employeeAPI.length; i++) {
             suma = suma + employeeAPI[i];
-         
-               
-        }
+          }
        suma =  (suma/valor) *100;
-   
+   console.log(suma);
    new RGraph.SVG.Gauge({
         id: 'container3',
         innerMin:0,
