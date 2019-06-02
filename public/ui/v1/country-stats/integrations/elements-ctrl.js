@@ -7,6 +7,7 @@ controller("elementsCtrl", ["$scope", "$http", "$httpParamSerializer", function(
     $http.get("https://sos1819-14.herokuapp.com/api/v1/elements").then(function(response) {
         
         var nameFiltered = [];
+        var valuesFiltered = [];
         
         var nameApi = response.data.map(function(d) { return d.province });
         var valuesApi = response.data.map(function(d) { return d.victims });
@@ -14,12 +15,13 @@ controller("elementsCtrl", ["$scope", "$http", "$httpParamSerializer", function(
         for (var i=0; i<nameApi.length;i++){
              if (!nameFiltered.includes(nameApi[i])) {
                  nameFiltered.push(nameApi[i]);
+                 valuesFiltered.push(valuesApi[i]);
              }
         }
 
         new RGraph.SVG.Radar({
             id: 'chart-container',
-            data: [valuesApi
+            data: [valuesFiltered
             ],
             options: {
                 backgroundGrid: false,
