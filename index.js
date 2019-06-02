@@ -56,32 +56,31 @@ app.use(pathsH, function(req, res) {
 //FIN PROXY A LA API HURRICANES
 
 //PROXY happiness-stats 
-    var pathsH = '/proxyHappiness';
-var remoteH = 'http://sos1819-04.herokuapp.com/api/v1/happiness-stats';
-app.use(pathsH, function(req, res) {
+    var pathsHa = '/proxyHappiness';
+var remoteHa = 'http://sos1819-04.herokuapp.com/api/v1/happiness-stats';
+app.use(pathsHa, function(req, res) {
     console.log("Happiness");
-    console.log('piped: ' + remoteH);
-    req.pipe(request(remoteH)).pipe(res);
+    console.log('piped: ' + remoteHa);
+    req.pipe(request(remoteHa)).pipe(res);
 });
 // FIN PROXY 
 //PROXY transfer-stats
-var pathsH = '/proxyTransfer';
-var remoteH = 'https://sos1819-06.herokuapp.com/api/v1/transfer-stats';
-app.use(pathsH, function(req, res) {
+var pathsT = '/proxyTransfer';
+var remoteT = 'https://sos1819-06.herokuapp.com/api/v1/transfer-stats';
+app.use(pathsT, function(req, res) {
     console.log("Happiness");
-    console.log('piped: ' + remoteH);
-    req.pipe(request(remoteH)).pipe(res);
+    console.log('piped: ' + remoteT);
+    req.pipe(request(remoteT)).pipe(res);
 });
 // fin 
 /// PROXY COMPANIES STAST
 
-var pathsH = '/proxyCompanies';
-
-var remoteH = 'https://sos1819-02.herokuapp.com/api/v1/companies-stats';
-app.use(pathsH, function(req, res) {
-    console.log("Happiness");
-    console.log('piped: ' + remoteH);
-    req.pipe(request(remoteH)).pipe(res);
+var pathsC = '/proxyCompanies';
+var remoteC = 'https://sos1819-02.herokuapp.com/api/v1/companies-stats';
+app.use(pathsC, function(req, res) {
+    console.log("Companies");
+    console.log('piped: ' + remoteC);
+    req.pipe(request(remoteC)).pipe(res);
 });
 // FIN DEL PROXY 
 var companiesAPI = require("./companies-api");

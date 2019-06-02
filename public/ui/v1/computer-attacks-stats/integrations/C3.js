@@ -18,24 +18,23 @@ controller("C3", ["$scope", "$http", "$httpParamSerializer",
         
         for (var i = 0; i < companyAPI.length; i++) {
             
-                 paises.push([companyAPI[i]]);
-                 valores.push([employeePI[i]]);
+                 paises.push(companyAPI[i]);
+                 valores.push(employeePI[i]);
             
         }
        console.log(valores);
        console.log(paises);
   
-  new RGraph.SVG.Rose({
+   var g = new RGraph.SVG.Rose({
         id: 'container3',
         data: valores,
         options: {
-            colors: [ 'rgba(255,0,0,0.5)', 'rgba(0,255,0,0.5)', 'rgba(0,0,255,0.5)' ],
-            backgroundGridRadialsCount: 0,
+            colors: [ 'red', 'black' ],
+            backgroundGridRadialsCount: 1,
             linewidth: 2,
             amargin: '5deg',
             labels: paises,
-            tooltips: 'paises',
-            linewidth: .5
+            linewidth: .3
         }
     }).draw();
  
