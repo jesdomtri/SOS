@@ -1,6 +1,5 @@
-/*global angular, Highcharts ,RGraph*/
-angular.module("PostmanApp").
-controller("C3", ["$scope", "$http", "$httpParamSerializer", 
+/*global angular ,RGraph*/
+angular.module("PostmanApp").controller("C3", ["$scope", "$http", "$httpParamSerializer", 
     function($scope, $http, $httpParamSerializer) {
    
      var apiH = "/proxyCompanies";
@@ -8,36 +7,35 @@ controller("C3", ["$scope", "$http", "$httpParamSerializer",
     $http.get(apiH)
     .then(function(response) {
 
-        var valores = [];
-        var paises = []; 
+        var suma = [];
+        var valor  = 5000000; 
         
+        var employeeAPI = response.data.map(function(d) { return d.employee });
         
-        var companyAPI = response.data.map(function(d) { return d.company });
-        
-        var employeePI = response.data.map(function(d) { return d.employee });
-        
-        for (var i = 0; i < companyAPI.length; i++) {
-            
-                 paises.push([companyAPI[i]]);
-                 valores.push([employeePI[i]]);
-            
+        for (var i = 0; i < employeeAPI.length; i++) {
+            suma = suma + employeeAPI[i];
+         
+               
         }
-       console.log(valores);
-       console.log(paises);
-  
-  new RGraph.SVG.Rose({
+       suma =  (suma/valor) *100;
+   
+   new RGraph.SVG.Gauge({
         id: 'container3',
-        data: valores,
+        innerMin:0,
+        innerMax:100,
+        outerMin:0,
+        outerMax:50,
+        value: suma,
         options: {
-            colors: [ 'rgba(255,0,0,0.5)', 'rgba(0,255,0,0.5)', 'rgba(0,0,255,0.5)' ],
-            backgroundGridRadialsCount: 0,
-            linewidth: 2,
-            amargin: '5deg',
-            labels: paises,
-            tooltips: 'paises',
-            linewidth: .5
+            adjustable: true,
+            labelsIngraphUnitsPost: '2%',
+            labelsIngraphSize: '16',
+            labelsIngraphBold: true,
+            centerpinRadius: 10,
+            labelsIngraphDecimals: 1
         }
     }).draw();
+    
  
     });
 }]);
