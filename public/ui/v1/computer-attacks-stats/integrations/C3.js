@@ -7,25 +7,23 @@ angular.module("PostmanApp").controller("C3", ["$scope", "$http", "$httpParamSer
     $http.get(apiH)
     .then(function(response) {
 
-        var suma = [];
+        
         var valor  = 5000000; 
-        
+        var total = 0; 
         var employeeAPI = response.data.map(function(d) { return d.employee });
-        
+        console.log(employeeAPI);
         for (var i = 0; i < employeeAPI.length; i++) {
-            suma = suma + employeeAPI[i];
-         
-               
-        }
-       suma =  (suma/valor) *100;
-   
+            total = total + employeeAPI[i];
+          }
+      total =  (total/valor) *100;
+   console.log(total);
    new RGraph.SVG.Gauge({
         id: 'container3',
         innerMin:0,
         innerMax:100,
         outerMin:0,
         outerMax:50,
-        value: suma,
+        value: total,
         options: {
             adjustable: true,
             labelsIngraphUnitsPost: '2%',
