@@ -108,7 +108,7 @@ $http.get(BASE_API_PATH).then(function(response) {
          var variablesP =[];
          var variablesN=[]
      
-            var paises = response.data.map(function(d) { return d.economicimpactmillions});
+            var paises = response.data.map(function(d) { return d.country});
             var años = response.data.map(function(d) { return d.year });
             var affected = response.data.map(function(d) { return d.affectedequipments });
 
