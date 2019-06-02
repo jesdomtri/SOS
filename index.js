@@ -59,6 +59,7 @@ app.use(pathsH, function(req, res) {
     var pathsH = '/proxyHappiness';
 var remoteH = 'http://sos1819-04.herokuapp.com/api/v1/happiness-stats';
 app.use(pathsH, function(req, res) {
+    console.log("Happiness");
     console.log('piped: ' + remoteH);
     req.pipe(request(remoteH)).pipe(res);
 });

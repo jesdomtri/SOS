@@ -7,8 +7,9 @@ controller("C1", ["$scope", "$http", "$httpParamSerializer", function($scope, $h
      $http.get(apiH).then(function(response) {
         
         var paises = response.data.map(function(d) { return d.country });
+        console.log(paises);
         var happinessScoreApi = response.data.map(function(d) { return d.happinessScore });
-        
+        console.log(happinessScoreApi);
         var variables = [];
        
             
@@ -26,7 +27,7 @@ controller("C1", ["$scope", "$http", "$httpParamSerializer", function($scope, $h
         plotShadow: false
     },
     title: {
-        text: 'Equipos <br>afectados<br>2017',
+        text: 'Rango de felicidad . ',
         align: 'center',
         verticalAlign: 'middle',
         y: 40
@@ -52,7 +53,7 @@ controller("C1", ["$scope", "$http", "$httpParamSerializer", function($scope, $h
     },
     series: [{
         type: 'pie',
-        name: 'Afectados',
+        name: 'F',
         innerSize: '50%',
         data: variables
     }]
