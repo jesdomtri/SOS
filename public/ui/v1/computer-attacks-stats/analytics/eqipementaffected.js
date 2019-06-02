@@ -130,7 +130,7 @@ $http.get(BASE_API_PATH).then(function(response) {
         var data = [traceA];
  
          var layout = {
-         title:'A Line Chart in Plotly'
+      title:'A Line Chart in Plotly'
        };
  
        Plotly.newPlot( lineDiv, data, layout );

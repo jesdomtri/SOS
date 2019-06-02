@@ -55,6 +55,15 @@ app.use(pathsH, function(req, res) {
 });
 //FIN PROXY A LA API HURRICANES
 
+//PROXY happiness-stats 
+    var pathsH = '/proxyHappiness';
+var remoteH = 'http://sos1819-04.herokuapp.com/api/v1/happiness-stats';
+app.use(pathsH, function(req, res) {
+    console.log('piped: ' + remoteH);
+    req.pipe(request(remoteH)).pipe(res);
+});
+// FIN PROXY 
+
 var companiesAPI = require("./companies-api");
 var countrystatsAPI = require("./country-stats-api");
 var attacksAPI = require("./computers-attacks-stats-api");
