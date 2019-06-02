@@ -22,7 +22,7 @@ controller("C2", ["$scope", "$http", "$httpParamSerializer",
         console.log(equipos);
         console.log(moneyspentAPI);
 
-        Highcharts.chart('container', {
+        Highcharts.chart('container2', {
     chart: {
         zoomType: 'xy'
     },
