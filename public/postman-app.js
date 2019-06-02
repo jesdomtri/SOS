@@ -117,6 +117,10 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
             controller: "jailBaseCtrl",
             templateUrl: "/ui/v1/country-stats/integrations/jailbase.html"
         })
+        .when("/integrations/Hedonometer", {
+            controller: "hedonometerCtrl",
+            templateUrl: "/ui/v1/country-stats/integrations/hedonometer.html"
+        })
         .when("/ui/v1/computer-attacks-stats", {
             controller: "ListCtrlAttacks",
             templateUrl: "/ui/v1/computer-attacks-stats/list.html"
