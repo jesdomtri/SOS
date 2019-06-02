@@ -108,7 +108,7 @@ $http.get(BASE_API_PATH).then(function(response) {
          var variablesP =[];
          var variablesN=[]
      
-            var paises = response.data.map(function(d) { return d.country});
+            var paises = response.data.map(function(d) { return d.economicimpactmillions});
             var años = response.data.map(function(d) { return d.year });
             var affected = response.data.map(function(d) { return d.affectedequipments });
 
@@ -121,35 +121,17 @@ $http.get(BASE_API_PATH).then(function(response) {
                 console.log(variablesN);
             
         }
-         var trace1 = {
+       var trace1 = {
   x: variablesP,
   y: variablesN,
-  type: 'bar',
-  text: [],
-  marker: {
-    color: 'rgb(142,124,195)'
-  }
+  type: 'scatter'
 };
+
+
 
 var data = [trace1];
 
-var layout = {
-  title: 'Equipos afectados .',
-  font:{
-    family: 'Raleway, sans-serif'
-  },
-  showlegend: false,
-  xaxis: {
-    tickangle: -45
-  },
-  yaxis: {
-    zeroline: false,
-    gridwidth: 2
-  },
-  bargap :0.05
-};
-
-Plotly.newPlot('plotly', data, layout);
+Plotly.newPlot('plotly', data);
         });
     
 
