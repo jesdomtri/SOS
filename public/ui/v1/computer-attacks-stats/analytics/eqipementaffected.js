@@ -1,4 +1,4 @@
-/*global angular,Highcharts,google*/
+/*global angular,Highcharts,google,Plotly*/
 
 
  
@@ -99,7 +99,7 @@ $http.get(BASE_API_PATH).then(function(response) {
         }
     })
       
-     var Plotly = require('plotly')('joaquin94','sos1819-03'); 
+     require('plotly')('joaquin94','sos1819-03'); 
 
      $http.get(BASE_API_PATH).then(function(response) {
  

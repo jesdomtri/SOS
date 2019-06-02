@@ -19,15 +19,15 @@ controller("C1", ["$scope", "$http", "$httpParamSerializer", function($scope, $h
                
             
         }
-       console.log(variables); 
-            Highcharts.chart('container', {
+       console.log(variables);
+   Highcharts.chart('container', {
     chart: {
         plotBackgroundColor: null,
         plotBorderWidth: 0,
         plotShadow: false
     },
     title: {
-        text: 'Rango de felicidad . ',
+        text: 'Rango de felicidad .',
         align: 'center',
         verticalAlign: 'middle',
         y: 40
@@ -50,12 +50,13 @@ controller("C1", ["$scope", "$http", "$httpParamSerializer", function($scope, $h
             center: ['50%', '75%'],
             size: '110%'
         }
-    },
+    }
+    ,
     series: [{
         type: 'pie',
-        name: 'F',
+        name: 'Browser share',
         innerSize: '50%',
-        data: variables
+        data:variables
     }]
 });
       
