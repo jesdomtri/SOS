@@ -52,7 +52,7 @@ controller("C1", ["$scope", "$http", "$httpParamSerializer", function($scope, $h
     },
     series: [{
         type: 'pie',
-        name: 'weight',
+        name: 'happinessScoreApi',
         innerSize: '50%',
         data: variables
     }]
