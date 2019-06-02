@@ -115,7 +115,7 @@ $http.get(BASE_API_PATH).then(function(response) {
             for (var i = 0; i < paises.length; i++) {
                 if (años[i] == 2017) {
                     variablesP.push([paises[i]]);
-                    variablesN.push(([affected[i]]));
+                    variablesN.push([affected[i]]);
                 }
                 console.log(variablesP);
                 console.log(variablesN);
@@ -129,8 +129,8 @@ $http.get(BASE_API_PATH).then(function(response) {
          }
 ];
 
-Plotly.newPlot('plotly', data);
-     });
+        Plotly.newPlot('plotly', data);
+        });
     
 
 }]);
