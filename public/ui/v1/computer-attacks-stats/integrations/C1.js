@@ -15,7 +15,7 @@ controller("C1", ["$scope", "$http", "$httpParamSerializer", function($scope, $h
             
             for (var i = 0; i < paises.length; i++) {
             
-                variables.push(paises[i], happinessScoreApi[i]);
+                variables.push([paises[i], happinessScoreApi[i]]);
                
         }
        console.log(variables);

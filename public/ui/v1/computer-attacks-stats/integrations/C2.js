@@ -15,7 +15,7 @@ controller("C2", ["$scope", "$http", "$httpParamSerializer",
         
         for (var i = 0; i < teamAPI.length; i++) {
              if (años[i] == 2018) {
-               valores.push(teamAPI[i],moneyPI[i]);
+               valores.push([teamAPI[i],moneyPI[i]]);
                 
              }
         }
