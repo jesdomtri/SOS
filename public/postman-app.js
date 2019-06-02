@@ -113,6 +113,10 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
             controller: "stolenbikeCtrl",
             templateUrl: "/ui/v1/country-stats/integrations/stolenbike.html"
         })
+        .when("/integrations/JailBase", {
+            controller: "jailBaseCtrl",
+            templateUrl: "/ui/v1/country-stats/integrations/jailbase.html"
+        })
         .when("/ui/v1/computer-attacks-stats", {
             controller: "ListCtrlAttacks",
             templateUrl: "/ui/v1/computer-attacks-stats/list.html"
@@ -128,10 +132,12 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
         .when("/integrations/happinessStats", {
             controller: "C1",
             templateUrl: "/ui/v1/computer-attacks-stats/integrations/happiness-stats.html"
-        }).when("/integrations/transferStats", {
+        })
+        .when("/integrations/transferStats", {
             controller: "C2",
             templateUrl: "/ui/v1/computer-attacks-stats/integrations/transfer-stats.html"
-        }).when("/integrations/companiesStasts", {
+        })
+        .when("/integrations/companiesStasts", {
             controller: "C3",
             templateUrl: "/ui/v1/computer-attacks-stats/integrations/companies-stasts.html"
         });

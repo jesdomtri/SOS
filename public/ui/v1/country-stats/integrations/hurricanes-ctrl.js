@@ -2,10 +2,10 @@
 
 angular.module("PostmanApp").
 controller("hurricanesCtrl", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
-    var apiH = "/proxyHurricanes";
+    var apiHR = "/proxyHurricanes";
 
     //HIGHCHARTS
-    $http.get(apiH).then(function(response) {
+    $http.get(apiHR).then(function(response) {
         var tabla = [];
         var speedApiFinal = [];
         var nameFiltrados = [];
@@ -28,6 +28,8 @@ controller("hurricanesCtrl", ["$scope", "$http", "$httpParamSerializer", functio
                 [nameFiltrados[i], parseInt(speedApi[i])]
             );
         }
+        
+        console.log(tabla);
 
         Highcharts.chart('container', {
             chart: {
