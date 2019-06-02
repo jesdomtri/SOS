@@ -24,17 +24,20 @@ angular.module("PostmanApp").controller("C3", ["$scope", "$http", "$httpParamSer
        console.log(valores);
        console.log(paises);
    
-  var rose= new RGraph.SVG.Rose({
-        id: 'chart-container',
-        data: valores,
+   new RGraph.SVG.Gauge({
+        id: 'container3',
+        innerMin:0,
+        innerMax:100,
+        outerMin:0,
+        outerMax:50,
+        value: 78,
         options: {
-            colors: [ 'red','green' ],
-            backgroundGridRadialsCount: 0,
-            linewidth: 2,
-            amargin: '5deg',
-            labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
-            tooltips: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
-            linewidth: .5
+            adjustable: true,
+            labelsIngraphUnitsPost: '%',
+            labelsIngraphSize: '16',
+            labelsIngraphBold: true,
+            centerpinRadius: 10,
+            labelsIngraphDecimals: 1
         }
     }).draw();
     
