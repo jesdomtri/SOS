@@ -99,7 +99,7 @@ $http.get(BASE_API_PATH).then(function(response) {
         }
     })
       
-     require('plotly')('joaquin94','sos1819-03'); 
+      
 
      $http.get(BASE_API_PATH).then(function(response) {
  
@@ -121,22 +121,15 @@ $http.get(BASE_API_PATH).then(function(response) {
                 console.log(variablesN);
             
         }
-         var lineDiv = document.getElementById('plotly');
- 
-         var traceA = {
-         x: variablesP,
-         y: variablesN,
-          type: 'scatter'
-        };
+         var data = [
+         {
+             x: variablesP,
+             y: variablesN,
+             type: 'bar'
+         }
+];
 
-        var data = [traceA];
- 
-         var layout = {
-      title:'A Line Chart in Plotly'
-       };
- 
-       Plotly.newPlot( lineDiv, data, layout );
-
+Plotly.newPlot('plotly', data);
      });
     
 
