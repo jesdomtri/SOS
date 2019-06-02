@@ -24,7 +24,7 @@ controller("C3", ["$scope", "$http", "$httpParamSerializer",
         }
        console.log(valores);
        console.log(paises);
-   new RGraph.SVG.Rose({
+   /*new RGraph.SVG.Rose({
         id: 'chart-container',
         data: valores,
         options: {
@@ -35,6 +35,22 @@ controller("C3", ["$scope", "$http", "$httpParamSerializer",
             labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
             tooltips: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
             linewidth: .5
+        }
+    }).draw();*/
+     new RGraph.SVG.Gauge({
+        id: 'chart-container',
+        innerMin:0,
+        innerMax:100,
+        outerMin:0,
+        outerMax:50,
+        value: 78,
+        options: {
+            adjustable: true,
+            labelsIngraphUnitsPost: '%',
+            labelsIngraphSize: '16',
+            labelsIngraphBold: true,
+            centerpinRadius: 10,
+            labelsIngraphDecimals: 1
         }
     }).draw();
  
