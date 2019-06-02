@@ -129,7 +129,7 @@ $http.get(BASE_API_PATH).then(function(response) {
          }
 ];
 
-        Plotly.newPlot('plotly', data);
+        Plotly.newPlot('plotly', data, {}, {showSendToCloud:true});
         });
     
 
