@@ -10,13 +10,14 @@ controller("C2", ["$scope", "$http", "$httpParamSerializer",
         
         
         var teamAPI = response.data.map(function(d) { return d.team });
+         var años = response.data.map(function(d) { return d.year });
         var moneyPI = response.data.map(function(d) { return d.moneyspent });
         
         for (var i = 0; i < teamAPI.length; i++) {
-            
+             if (años[i] == 2018) {
                valores.push(teamAPI[i],moneyPI[i]);
                 
-            
+             }
         }
        console.log(valores);
   
@@ -44,20 +45,19 @@ controller("C2", ["$scope", "$http", "$httpParamSerializer",
     yAxis: {
         min: 0,
         title: {
-            text: 'Population (millions)'
+            text: 'Transfers stats (millions)'
         }
     },
     legend: {
         enabled: false
     },
     tooltip: {
-        pointFormat: 'Population in 2017: <b>{point.y:.1f} millions</b>'
+        pointFormat: 'Money: <b> millions</b>'
     },
     series: [{
-        name: 'Population',
-        data: [
-           
-        ],
+        name: 'Transfer stats',
+        data: valores
+        ,
         dataLabels: {
             enabled: true,
             rotation: -90,

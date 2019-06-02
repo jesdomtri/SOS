@@ -17,17 +17,16 @@ controller("C1", ["$scope", "$http", "$httpParamSerializer", function($scope, $h
             
                 variables.push(paises[i],happinessScoreApi[i]);
                
-            
         }
        console.log(variables);
-   Highcharts.chart('container', {
+  Highcharts.chart('container', {
     chart: {
         plotBackgroundColor: null,
         plotBorderWidth: 0,
         plotShadow: false
     },
     title: {
-        text: 'Rango de felicidad .',
+        text: 'Happiness Stats<br>',
         align: 'center',
         verticalAlign: 'middle',
         y: 40
@@ -50,15 +49,15 @@ controller("C1", ["$scope", "$http", "$httpParamSerializer", function($scope, $h
             center: ['50%', '75%'],
             size: '110%'
         }
-    }
-    ,
+    },
     series: [{
         type: 'pie',
-        name: 'Browser share',
+        name: 'Felicidad',
         innerSize: '50%',
-        data:variables
+        data: variables
     }]
 });
+      
       
             
             
