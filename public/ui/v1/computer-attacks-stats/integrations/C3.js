@@ -1,6 +1,5 @@
 /*global angular ,RGraph*/
-angular.module("PostmanApp").
-controller("C3", ["$scope", "$http", "$httpParamSerializer", 
+angular.module("PostmanApp").controller("C3", ["$scope", "$http", "$httpParamSerializer", 
     function($scope, $http, $httpParamSerializer) {
    
      var apiH = "/proxyCompanies";
@@ -24,6 +23,7 @@ controller("C3", ["$scope", "$http", "$httpParamSerializer",
         }
        console.log(valores);
        console.log(paises);
+   
    /*new RGraph.SVG.Rose({
         id: 'chart-container',
         data: valores,
