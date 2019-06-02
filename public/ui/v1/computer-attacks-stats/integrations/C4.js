@@ -30,8 +30,8 @@ angular.module("PostmanApp").controller("C4", ["$scope", "$http", "$httpParamSer
         options: {
             xaxisScale: true,
             xaxisScaleUnitsPost: '€',
-            xaxisScaleMin:0,
-            xaxisScaleMax: 100,
+            xaxisScaleMin:45,
+            xaxisScaleMax: 1000,
             yaxis: false,
             backgroundGridVlines: false,
             backgroundGridBorder: false
