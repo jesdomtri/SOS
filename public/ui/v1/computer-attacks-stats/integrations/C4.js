@@ -1,6 +1,6 @@
 /*global angular, RGraph*/
 
-angular.module("PostmanApp").controller("C3", ["$scope", "$http", "$httpParamSerializer", 
+angular.module("PostmanApp").controller("C4", ["$scope", "$http", "$httpParamSerializer", 
     function($scope, $http, $httpParamSerializer) {
    
    
