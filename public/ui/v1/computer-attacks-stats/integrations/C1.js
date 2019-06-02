@@ -15,7 +15,7 @@ controller("C1", ["$scope", "$http", "$httpParamSerializer", function($scope, $h
             
             for (var i = 0; i < paises.length; i++) {
             
-                variables.push({name: paises[i], weight: happinessScoreApi[i]});
+                variables.push({name: paises[i], data: happinessScoreApi[i]});
                
         }
        console.log(variables);
@@ -52,7 +52,7 @@ controller("C1", ["$scope", "$http", "$httpParamSerializer", function($scope, $h
     },
     series: [{
         type: 'pie',
-        name: 'happinessScoreApi',
+        name: 'Money ',
         innerSize: '50%',
         data: variables
     }]
