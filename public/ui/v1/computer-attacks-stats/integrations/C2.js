@@ -2,26 +2,26 @@
 angular.module("PostmanApp").
 controller("C2", ["$scope", "$http", "$httpParamSerializer", 
     function($scope, $http, $httpParamSerializer) {
-
-    $http.get("https://sos1819-06.herokuapp.com/api/v1/transfer-stats")
+     var apiH = "/proxyTransfer";
+    $http.get(apiH)
     .then(function(response) {
 
         var valores = [];
         
         
         var teamAPI = response.data.map(function(d) { return d.team });
-         var años = response.data.map(function(d) { return d.year });
+        
         var moneyPI = response.data.map(function(d) { return d.moneyspent });
         
         for (var i = 0; i < teamAPI.length; i++) {
-             if (años[i] == 2018) {
+            
                valores.push([teamAPI[i],moneyPI[i]]);
                 
-             }
+            
         }
        console.log(valores);
   
-
+ 
         Highcharts.chart('container2', {
      chart: {
         type: 'column'
