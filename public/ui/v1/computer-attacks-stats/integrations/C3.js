@@ -1,4 +1,4 @@
-/*global angular, Highcharts ,RGraph*/
+/*global angular ,RGraph*/
 angular.module("PostmanApp").
 controller("C3", ["$scope", "$http", "$httpParamSerializer", 
     function($scope, $http, $httpParamSerializer) {
@@ -24,17 +24,17 @@ controller("C3", ["$scope", "$http", "$httpParamSerializer",
         }
        console.log(valores);
        console.log(paises);
-  
-   var g = new RGraph.SVG.Rose({
-        id: 'container3',
+   new RGraph.SVG.Rose({
+        id: 'chart-container',
         data: valores,
         options: {
-            colors: [ 'red', 'black' ],
-            backgroundGridRadialsCount: 1,
+            colors: [ 'rgba(255,0,0,0.5)', 'rgba(0,255,0,0.5)', 'rgba(0,0,255,0.5)' ],
+            backgroundGridRadialsCount: 0,
             linewidth: 2,
             amargin: '5deg',
-            labels: paises,
-            linewidth: .3
+            labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+            tooltips: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+            linewidth: .5
         }
     }).draw();
  
