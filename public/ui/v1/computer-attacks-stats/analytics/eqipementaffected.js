@@ -1,7 +1,7 @@
-/*global angular,Highcharts,google*/
+/*global angular,Highcharts,google,Plotly*/
 
 
-
+ 
 
 
 angular.module("PostmanApp").
@@ -98,9 +98,11 @@ $http.get(BASE_API_PATH).then(function(response) {
             chart.draw(data, options);
         }
     })
+      
+     require('plotly')('joaquin94','sos1819-03'); 
 
-var Plotly = require('plotly.js-dist');
      $http.get(BASE_API_PATH).then(function(response) {
+ 
         console.log("Creando la gráfica Highchart");
 
          var variablesP = [];
@@ -115,6 +117,8 @@ var Plotly = require('plotly.js-dist');
                     variablesP.push([paises[i]]);
                     variablesN.push(([affected[i]]));
                 }
+                console.log(variablesP);
+                console.log(variablesN);
             
         }
          var lineDiv = document.getElementById('plotly');
@@ -124,14 +128,14 @@ var Plotly = require('plotly.js-dist');
          y: variablesN,
           type: 'scatter'
         };
- 
+
         var data = [traceA];
  
          var layout = {
-     title:'A Line Chart in Plotly'
-    };
+      title:'A Line Chart in Plotly'
+       };
  
-  Plotly.plot( lineDiv, data, layout );
+       Plotly.newPlot( lineDiv, data, layout );
 
      });
     

@@ -124,5 +124,15 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
         .when("/analytics/equipmentaffected", {
             controller: "AnalyticsCtrlAttack",
             templateUrl: "/ui/v1/computer-attacks-stats/analytics/equipementaffected.html"
+        })
+        .when("/integrations/happinessStats", {
+            controller: "C1",
+            templateUrl: "/ui/v1/computer-attacks-stats/integrations/happiness-stats.html"
+        }).when("/integrations/transferStats", {
+            controller: "C2",
+            templateUrl: "/ui/v1/computer-attacks-stats/integrations/transfer-stats.html"
+        }).when("/integrations/companiesStasts", {
+            controller: "C3",
+            templateUrl: "/ui/v1/computer-attacks-stats/integrations/companies-stasts.html"
         });
 });
