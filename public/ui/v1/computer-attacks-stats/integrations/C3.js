@@ -34,7 +34,7 @@ controller("C3", ["$scope", "$http", "$httpParamSerializer",
             linewidth: 2,
             amargin: '5deg',
             labels: paises,
-            tooltips: paises,
+            tooltips: 'paises',
             linewidth: .5
         }
     }).draw();
