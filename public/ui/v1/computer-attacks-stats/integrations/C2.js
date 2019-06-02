@@ -6,82 +6,71 @@ controller("C2", ["$scope", "$http", "$httpParamSerializer",
     $http.get("https://sos1819-06.herokuapp.com/api/v1/transfer-stats")
     .then(function(response) {
 
-        var equipos = [];
-        var moneyspentAPI = [];
+        var valores = [];
+        
         
         var teamAPI = response.data.map(function(d) { return d.team });
         var moneyPI = response.data.map(function(d) { return d.moneyspent });
         
         for (var i = 0; i < teamAPI.length; i++) {
             
-                equipos.push(teamAPI[i]);
-                moneyspentAPI.push(moneyPI[i]);
+               valores.push(teamAPI[i],moneyPI[i]);
+                
             
         }
-       
-        console.log(equipos);
-        console.log(moneyspentAPI);
+       console.log(valores);
+  
 
         Highcharts.chart('container2', {
-    chart: {
-        zoomType: 'xy'
+     chart: {
+        type: 'column'
     },
     title: {
-        text: 'Mercado de fichages'
+        text: 'World\'s largest cities per 2017'
     },
     subtitle: {
-        text: 'API SOURCE : transfer-stats'
+        text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
     },
-    xAxis: [{
-        categories: equipos,
-        crosshair: true
-    }],
-    yAxis: [{ // Primary yAxis
+    xAxis: {
+        type: 'category',
         labels: {
-            format: '{value}°C',
+            rotation: -45,
             style: {
-                color: Highcharts.getOptions().colors[1]
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
             }
-        },
-        
+        }
+    },
+    yAxis: {
+        min: 0,
         title: {
-            text: 'Dinero',
-            style: {
-                color: Highcharts.getOptions().colors[0]
-            }
-        },
-        labels: {
-            format: '{value} mm',
-            style: {
-                color: Highcharts.getOptions().colors[0]
-            }
-        },
-        opposite: true
-    }],
-    tooltip: {
-        shared: true
+            text: 'Population (millions)'
+        }
     },
     legend: {
-        layout: 'vertical',
-        align: 'left',
-        x: 120,
-        verticalAlign: 'top',
-        y: 100,
-        floating: true,
-        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(255,255,255,0.25)'
+        enabled: false
+    },
+    tooltip: {
+        pointFormat: 'Population in 2017: <b>{point.y:.1f} millions</b>'
     },
     series: [{
-        name: 'Money',
-        type: 'spline',
-        yAxis: 1,
-        data: moneyspentAPI,
-        tooltip: {
-            valueSuffix: ' mm'
+        name: 'Population',
+        data: [
+           
+        ],
+        dataLabels: {
+            enabled: true,
+            rotation: -90,
+            color: '#FFFFFF',
+            align: 'right',
+            format: '{point.y:.1f}', // one decimal
+            y: 10, // 10 pixels down from the top
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+            }
         }
-
-    
     }]
-        
         }); 
         
     });
