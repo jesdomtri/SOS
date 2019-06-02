@@ -43,7 +43,9 @@ controller("farooCtrl", ["$scope", "$http", "$httpParamSerializer", function($sc
                 text: 'Autores reconocidos en webpages buscadas por "test"'
             },
             xAxis: {
-                type: 'Categoría'
+                title: {
+                    text: 'Categoría'
+                }
             },
             yAxis: {
                 title: {

@@ -18,7 +18,7 @@ controller("movieStatsCtrl", ["$scope", "$http", "$httpParamSerializer", functio
 
         new Chartist.Line('.ct-chart', {
             labels: movieName,
-            series: movieAwards
+            series: [movieAwards]
         }, {
             fullWidth: true,
             chartPadding: {

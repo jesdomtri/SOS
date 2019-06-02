@@ -56,14 +56,42 @@ app.use(pathsUCRS, function(req, res) {
 //FIN PROXY A LA API UEFA CLUB RANKINGS
 
 //PROXY A LA API HURRICANES
-var pathsH = '/proxyHurricanes';
-var remoteH = 'https://sos1819-01.herokuapp.com/api/v1/hurricanes/';
-app.use(pathsH, function(req, res) {
-    console.log('piped: ' + remoteH);
-    req.pipe(request(remoteH)).pipe(res);
+var pathsHR = '/proxyHurricanes';
+var remoteHR = 'https://sos1819-01.herokuapp.com/api/v1/hurricanes/';
+app.use(pathsHR, function(req, res) {
+    console.log('piped: ' + remoteHR);
+    req.pipe(request(remoteHR)).pipe(res);
 });
 //FIN PROXY A LA API HURRICANES
 
+//PROXY happiness-stats 
+    var pathsHa = '/proxyHappiness';
+var remoteHa = 'http://sos1819-04.herokuapp.com/api/v1/happiness-stats';
+app.use(pathsHa, function(req, res) {
+    console.log("Happiness");
+    console.log('piped: ' + remoteHa);
+    req.pipe(request(remoteHa)).pipe(res);
+});
+// FIN PROXY 
+//PROXY transfer-stats
+var pathsT = '/proxyTransfer';
+var remoteT = 'https://sos1819-06.herokuapp.com/api/v1/transfer-stats';
+app.use(pathsT, function(req, res) {
+    console.log("Happiness");
+    console.log('piped: ' + remoteT);
+    req.pipe(request(remoteT)).pipe(res);
+});
+// fin 
+/// PROXY COMPANIES STAST
+
+var pathsC = '/proxyCompanies';
+var remoteC = 'https://sos1819-02.herokuapp.com/api/v1/companies-stats';
+app.use(pathsC, function(req, res) {
+    console.log("Companies");
+    console.log('piped: ' + remoteC);
+    req.pipe(request(remoteC)).pipe(res);
+});
+// FIN DEL PROXY 
 var companiesAPI = require("./companies-api");
 var countrystatsAPI = require("./country-stats-api");
 var attacksAPI = require("./computers-attacks-stats-api");
