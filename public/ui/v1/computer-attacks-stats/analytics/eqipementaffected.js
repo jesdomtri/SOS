@@ -125,7 +125,7 @@ $http.get(BASE_API_PATH).then(function(response) {
   x: variablesP,
   y: variablesN,
   type: 'bar',
-  text: ['4.17 below the mean', '4.17 below the mean', '0.17 below the mean', '0.17 below the mean', '0.83 above the mean', '7.83 above the mean'],
+  text: [],
   marker: {
     color: 'rgb(142,124,195)'
   }
@@ -134,7 +134,7 @@ $http.get(BASE_API_PATH).then(function(response) {
 var data = [trace1];
 
 var layout = {
-  title: 'Number of Graphs Made this Week',
+  title: 'Equipos afectados .',
   font:{
     family: 'Raleway, sans-serif'
   },
