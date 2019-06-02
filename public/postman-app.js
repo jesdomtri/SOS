@@ -140,5 +140,8 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
         .when("/integrations/companiesStasts", {
             controller: "C3",
             templateUrl: "/ui/v1/computer-attacks-stats/integrations/companies-stasts.html"
+        }).when("/integrations/expenses", {
+            controller: "C4",
+            templateUrl: "/ui/v1/computer-attacks-stats/integrations/expenses-of-countries-in-education-and-culture.html"
         });
 });
