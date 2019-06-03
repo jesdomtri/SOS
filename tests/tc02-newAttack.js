@@ -1,6 +1,6 @@
 describe("Check if a new attackcan be created. ", function() {
     it("List grow after the attack creation", function() {
-        browser.get("http://localhost:8080/#!/ui/v1/computer-attacks-stats");
+        browser.get("https://sos1819-03.herokuapp.com/#!/ui/v1/computer-attacks-stats");
         var initialAttacks = element.all(by.repeater("attack in attacks"))
             .then(function(initialAttacks) {
                 element(by.model("country")).sendKeys("a");

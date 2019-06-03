@@ -9,10 +9,16 @@ describe("Check if a new stat can be created", function() {
                 element(by.model('population')).sendKeys(4363767834);
                 element(by.model('territorialExtension')).sendKeys(2345235263);
                 element(by.name('CrearStat')).click();
-
+                
+                var elementos = initialStats.length;
+                
+                while(elementos == 10){
+                    element(by.name('Avanzar')).click();
+                    elementos = element.all(by.repeater("stat in stats")).length;
+                }
                 element.all(by.repeater("stat in stats"))
                     .then(function(finalStats) {
-                        expect(finalStats.length).toEqual(initialStats.length + 1);
+                        expect(finalStats.length).toEqual(finalStats.length + 1);
                     });
             });
     });
