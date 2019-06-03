@@ -14,6 +14,7 @@ describe("Check if a new stat can be created", function() {
                 
                 while(elementos == 10){
                     element(by.name('Avanzar')).click();
+                    elementos = element.all(by.repeater("stat in stats")).length;
                 }
                 element.all(by.repeater("stat in stats"))
                     .then(function(finalStats) {
