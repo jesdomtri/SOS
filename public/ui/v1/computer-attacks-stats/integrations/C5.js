@@ -21,7 +21,8 @@ angular.module("PostmanApp").controller("C5", ["$scope", "$http", "$httpParamSer
                valores.push([ paisAPI[i],añoAPI[i],populationAPI[i],territorialAPI[i]]);
                 
             
-        }
+        } 
+    console.log("paisAPI");
        console.log(valores);
        google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawSeriesChart);
