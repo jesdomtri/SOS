@@ -17,7 +17,7 @@ angular.module("PostmanApp").controller("C6", ["$scope", "$http", "$httpParamSer
                     variablesP.push(eventAPI[i]);
                     variablesN.push(inflationAPI[i]);
                 }
-         $http.get("/ui/v1/computer-attacks-stats").then(function(response) {
+         $http.get("/api/v1/computers-attacks-stats").then(function(response) {
 
             var tablaPaises = [];
             var tablaAFE = [];
