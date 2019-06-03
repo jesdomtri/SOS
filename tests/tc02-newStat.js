@@ -9,11 +9,21 @@ describe("Check if a new stat can be created", function() {
                 element(by.model('population')).sendKeys(4363767834);
                 element(by.model('territorialExtension')).sendKeys(2345235263);
                 element(by.name('CrearStat')).click();
-
-                element.all(by.repeater("stat in stats"))
+                
+                if(initialStats.length < 10){
+                    element.all(by.repeater("stat in stats"))
                     .then(function(finalStats) {
                         expect(finalStats.length).toEqual(initialStats.length + 1);
                     });
+                } else {
+                   element(by.name('Avanzar')).click(); 
+                   element(by.name('Avanzar')).click();
+                   element.all(by.repeater("stat in stats"))
+                    .then(function(finalStats) {
+                        expect(finalStats.length).toEqual(initialStats.length + 1);
+                    });
+                }
+
             });
     });
 });
