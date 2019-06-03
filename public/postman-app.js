@@ -154,5 +154,8 @@ var app = angular.module("PostmanApp", ["ngRoute"]).config(function($routeProvid
         }).when("/integrations/country", {
             controller: "C5",
             templateUrl: "/ui/v1/computer-attacks-stats/integrations/country-stasts.html"
+        }).when("/integrations/disaster", {
+            controller: "C6",
+            templateUrl: "/ui/v1/computer-attacks-stats/integrations/disaster.html"
         });
 });
