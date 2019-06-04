@@ -27,7 +27,7 @@ controller("C2", ["$scope", "$http", "$httpParamSerializer",
         type: 'bar'
     },
     title: {
-        text: 'Stacked bar chart'
+        text: 'Transfers in Millions'
     },
     xAxis: {
         categories: valores
@@ -35,7 +35,7 @@ controller("C2", ["$scope", "$http", "$httpParamSerializer",
     yAxis: {
         min: 0,
         title: {
-            text: 'Total fruit consumption'
+            text: ' Millions'
         }
     },
     legend: {
