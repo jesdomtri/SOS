@@ -7,7 +7,7 @@ controller("C2", ["$scope", "$http", "$httpParamSerializer",
     .then(function(response) {
 
         var valores = [];
-        
+        var valores2=[];
         
         var teamAPI = response.data.map(function(d) { return d.team });
         
@@ -15,63 +15,42 @@ controller("C2", ["$scope", "$http", "$httpParamSerializer",
         
         for (var i = 0; i < teamAPI.length; i++) {
             
-               valores.push([teamAPI[i],moneyPI[i]]);
-                
+               valores.push(teamAPI[i]);
+                valores2.push(moneyPI[i]);
             
         }
        console.log(valores);
   
  
-        Highcharts.chart('container2', {
-     chart: {
-        type: 'column'
+      Highcharts.chart('container2', {
+    chart: {
+        type: 'bar'
     },
     title: {
-        text: 'World\'s largest cities per 2017'
-    },
-    subtitle: {
-        text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+        text: 'Stacked bar chart'
     },
     xAxis: {
-        type: 'category',
-        labels: {
-            rotation: -45,
-            style: {
-                fontSize: '13px',
-                fontFamily: 'Verdana, sans-serif'
-            }
-        }
+        categories: valores
     },
     yAxis: {
         min: 0,
         title: {
-            text: 'Transfers stats (millions)'
+            text: 'Total fruit consumption'
         }
     },
     legend: {
-        enabled: false
+        reversed: true
     },
-    tooltip: {
-        pointFormat: 'Money: <b> millions</b>'
+    plotOptions: {
+        series: {
+            stacking: 'normal'
+        }
     },
     series: [{
-        name: 'Transfer stats',
-        data: valores
-        ,
-        dataLabels: {
-            enabled: true,
-            rotation: -90,
-            color: '#FFFFFF',
-            align: 'right',
-            format: '{point.y:.1f}', // one decimal
-            y: 10, // 10 pixels down from the top
-            style: {
-                fontSize: '13px',
-                fontFamily: 'Verdana, sans-serif'
-            }
-        }
+        name: 'Transfer',
+        data: valores2
     }]
-        }); 
+});
         
     });
 }]);
