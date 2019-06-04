@@ -41,7 +41,7 @@ app.get(BASE_PATH+"/computers-attacks-stats/loadInitialData", (req, res) => {
             overallpercentage: 18.75
         },
         {
-            country: "EEUU",
+            country: "United States ",
             year: 2017,
             attacktype: "ransomware",
             economicimpactmillions: 21.22,
@@ -49,7 +49,14 @@ app.get(BASE_PATH+"/computers-attacks-stats/loadInitialData", (req, res) => {
             overallpercentage: 35.58
         },
         {
-            country: "EEUU",
+            country: "Canada",
+            year: 2018,
+            attacktype: "Spy",
+            economicimpactmillions: 21.00,
+            affectedequipments: 12854,
+            overallpercentage: 3.7
+        },{
+            country: "Australia",
             year: 2018,
             attacktype: "Spy",
             economicimpactmillions: 21.00,
