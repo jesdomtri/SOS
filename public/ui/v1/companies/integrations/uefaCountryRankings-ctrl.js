@@ -1,9 +1,9 @@
 /*global angular, RGraph*/
-
+console.log("a");
 angular.module("PostmanApp").
 controller("uefaCountryRankingsCtrl", ["$scope", "$http", "$httpParamSerializer", function($scope, $http, $httpParamSerializer) {
     var apiUCR = "/proxyUefaCountryRankings";
-
+console.log("b");
     //RGRAPH
     $http.get(apiUCR).then(function(response) {
 
@@ -20,9 +20,9 @@ controller("uefaCountryRankingsCtrl", ["$scope", "$http", "$httpParamSerializer"
                 tablaUCRPuntos.push(pointsUCR[i]);
             }
         }
-
+console.log("c");
         $http.get("/api/v1/companies").then(function(response) {
-
+console.log("d");
             var tablaCompPaises = [];
             var tablaCompNum = [];
 
@@ -93,7 +93,14 @@ controller("uefaCountryRankingsCtrl", ["$scope", "$http", "$httpParamSerializer"
                     spline: true
 
                 }
+//console.log("e");
             }).trace();
-        })
-    })
+console.log("f");
+        });
+    
+console.log("g");
+    });
+console.log("h");
 }]);
+console.log("i");
+

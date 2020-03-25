@@ -113,7 +113,6 @@ const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://paco:paco@sos181903-tlda3.mongodb.net/test?retryWrites=true";
 const client = new MongoClient(uri, { useNewUrlParser: true });
 
-
 client.connect(error => {
 
     companies = client.db("sos181903").collection("companies");
@@ -133,7 +132,6 @@ client.connect(error => {
         const MongoClient = require('mongodb').MongoClient;
         const urlAntonio = "mongodb+srv://root:root@sos1819-jmp-dhhii.mongodb.net/test?retryWrites=true";
         const clientAntonio = new MongoClient(urlAntonio, { useNewUrlParser: true });
-
         clientAntonio.connect(error => {
 
             stats = clientAntonio.db("sos1819-03").collection("country-stats");
@@ -143,7 +141,6 @@ client.connect(error => {
             app.listen(port, () => {
                 console.log("Server is ready!!");
             }); // Debe dejarse la conexión a la aplicacón dentro ya que si queda afuera puede que se inicie la aplicación pero no la base de datos .
-
             countrystatsAPI(app, stats, BASE_PATH);
 
         });
